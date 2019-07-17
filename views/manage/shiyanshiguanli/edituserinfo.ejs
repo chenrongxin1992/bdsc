@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>编辑个人资料</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		.tdstyle{
+			width:120px;
+			background-color: #009688;
+			color:#fff;
+			text-align: center;
+		}
+		.btnfloat{
+			float: right;
+		}
+	</style>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote" style="line-height: 30px;">个人资料<button class="layui-btn layui-btn-sm btnfloat" id="editbtn">编辑</button></blockquote>
+	<form class="layui-form" action="">
+	<table class="layui-table" id="shiyanshizhuren">
+	    <tbody>
+	      <tr>
+	        <td class="tdstyle">姓名</td>
+	        <td><span id="name"><%=user.name%></span></td>
+	        <td class="tdstyle">(英文)姓名</td>
+	        <td><span id="ename"><%=user.ename%></span></td>
+	        <td rowspan="5" style="text-align: center;"><img src="<%=user.photo%>" style="width:auto;height:auto;max-width:100%;max-height:100%;margin:5px;"></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">性别</td>
+	        <td><span id="gender"><%=user.gender%></span></td>
+	        <td class="tdstyle">类别</td>
+	        <td><span id="degree"><%=user.degree%></span></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">职称</td>
+	        <td><span id="title"><%=user.title%></span></td>
+	        <td class="tdstyle">(英文)职称</td>
+	        <td><span id="etitle"><%=user.etitle%></span></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">电话</td>
+	        <td ><span id="phone"><%=user.phone%></span></td>
+	        <td class="tdstyle">Email</td>
+	        <td ><span id="email"><%=user.email%></span></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">住址</td>
+	        <td ><span id="address"><%=user.address%></span></td>
+	        <td class="tdstyle">(英文)住址</td>
+	        <td><span id="eaddress"><%=user.eaddress%></span></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">专业</td>
+	        <td ><span id="profession"><%=user.profession%></span></td>
+	        <td class="tdstyle">(英文)专业</td>
+	        <td colspan="2"><span id="eprofession"><%=user.eprofession%></span></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">研究方向</td>
+	        <td ><span id="researcharea"><%=user.researcharea%></span></td>
+	        <td class="tdstyle">(英文)研究方向</td>
+	        <td colspan="2"><span id="eresearcharea"><%=user.eresearcharea%></span></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">导师</td>
+	        <td ><span id="tutor"><%=user.tutor%></span></td>
+	        <td class="tdstyle">(英文)导师</td>
+	        <td colspan="2"><span id="etutor"><%=user.etutor%></span></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">论文题目</td>
+	        <td ><span id="thesis"><%=user.thesis%></span></td>
+	        <td class="tdstyle">(英文)论文题目</td>
+	        <td colspan="2"><span id="ethesis"><%=user.ethesis%></span></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">个人主页</td>
+	        <td ><span id="ownurl"><%=user.ownurl%></span></td>
+	        <td class="tdstyle">毕业时间</td>
+	        <td colspan="2"><span id="graduationdate"><%=user.graduationdate%></span></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">毕业去向</td>
+	        <td ><span id="whereabouts"><%=user.whereabouts%></span></td>
+	        <td class="tdstyle">(英文)毕业去向</td>
+	        <td colspan="2"><span id="ewhereabouts"><%=user.ewhereabouts%></span></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">个人介绍</td>
+	        <td colspan="4"><span id="introduce"><%-user.introduce%></span></td>
+	      </tr>
+	       <tr>
+	        <td class="tdstyle">(英文)个人介绍</td>
+	        <td colspan="4"><span id="eintroduce"><%-user.eintroduce%></span></td>
+	        </tr>
+	       <tr>
+	        <td class="tdstyle">工作简历</td>
+	        <td colspan="4"><span id="workresume"><%-user.workresume%></span></td>
+	        </tr>
+	        <tr>
+	          <td class="tdstyle">(英文)工作简历</td>
+	          <td colspan="4"><span id="eworkresume"><%-user.eworkresume%></span></td>
+	        </tr>
+        </tbody>
+  </table>
+  </form>
+
+	<script type="text/javascript" src="../layui/layui.js"></script>
+
+<script type="text/javascript">
+//父页面，接收子页面的值
+function getsondata(obj){
+	console.log('父页面，接收子页面的值',obj)
+}
+layui.use(['jquery','layer'], function(){ 
+    let $ = layui.$ //重点处
+    let layer = layui.layer
+
+    $('#editbtn').on('click',function(){
+    	console.log('edit')
+    	layer.open({
+			title: '编辑个人信息',
+			type: 2,
+			area: ['980px', '650px'],
+			fixed: false, //不固定
+			maxmin: true,
+			content: '/spatial/manage/edituserinfo'+'?id=<%=user.id%>'
+		});
+    })
+});
+
+</script>
+</body>
+</html>

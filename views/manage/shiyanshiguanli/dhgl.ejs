@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>菜单导航</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote">当前位置：实验室管理 > 系统管理 > 菜单导航</blockquote>
+	<div class="demoTable layui-form">
+	    <button class="layui-btn" id="btn-expand">全部展开</button>
+		<button class="layui-btn" id="btn-fold">全部折叠</button>
+		<button class="layui-btn" id="btn-refresh">刷新表格</button>
+	</div>
+	<table id="permissionTable" class="layui-table" lay-filter="permissionTable"></table>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript">
+layui.config({
+	base:'../layui/'
+}).extend({
+	treetable:'/treetable-lay/treetable',
+	multiSelect:'lay/modules/multiSelect'
+})
+
+layui.use(['jquery','table','form','treetable'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form,
+    	treetable = layui.treetable
+
+    let renderTable = function () {//树桩表格参考文档：https://gitee.com/whvse/treetable-lay
+            layer.load(2);
+            treetable.render({
+                treeColIndex: 1,//树形图标显示在第几列
+                treeSpid: -1,//最上级的父级id
+                treeIdName: 'id',//id字段的名称
+                treePidName: 'pid',//pid字段的名称
+                treeDefaultClose: false,//是否默认折叠
+                treeLinkage: true,//父级展开时是否自动展开所有子级
+                elem: '#permissionTable',
+                url: '/spatial/manage/getallmenu',
+                //url: '/spatial/layui/data.json',
+                page: false,
+                cols: [[
+                    {type: 'numbers', title: '序号'},
+                    {field: 'name', title: '菜单名'},
+                    {field: 'url', title: '路径'},
+                    {field: 'id', title: 'id'},
+                    {field: 'sort', title: '排序'},
+                    {field: 'pid', title: 'pid'},
+                    // {field: 'resType', title: '类型',
+                    // 	templet: function(d){
+                    // 		if(d.resType==0){
+                    // 			return '菜单';
+                    // 		}else{
+                    // 			return '按钮';
+                    // 		}
+                    //     }	
+                    // },
+                    {title:'操作', align:'center', toolbar: '#yjfxbar'}
+                ]],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+        };
+
+        renderTable();
+    //触发三个button按钮
+        $('#btn-expand').click(function () {
+            treetable.expandAll('#permissionTable');
+        });
+
+        $('#btn-fold').click(function () {
+            treetable.foldAll('#permissionTable');
+        });
+
+        $('#btn-refresh').click(function () {
+            renderTable();
+        });
+        // function complain(d){//操作中显示的内容
+        // 	if(d.permissionUrl!=null){
+        // 		return [
+        //                 '<a class="operation" lay-event="edit" href="javascript:void(0)" onclick="editDepartment(\''+ d.permissionId + '\')" title="编辑">',
+        //     	     	'<i class="layui-icon layui-icon-edit"></i></a>',
+        //     	     	'<a class="operation" lay-event="" href="javascript:void(0)" onclick="delDepartment(\''+ d.permissionId + '\')" title="删除">',
+        //     	     	'<i class="layui-icon layui-icon-delete" ></i></a>',
+        //     	     	].join('');
+        // 	}else{
+        // 		return '';
+        // 	}
+        	
+        // }
+        //监听工具条
+        table.on('tool(permissionTable)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+			if(data.permissionName!=null){
+				if (layEvent === 'del') {
+	                layer.msg('删除' + data.id);
+	            } else if (layEvent === 'edit') {
+	                layer.msg('修改' + data.id);
+	            }
+			}
+        });
+
+});
+</script>
+<script type="text/html" id="yjfxbar">
+    {{# if('<%-rolename%>' == '管理员'){ }}
+		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	{{# }else{ }}
+		<a class="layui-btn layui-btn-xs" lay-event="edit">查看</a>
+	{{# } }}
+</script>
+<script type="text/html" id="pdftpl">
+  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+</script>
+</body>
+</html>

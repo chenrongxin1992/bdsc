@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>新增用户会议论文</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		.filedelbtn{
+			margin:0 8px;
+		}
+		#fujian p {
+			margin:2px 0;
+		}
+		.labelwidth{
+			width: 120px;
+		}
+		.inputwidth{
+			width: 100px;
+			display:inline;
+			margin:0 2px;
+		}
+		.thtext{
+			text-align: center !important;
+		}
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">会议名称</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="periodical" autocomplete="off" class="layui-input" id="periodical" lay-verify="required">
+				    </div>
+				    <label class="layui-form-label labelwidth" >会议名称(EN)</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="eperiodical"  autocomplete="off" class="layui-input" id="eperiodical">
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">论文名称</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="name" autocomplete="off" class="layui-input" id="name" lay-verify="required">
+				    </div>
+				    <label class="layui-form-label labelwidth" >论文名称(EN)</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="ename"  autocomplete="off" class="layui-input" id="ename">
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">全部作者</label>
+				</div>
+				<div class="layui-inline">
+					<table class="layui-table" id="zuozhetable" lay-filter="zuozhetable" style="text-align: center;">
+						<thead>
+							<tr>
+								<th></th><th class="thtext">姓名</th><th class="thtext">单位</th><th class="thtext">通讯作者</th><th class="thtext">本人</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+					
+				</div>
+				<div class="layui-inline">
+					<a class="layui-btn layui-btn-xs add">添加</a>
+					<a class="layui-btn layui-btn-danger layui-btn-xs del">删除</a>
+					<a class="layui-btn layui-btn-xs up" >上移</a>
+					<a class="layui-btn layui-btn-xs down">下移</a>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">年份</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="name"  autocomplete="off" class="layui-input" id="publishyear" lay-verify="required">
+				    </div>
+				    <label class="layui-form-label labelwidth" >状态</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <select name="status" id="status" lay-filter="status" style="">
+				      	<option value="已发表">已发表</option>
+		                <option value="已接收未发表">已接收未发表</option>
+				      </select>
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">收录情况</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		          <select name="include" id="include" lay-filter="include" style="">
+		              <option value="SCI">SCI</option>
+		              <option value="SSCI">SSCI</option>
+		              <option value="A&HCI">A&HCI</option>
+		              <option value="CPCI-S">CPCI-S</option>
+		              <option value="CSSCI">CSSCI</option>
+		              <option value="CSCD">CSCD</option>
+		              <option value="中文核心">中文核心</option>
+		              <option value="其它">其它</option>
+		          </select>
+		       </div>	
+		       <label class="layui-form-label labelwidth" >全文链接</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="pdfurl"  autocomplete="off" class="layui-input" id="pdfurl">
+				    </div>	  
+		    </div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">会议地址</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="address" autocomplete="off" class="layui-input" id="address">
+				    </div>
+				    <label class="layui-form-label labelwidth" >会议地址(EN)</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="eaddress"  autocomplete="off" class="layui-input" id="eaddress">
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">页码</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="pagination" autocomplete="off" class="layui-input" id="pagination">
+				    </div>
+				</div>
+			</div>
+
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">摘要</label>
+				<textarea id="digest" class="layui-textarea" style="width: 710px;height: 150px;" lay-verify="required"></textarea>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">摘要(EN)</label>
+				<textarea id="edigest" class="layui-textarea" style="width: 710px;height:150px;"></textarea>
+			</div>
+
+			<div class="layui-form-item">
+		    	<label class="layui-form-label ">关联人员</label>
+		    	<div class="layui-inline">
+					<a class="layui-btn layui-btn-sm addman">增加</a>
+				</div>
+		    </div>
+
+		    <div id="addman">
+		    	
+		    </div>
+		    <div class="layui-form-item">
+		    	<label class="layui-form-label ">关联项目</label>
+		    	
+		    	<div class="layui-input-inline" >
+		    		<div class="layui-input-inline" style="width: 272px;" >
+			          <a class="layui-btn layui-btn-sm" id="glxm"><i class="layui-icon">&#xe654;</i>关联</a>
+			        </div>
+		    	</div>
+		    </div>
+
+		    <div id="chooseglxm">
+
+		    </div>
+
+		    <div class="layui-form-item">
+				<label class="layui-form-label ">显示在</label>
+					<div class="layui-input-block" >
+				      <input type="checkbox" name="showin" value="A" title="AAA" id="AAA">
+				      <input type="checkbox" name="showin" value="B" title="BBB" id="BBB">
+				      <input type="checkbox" name="showin" value="C" title="CCC" id="CCC">
+				      <input type="checkbox" name="showin" value="D" title="DDD" id="DDD">
+				      <input type="checkbox" name="showin" value="E" title="EEE" id="EEE">
+				    </div> 
+	       </div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<div class="layui-col-md-offset1">
+					<button class="layui-btn layui-btn-sm" lay-filter="update" lay-submit id="btnsave"><i class="layui-icon">&#xe609;</i>保存</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+	//删除input
+	function yichu(obj){
+		console.log('obj',$(obj))
+		$(obj).parent().remove()
+		return false
+	}
+	//子页面调用函数
+	function getSonData(sondata){
+		console.log('getSonData',sondata)
+		let appendstr = '',count = 0
+		$('#chooseglxm').children().remove()
+		$.each(sondata,function(index,item){
+			count = index + 1
+			//如果已经选过，则跳过不append
+			appendstr = '<div class="layui-form-item" id="'+item.id+'"><label class="layui-form-label"></label><div class="layui-input-inline" style="min-width:400px;"> '+ count + '  ' + item.name+' </div></div>'
+			
+			$('#chooseglxm').append(appendstr)
+		})
+	}
+	// 关联人员id合并
+	  function getRelevance() {
+	    let str = "";
+	    let foo = $("select[class='relevance']");
+	    $(foo).each(function() {
+	      str += this.value + ";";
+	    });
+	    console.log('关联人员id合并',str)
+	    return str.substring(0, str.length - 1);
+	  }
+	// 关联人员名称合并
+	  function relevanceName() {
+	    let str = "";
+	    $("select[class='relevance']").each(function() {
+	      if ($(this).val() != -1) {
+	        str += $(this).find("option:selected").text() + ";";
+	      } else {
+	        let name = $(this).attr("id");
+	        let value = $("." + name).val();
+	        if (value == "") {
+	          $.alert("人员名称不能为空", $("." + name));
+	        }
+	        str += value + ";";
+	      }
+	    console.log('关联人员名称合并',str.substring(0, str.length - 1))
+	    });
+	    return str;
+	  }
+	  //关联项目id合并
+	  function relevanceproid(){
+	  	let str = ''
+	  	$('#chooseglxm').children().each(function(){
+	  		if($(this).attr('id')){
+	  			str += $(this).attr('id') + ';'
+	  		}
+	  	})
+	  	console.log('关联项目id',str.substring(0,str.length-1))
+	  	return str.substring(0,str.length-1)
+	  }
+	  //全部作者
+	  function getauthors(){
+	  	let tmp = [],str = [],str2 = ''
+	  	$('#zuozhetable tbody tr').each(function(index,item){
+	  		tmp.push($(item).children().find('input[name="field_name"]').val())
+	  		tmp.push($(item).children().find('input[name="field_ename"]').val())
+	  		tmp.push($(item).children().find('input[name="field_dept"]').val())
+	  		tmp.push($(item).children().find('input[name="field_edept"]').val())
+	  		console.log($(item).children().find('input[name="iscorrespondor"]:checked'))
+	  		tmp.push(String($(item).children().find('input[name="iscorrespondor"]:checked').length))
+	  		tmp.push(String($(item).children().find('input[name="isowner"]:checked').length))
+	  		console.log('tmp',index,tmp)
+	  		str.push(tmp.join(','))
+	  		console.log('str',str)
+	  		tmp = []
+	  		console.log('tmp',tmp)
+	  	})
+	  	str2 = str.join(';')
+	  	console.log('全部作者',str2)
+	  	return str2
+	  }
+	$(function(){
+		let checkadmain = '<%-rolename%>'
+		console.log('checkadmain',checkadmain)
+		if(checkadmain=='管理员'){
+			console.log('管理员可以编辑所有')
+		}else{
+			console.log('非管理员只能查看，或者在科研管理中发布自己的')
+			$('#btnsave').addClass('layui-btn-disabled').attr('disabled',"true");
+		}
+		layui.use(['jquery','layer','form','laydate','upload'], function(){ 
+		    let $ = layui.$, //重点处
+		    	laydate = layui.laydate,
+		    	upload = layui.upload
+		    let form = layui.form,layer = layui.layer
+		    let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		    console.log('frameindex',frameindex)
+		    //当访问的时候数据存在，初始化form
+		    let id = '<%-data.id%>'
+		    let manarr = [],optionstr=''//关联人员
+		    if(id==''||id==null||typeof(id)=='undefined'){
+		    	console.log('新增会议论文',id)
+		    }else{
+		    	console.log('编辑会议论文，需要初始化表单','<%-data.address%>')
+		    	$('#periodical').val('<%-data.periodical%>')
+		    	$('#eperiodical').val('<%-data.eperiodical%>')
+		    	$('#name').val('<%-data.name%>')
+		    	$('#ename').val('<%-data.ename%>')
+		    	$('#publishyear').val('<%-data.publishyear%>')
+		    	$('#address').val('<%-data.address%>')
+		    	$('#eaddress').val('<%-data.eaddress%>')
+		    	$('#pagination').val('<%-data.pagination%>')
+		    	$('#pdfurl').val('<%-data.pdfurl%>')
+		    	$('#digest').val('<%-data.digest%>')
+		    	$('#edigest').val('<%-data.edigest%>')
+		    	//select
+		    	$('#status').val('<%- data.status%>')
+		    	$('#include').val('<%- data.include%>')
+		    	//初始化复选框
+		    	let showinstr = '<%- data.showin%>'.split(';')
+		    	console.log('showinstr',showinstr)
+		    	$.each(showinstr,function(i,item){
+		    		if(item=='A'){
+		    			$('#AAA').prop('checked',true)
+		    		}
+		    		if(item=='B'){
+		    			$('#BBB').prop('checked',true)
+		    		}
+		    		if(item=='C'){
+		    			$('#CCC').prop('checked',true)
+		    		}
+		    		if(item=='D'){
+		    			$('#DDD').prop('checked',true)
+		    		}
+		    		if(item=='E'){
+		    			$('#EEE').prop('checked',true)
+		    		}
+		    	})
+  				form.render()
+  				//初始化作者
+  				let authors = '<%-data.authors%>',
+  					authorsarr = authors.split(';')
+  					$.each(authorsarr,function(index,item){
+  						let tmp = item.split(',')
+  						let check1str = '',check2str=''
+  						if(tmp[4] == 1){
+  							check1str = 'checked="true"'
+  						}
+  						if(tmp[5] == 1){
+  							check2str = 'checked="true"'
+  						}
+  						let appendstr = '<tr>' + 
+  										'<td><input type="radio" name="row"></td>' +
+  										'<td><input type="text" name="field_name" class="layui-input inputwidth" value="'+tmp[0]+'"><input type="text" name="field_ename" class="layui-input inputwidth" value="'+tmp[1]+'"></td>' +
+  										'<td><input type="text" name="field_dept" class="layui-input inputwidth" value="'+tmp[2]+'"><input type="text" name="field_edept" class="layui-input inputwidth" value="'+tmp[3]+'"></td>' +
+  										'<td><input type="checkbox" name="iscorrespondor" lay-skin="primary" '+check1str+'></td>' +
+  										'<td><input type="checkbox" name="isowner" lay-skin="primary" '+check2str+'></td>' 
+  							$(appendstr).appendTo($('#zuozhetable tbody:last'))
+							form.render()
+  					})
+  				//初始化关联人员
+  				let relevance = ('<%-data.relevance%>').split(';'),
+  					relevancename = ('<%-data.relevancename%>').split(';')
+  				$.ajax({
+					url:'/spatial/manage/getAllResUser',//可共用
+					type:'get',
+					success:function(result){
+					  		console.log(result,typeof(result))
+					  		console.log('add relevancename',$('.relevancename').length)
+					  		manarr = result
+					  		for(let i=0;i<relevance.length;i++){
+					  			optionstr = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;" ><select name="type" class="relevance" id="select'+i+'"><option value="">请选择</option>' 
+						  		$.each(manarr,function(index,item){
+						  			optionstr = optionstr + '<option value="'+item.id+'">'+item.name+'</option>'
+						  		})
+						  		optionstr = optionstr + '</select></div><div class="layui-input-inline"><a class="layui-btn layui-btn-sm yichuman">移除</a></div></div>'
+								$('#addman').append(optionstr)
+								form.render()
+								//设置选中状态dd[lay-value=' + data.schoolId + ']
+					  		}
+					  		for(let i=0;i<relevance.length;i++){
+					  			console.log('relevance',relevance[i],'dd[lay-value="'+relevance[i]+'"]')
+								console.log($('#select'+i).siblings('div.layui-form-select').find('dl').find('dd[lay-value="'+relevance[i]+'"]'))
+								$('#select'+i).siblings('div.layui-form-select').find('dl').find('dd[lay-value="'+relevance[i]+'"]').click()
+					  		}
+					},
+					error:function(error){
+					  		console.log('getAllResUser error',error)
+					}
+				})	
+				//初始化关联项目
+				$.ajax({
+					url:'/spatial/manage/getglxmfun',//可共用
+					type:'post',
+					data:{'relid':id,'tname':'periodical_article'},
+					success:function(result){
+						console.log('result',result)
+						if(result.code==0){
+							let count = 0
+							console.log('result',result)
+							if(result.data==null){
+									$.each(result.data,function(index,item){
+									count = index + 1
+									//如果已经选过，则跳过不append
+									appendstr = '<div class="layui-form-item" id="'+item.id+'"><label class="layui-form-label"></label><div class="layui-input-inline" style="min-width:400px;"> '+ count + '  ' + item.name+' </div></div>'
+									
+									$('#chooseglxm').append(appendstr)
+								})
+								}else{return false}
+							
+						}
+					},
+					error:function(msg){
+						console.log('getrelevancepro err',msg)
+					}
+				})		
+		    }
+			//因为动态添加的元素class属性是无效的，所以不能用$('.add').click(function(){});
+				$('body').on('click', '.add', function() {
+					console.log('添加作者',$('#zuozhetable tbody tr').length)
+					let num = 1
+					if($('#zuozhetable tbody tr').length != 0){
+						num=$('#zuozhetable tbody tr').length+1
+					}
+					let appendstr = '<tr>' + 
+									'<td><input type="radio" name="row"></td>' +
+									'<td><input type="text" name="field_name" class="layui-input inputwidth" placeholder="中文"><input type="text" name="field_ename" class="layui-input inputwidth"  placeholder="英文"></td>' +
+									'<td><input type="text" name="field_dept" class="layui-input inputwidth"  placeholder="中文"><input type="text" name="field_edept" class="layui-input inputwidth" placeholder="英文"></td>' +
+									'<td><input type="checkbox" name="iscorrespondor" lay-skin="primary"></td>' +
+									'<td><input type="checkbox" name="isowner" lay-skin="primary"></td>' 
+					$(appendstr).appendTo($('#zuozhetable tbody:last'))
+					form.render()
+				})
+			//删除一行
+			$('body').on('click', '.del', function() {
+				console.log('del',$(this))
+				//获取radio
+				if($('input:radio:checked').length==0){
+					console.log('请选择一行')
+					layer.msg('请选择一行', {
+						time : 2000
+					});
+				}else{
+					//删除当前按钮所在的tr
+					console.log($('input:radio:checked').parent())
+					$('input:radio:checked').closest('tr').remove();
+				}
+			})
+			//上移
+			$('body').on('click','.up',function(){
+				console.log('上移')
+			  	if($('input:radio:checked').length==0){
+					console.log('请选择一行')
+					layer.msg('请选择一行', {
+						time : 2000
+					});
+				}else{
+					let curtr = $('input:radio:checked').parent().parent(),
+						prev = curtr.prev()
+						console.log('curtr',curtr,prev)
+						if(curtr.index()>0){
+					  		curtr.insertBefore(prev)
+					  	}else{
+					  		layer.msg('已经是最顶部了')
+					  		return 
+					  	}
+				}
+			})
+			//下移
+			$('body').on('click','.down',function(){
+				console.log('下移')
+				if($('input:radio:checked').length==0){
+					console.log('请选择一行')
+					layer.msg('请选择一行', {
+						time : 2000
+					});
+				}else{
+					let curtr = $('input:radio:checked').parent().parent(),
+						next = curtr.next()
+						if(next.next().html()==null){
+				  		layer.msg('已经是最底部了')
+				  		return 
+				  	}else{
+				  		curtr.insertAfter(next)
+				  	}
+				}
+			})
+			//添加关联人员
+			
+		    $('body').on('click','.addman',function(){
+		    	console.log('添加关联人员',manarr.length)
+		    	if(manarr.length==0){
+		    		console.log('首次请求')
+		    		$.ajax({
+						url:'/spatial/manage/getAllResUser',
+					  	type:'get',
+					  	success:function(result){
+					  		console.log(result,typeof(result))
+					  		console.log('add relevancename',$('.relevancename').length)
+					  		manarr = result
+					  		optionstr = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;" ><select name="type" class="relevance"><option value="">请选择</option>' 
+					  		$.each(manarr,function(index,item){
+					  			optionstr = optionstr + '<option value="'+item.id+'">'+item.name+'</option>'
+					  		})
+					  		optionstr = optionstr + '</select></div><div class="layui-input-inline"><a class="layui-btn layui-btn-sm yichuman">移除</a></div></div>'
+							$('#addman').append(optionstr)
+							form.render()
+					  	},
+					  	error:function(error){
+					  		console.log('getAllResUser error',error)
+					  	}
+					})
+		    	}else{
+		    		console.log('not 第一次请求',manarr,optionstr)
+		    		$('#addman').append(optionstr)
+					form.render()
+		    	}
+		    })
+		    //移除人员
+		    $('body').on('click','.yichuman',function(){
+		    	console.log('移除人员',$(this).parent().parent())
+		    	$(this).parent().parent().remove()//layui-form-item
+		    })
+			$('#glxm').on('click',function(){
+				console.log('弹框的时候需要将已选项目传到子页面判断是否已选')
+				console.log('length',$('#chooseglxm').children())
+				let idarr = []
+				if($('#chooseglxm').children().length!=0){
+					console.log('有已选项目')
+					$.each($('#chooseglxm').children(),function(index,item){
+						idarr.push($(item).attr('id'))
+					})
+					console.log('idarr',idarr)
+				}
+				json = JSON.stringify(idarr)
+				console.log('父页面json',json)
+				layer.open({
+				  title: '关联项目',
+				  type: 2,
+				  area: ['700px', '450px'],
+				  fixed: false, //不固定
+				  maxmin: true,
+				  content: '/spatial/manage/glxm'//可共用
+				});
+			})
+		    
+		    form.on('submit(update)', function(data){
+		    	 //复选框
+            let showinarr = new Array();
+            $("input:checkbox[name='showin']:checked").each(function(i){
+                showinarr.push($(this).val())
+            })
+			console.log('showinarr',showinarr)
+			showinarr = showinarr.join(';')
+			console.log('showinarr',showinarr)
+
+			  //更新
+			  console.log('submit data',data)
+			  console.log()
+			  data.field.id = id
+			  data.field.periodical = $('#periodical').val()
+			  data.field.eperiodical = $('#eperiodical').val()
+			  data.field.name = $('#name').val()
+			  data.field.ename = $('#ename').val()
+			  data.field.publishyear = $('#publishyear').val()
+			  data.field.status = $('#status option:selected').val()
+			  data.field.include = $('#include option:selected').val()
+			  data.field.address = $('#address').val()
+			  data.field.eaddress = $('#eaddress').val()
+			  data.field.pagination = $('#pagination').val()
+			  data.field.pdfurl = $('#pdfurl').val()
+			  data.field.digest = $('#digest').val()
+			  data.field.edigest = $('#edigest').val()
+			  data.field.relevance = getRelevance()
+			  data.field.relevancename = relevanceName()
+			  data.field.relevanceproid = relevanceproid()
+			  data.field.authors = getauthors()
+			  data.field.showin = showinarr
+
+			  console.log('期刊论文 add  data field',data.field);
+			  $.ajax({
+			  	url:'/spatial/manage/userhylwadd',
+			  	type:'POST',
+			  	data:data.field,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('update success')
+			  			//墨绿深蓝风
+						layer.alert('保存成功', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						  ,time : 2000
+						}, function(){
+							layer.close(frameindex);
+						});	  			
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax error msg',msg)
+			  	}
+			  })
+			});
+		})
+	})
+</script>
+</body>
+</html>

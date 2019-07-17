@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>仪器设备使用</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+	.layui-table td, .layui-table th {
+		text-align: center;
+		min-width: 120px;
+	}
+	</style>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote">当前位置：实验室管理 > 发布管理 > 仪器设备使用</blockquote>
+
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+			<div class="layui-form-item">
+				<label class="layui-form-label ">设备名称</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		          <select name="equipmentname" id="equipmentname" lay-filter="equipmentname" lay-verifh="required">
+		          	  <option value=""></option>
+		              <!-- 动态获取 -->
+		          </select>
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">领用人</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		          <select name="username" id="username" lay-filter="username" lay-verifh="required">
+		          	  <option value=""></option>
+		              <!-- 动态获取 -->
+		          </select>
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">开始时间</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="begintime" type="text" class="layui-input" id="begintime" autocomplete="off" placeholder="开始时间">
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">结束时间</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		          <input name="endtime" type="text" class="layui-input" id="endtime" autocomplete="off" placeholder="开始时间" lay-verify="required">
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<label class="layui-form-label"></label>
+				<div class="layui-input-inline" style="width: 272px;">
+					<button class="layui-btn layui-btn-sm" lay-filter="update" lay-submit id="btnsave"><i class="layui-icon">&#xe609;</i>保存</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form','upload','layer','laydate'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form,
+    	upload = layui.upload,
+    	layer = layui.layer,
+    	laydate = layui.laydate
+    let id = '<%-data.id%>'
+    laydate.render({
+	    elem: '#begintime'
+	});
+    laydate.render({
+	    elem: '#endtime'
+	});
+    if(id==''||id==null||typeof(id)=='undefined'){
+		console.log('新增',id)
+		//初始化选择
+		$.ajax({
+			url:'/spatial/manage/getallequi',
+			method:'get',
+			success:function(result){
+				console.log('result',result)
+				if(result.code==0){
+					let data = result.data
+					let str = ''
+					$.each(data,function(i,item){
+						str += '<option value="'+item.id+'">' + item.name + '</option>'
+					})
+					$('#equipmentname').append(str)
+					form.render()
+				}
+			}
+		})
+		$.ajax({
+			url:'/spatial/manage/getAllResUser',
+			method:'get',
+			success:function(result){
+				console.log('result',result)
+				
+					let str = ''
+					$.each(result,function(i,item){
+						str += '<option value="'+item.id+'">' + item.name + '</option>'
+					})
+					$('#username').append(str)
+					form.render()
+				
+			}
+		})
+	}else{
+		console.log('编辑',id)
+		$.ajax({
+			url:'/spatial/manage/getallequi',
+			method:'get',
+			success:function(result){
+				console.log('result',result)
+				if(result.code==0){
+					let data = result.data
+					let str = ''
+					$.each(data,function(i,item){
+						str += '<option value="'+item.id+'">' + item.name + '</option>'
+					})
+					$('#equipmentname').append(str)
+					$('#equipmentname').val('<%-data.equid%>')
+					form.render()
+				}
+			}
+		})
+		$.ajax({
+			url:'/spatial/manage/getAllResUser',
+			method:'get',
+			success:function(result){
+				console.log('result',result)
+				
+					let str = ''
+					$.each(result,function(i,item){
+						str += '<option value="'+item.id+'">' + item.name + '</option>'
+					})
+					$('#username').append(str)
+					$('#username').val('<%-data.userid%>')
+					form.render()
+				
+			}
+		})
+		$('#begintime').val('<%-data.begintime%>')
+		$('#endtime').val('<%-data.endtime%>')
+	}
+	
+    form.on('submit(update)', function(data){
+		 data.field.id = id
+		 data.field.equipmentname = $('#equipmentname option:selected').text()//类别
+		 data.field.username = $('#username option:selected').text()
+		 data.field.begintime = $('#begintime').val()
+	     data.field.endtime = $('#endtime').val()
+	     data.field.userid = $('#username option:selected').val()
+	     data.field.equid = $('#equipmentname option:selected').val()
+	     console.log('submit data',data)
+	     $.ajax({
+			  	url:'/spatial/manage/yqsbuseadd',
+			  	type:'POST',
+			  	data:data.field,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('update success')
+			  			//墨绿深蓝风
+						layer.alert('保存成功', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						  ,time : 2000
+						}, function(){
+							layer.close(frameindex);
+						});	  			
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax error msg',msg)
+			  	}
+			  })
+	     return false
+    })
+});
+</script>
+<script type="text/html" id="pdftpl">
+  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+</script>
+</body>
+</html>

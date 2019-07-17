@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>开放基金附件</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+	.layui-table td, .layui-table th {
+		text-align: center;
+		min-width: 120px;
+	}
+	</style>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote">当前位置：实验室管理 > 发布管理 > 开放基金附件</blockquote>
+
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+			<div class="layui-form-item">
+				<label class="layui-form-label ">附件类型</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		          <select name="type" id="type" lay-filter="type" style="">
+		              <option value="申请指南">申请指南</option>
+		              <option value="申请书模板">申请书模板</option>
+		              <option value="合同书">合同书</option>
+		              <option value="进展报告模板">进展报告模板</option>
+		              <option value="结题报告模板">结题报告模板</option>
+		          </select>
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">附件</label>
+				<div class="layui-input-inline layui-upload-drag" id="kfjjfjupload" style="width: 212px;">
+				  <i class="layui-icon"></i>
+				  <p>点击上传，或将文件拖拽到此处</p>
+				</div>
+				<div class="layui-input-inline">
+					<button type="button" class="layui-btn" id="test9">开始上传</button>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label"></label>
+				<div class="layui-input-inline">
+					<div id="filelist"></div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label "></label>
+				</div>
+				<div class="layui-inline">
+					<table class="layui-table" id="zuozhetable" lay-filter="zuozhetable" style="text-align: center;">
+						<thead>
+							<tr>
+								<th>类型</th><th class="thtext">文件名</th><th class="thtext">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%if(data&&data.length!=0){%>
+							<%data.forEach(function(item){%>
+							<tr id="<%-item.id%>">
+								<td><%-item.type%></td>
+								<td><%-item.name%></td>
+								<td><button class="layui-btn layui-btn-danger layui-btn-xs delete">删除</button></td>
+							</tr>
+							<%})}%>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form','upload','layer'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form,
+    	upload = layui.upload,
+    	layer = layui.layer
+    //删除
+    $('body').on('click', '.delete', function() {
+		console.log('del',$(this).closest('tr'))
+		let delid = $(this).closest('tr').attr('id')
+		console.log('删除id',delid)
+		$(this).closest('tr').remove()
+		$.ajax({
+			url:'/spatial/manage/kfjjfjdel',
+			method:'post',
+			data:{id:delid},
+			dataType : "json",
+			success:function(result){
+				console.log('result',result)
+				if(result.code==0){
+					
+					let index = layer.alert('删除成功', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						  ,time : 2000
+						}, function(){
+							layer.close(index);
+						});	
+				}
+			}
+		})
+		return false
+	})
+    let uploadInst = upload.render({
+			elem: '#kfjjfjupload' //绑定元素
+			,url: '/spatial/manage/kfjjfjupload' //上传接口
+			,type: 'file' //上传接口
+			,auto: false
+			,bindAction: '#test9'
+			,choose:function(obj){
+				console.log('obj',obj)
+				obj.preview(function(index, file, result){  
+					let str = '<p>'+file.name+'</p>'                                                                                           
+                    $('#filelist').append(str); //图片链接                               
+                }); 
+			}
+			,done: function(res){
+			      //上传完毕回调
+				console.log('upload success',res)
+				$('#filelist').children().remove()
+				let type = $('#type option:selected').val()
+				let str = '<tr id=""> ' +
+						  '<td>' + type + '</td>' +
+						  '<td>' + (res.returnfilename)[0] + '</td>' +
+						  '<td><button class="layui-btn layui-btn-danger layui-btn-xs delete">删除</button></td>' +
+						  '</tr>'
+				$(str).appendTo($('#zuozhetable tbody:last'))
+				$.ajax({
+					url:'/spatial/manage/kfjjfjadd',
+					method:'post',
+					data:{type:type,url:(res.data)[0],name:(res.returnfilename)[0]},
+					dataType : "json",
+					success:function(result){
+						if(result.code==0){
+							console.log('add kfjjfj success')
+						}
+					}
+				})
+			}
+			,error: function(){
+			      //请求异常回调
+			 }
+	});
+    
+    
+});
+</script>
+<script type="text/html" id="pdftpl">
+  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+</script>
+</body>
+</html>

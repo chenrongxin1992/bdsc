@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>新增首页图片</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		.filedelbtn{
+			margin:0 8px;
+		}
+		#fujian p {
+			margin:2px 0;
+		}
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 110px;">上传首页图片</label>
+				<div class="layui-input-inline layui-upload-drag" id="gzzdupload" style="width: 212px;">
+				  <i class="layui-icon"></i>
+				  <p>点击上传，或将文件拖拽到此处</p>
+				</div>
+				<label class="layui-form-label" style="width: 110px;"></label>
+				<img class="layui-upload-img" id="preview" style="height: 100px;max-width: 100%;">
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 110px;"></label>
+				<div class="layui-input-block" id="fujian" style="min-width: 00px;">
+					
+				</div>
+			</div>
+
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label" style="width: 110px;">描述</label>
+				<div class="layui-input-block">
+					<textarea id="describe" class="layui-textarea" style="width: 500px;"></textarea>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">显示在</label>
+					<div class="layui-input-block" >
+				      <input type="checkbox" name="showin" value="A" title="AAA" id="AAA">
+				      <input type="checkbox" name="showin" value="B" title="BBB" id="BBB">
+				      <input type="checkbox" name="showin" value="C" title="CCC" id="CCC">
+				      <input type="checkbox" name="showin" value="D" title="DDD" id="DDD">
+				      <input type="checkbox" name="showin" value="E" title="EEE" id="EEE">
+				    </div> 
+	       </div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<div class="layui-col-md-offset1">
+					<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
+<script type="text/javascript">
+layui.use(['jquery','layer','form','laydate','upload'], function(){ 
+    let $ = layui.$, //重点处
+    	laydate = layui.laydate,
+    	upload = layui.upload
+    let form = layui.form,layer = layui.layer
+    let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+    console.log('frameindex',frameindex)
+	//拖拽上传
+	let filelist = []
+	upload.render({
+	    elem: '#gzzdupload'
+	    ,url: '/spatial/manage/sytpupload'
+	    ,accept : 'images'
+	    ,multiple: false
+	    ,before:function(obj){
+	    	let files = obj.pushFile()
+	    	console.log('files',files)
+	    	let filelist = []
+   			obj.preview(function(index, file, result){
+   			 	console.log(index); //得到文件索引
+      			console.log(file); //得到文件对象
+      			//console.log(result); //得到文件base64编码，比如图片
+      			//这里还可以做一些 append 文件列表 DOM 的操作
+      			$('#fujian').append('<p id="pid'+index+'">' + file.name + '<a id="fileindex'+ index +'" class="layui-btn layui-btn-danger layui-btn-xs filedelbtn"> 删除 </p>')
+      			$('#fileindex'+index).bind('click',function(){
+      				console.log('delete file',files)
+			      		delete files[index];//删除
+			      		$('#preview').attr('src','')
+			      		$(this).parent().remove();
+			     })
+      			$('#preview').attr('src', result); 
+      			//obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+     		    //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+     		})
+     		//$('#fujian').html(filelist)
+	    },
+	    allDone: function(obj){ //当文件全部被提交后，才触发
+	    	console.log('allDone',obj)
+		    console.log(obj.total); //得到总文件数
+		    console.log(obj.successful); //请求成功的文件数
+		    console.log(obj.aborted); //请求失败的文件数
+		    //$('#fujian').html(filelist)
+		}
+	    ,done: function(res,index,upload){//服务端响应信息、当前文件的索引、重新上传的方法
+	      console.log(res)
+	      console.log('done')
+	      console.log('index',index)
+	      //假设code=0代表上传成功
+	      //let filelist = []
+		    if(res.errno == 0){
+		    	$('#pid'+index).attr('path',(res.data)[0])
+		    	$('#pid'+index).attr('name',(res.returnfilename)[0])	
+		    }
+	    }
+	});
+
+    form.on('submit(update)', function(data){
+    	//复选框
+            let showinarr = new Array();
+            $("input:checkbox[name='showin']:checked").each(function(i){
+                showinarr.push($(this).val())
+            })
+			console.log('showinarr',showinarr)
+			showinarr = showinarr.join(';')
+			console.log('showinarr',showinarr)
+	  //更新
+	  console.log('submit data',data)
+	  console.log($('#fujian p'))
+	  let $pitem = $('#fujian p'),
+	  	  patharr = '',
+	  	  namearr = ''
+	  $('#fujian p').each(function(){
+	  	patharr = patharr + $(this).attr('path') + ','
+	  	namearr = namearr + $(this).attr('name') + ','
+	  	console.log(patharr)
+	  	console.log(namearr)
+	  })
+	  data.field.describe = $('#describe').val()
+	  data.field.patharr = patharr.substring(0,patharr.length-1)
+	  data.field.namearr = namearr.substring(0,namearr.length-1)
+	  data.field.showin = showinarr
+	  console.log('news add  data field',data.field);
+	  $.ajax({
+	  	url:'/spatial/manage/sytpadd',
+	  	type:'POST',
+	  	data:data.field,
+	  	dataType : "json",
+	  	success:function(result){
+	  		if(result.code == 0){
+	  			console.log('update success')
+	  			//墨绿深蓝风
+				layer.alert('新增成功', {
+				  skin: 'layui-layer-molv' //样式类名
+				  ,closeBtn: 0
+				}, function(){
+					layer.close(frameindex);
+				});	  			
+	  		}
+	  	},
+	  	error:function(msg){
+	  		console.log('ajax error msg',msg)
+	  	}
+	  })
+	});
+  
+})
+</script>
+</body>
+</html>

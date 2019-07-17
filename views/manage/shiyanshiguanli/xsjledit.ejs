@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>编辑学术交流</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		.filedelbtn{
+			margin:0 8px;
+		}
+		#fujian p {
+			margin:2px 0;
+		}
+		.labelwidth{
+			width: 120px;
+		}
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">名称</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="name" lay-verify="" autocomplete="off" class="layui-input" id="name">
+				    </div>
+				    <label class="layui-form-label labelwidth" >名称(EN)</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="ename"  autocomplete="off" class="layui-input" id="ename">
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">类型</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		          <select name="type" id="type" lay-filter="type" style="">
+		              <option value="学术会议">学术会议</option>
+		              <option value="学者来访">学者来访</option>
+		              <option value="学者出访">学者出访</option>
+		              <option value="国际交流">国际交流</option>
+		          </select>
+		       </div>
+		       <div class="layui-inline">
+					<label class="layui-form-label labelwidth">时间</label>
+					<div class="layui-input-inline" style="width: 272px;">
+	        			<input type="text" class="layui-input" id="time" placeholder="yyyy-MM-dd">
+	      			</div>
+				</div>
+		    </div>
+
+		    <div class="layui-form-item" id="firstjoinman">
+		    	<label class="layui-form-label ">参加人员</label>
+		    	<div class="layui-input-inline" style="width: 272px;">
+		    		<input type="text" class="layui-input joinman" id="joinman" placeholder="">
+		    		
+		    	</div>
+		    	<label class="layui-form-label labelwidth">参加人员(EN)</label>
+		    	<div class="layui-input-inline" style="width: 272px;">
+		    		<input type="text" class="layui-input ejoinman" id="joinman" placeholder="">
+		    		
+		    	</div>
+		    	<div class="layui-input-inline" >
+		    		<a class="layui-btn layui-btn-sm" id="addjoinmanbtn" lay-submit><i class="layui-icon">&#xe654;</i>添加人员</a>
+		    	</div>
+		    </div>
+
+		    <div id="addjoinman">
+
+		    </div>
+			<div class="layui-form-item">
+				<label class="layui-form-label ">地点</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		          <input type="text" class="layui-input" id="address" placeholder="">
+		        </div>
+		        <label class="layui-form-label labelwidth">地点(EN)</label>
+		        <div class="layui-input-inline" style="width: 272px;">
+		          <input type="text" class="layui-input" id="eaddress" placeholder="">
+		        </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">简介</label>
+				<div class="layui-input-block" id="intro" style="">
+					
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">简介(EN)</label>
+				<div class="layui-input-block" id="eintro">
+					
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">发布英文版</label>
+				<div class="layui-input-inline">
+				    <input type="checkbox"  name="eshow" lay-skin="switch" lay-filter="eshow" id="eshow" lay-text="是|否" value="0">
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">显示在</label>
+					<div class="layui-input-block" >
+				      <input type="checkbox" name="showin" value="A" title="AAA" id="AAA">
+				      <input type="checkbox" name="showin" value="B" title="BBB" id="BBB">
+				      <input type="checkbox" name="showin" value="C" title="CCC" id="CCC">
+				      <input type="checkbox" name="showin" value="D" title="DDD" id="DDD">
+				      <input type="checkbox" name="showin" value="E" title="EEE" id="EEE">
+				    </div> 
+	       </div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<div class="layui-col-md-offset1">
+					<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+//删除input
+	function yichu(obj){
+		console.log('obj',$(obj))
+		$(obj).parent().remove()
+		return false
+	}
+layui.use(['jquery','layer','form','laydate','upload'], function(){ 
+    let $ = layui.$, //重点处
+    	laydate = layui.laydate,
+    	upload = layui.upload
+    let form = layui.form,layer = layui.layer
+    let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+    console.log('frameindex',frameindex)
+    //日期
+    laydate.render({
+	    elem: '#time'
+	});
+	$('#addjoinmanbtn').on('click',function(){
+		console.log('add joinman',$('.joinman').length)
+		
+		let newelement = '<div class="layui-form-item"><label class="layui-form-label "></label><div class="layui-input-inline" style="width: 272px;"><input type="text" class="layui-input joinman"></div><label class="layui-form-label labelwidth"></label><div class="layui-input-inline" style="width: 272px;"><input type="text" class="layui-input ejoinman"></div><a class="layui-btn layui-btn-sm" onclick="yichu(this)">移除</a></div>'
+		$('#addjoinman').append(newelement)
+		form.render()
+	})
+
+	//监听指定开关
+	form.on('switch(eshow)', function(data){
+	    console.log('eshow ',data,data.elem.checked)
+	    if(data.elem.checked){
+	    	$('#eshow').attr('value',1)
+	    }else{
+	    	$('#eshow').attr('value',0)
+	    }
+	});
+    let id = '<%-data.id%>'
+    form.on('submit(update)', function(data){
+	  //更新
+	  console.log('submit data',data)
+	  let joinmanlength = $('.joinman').length,//$(selector).each(function(index,element))
+	  	  ejoinmanlength = $('.ejoinman').length,
+	  	  joinmanstr = '',
+	  	  ejoinmanstr = ''
+	  $('.joinman').each(function(index,element){
+	  	console.log('element',element)
+	  	console.log($(this).val())
+	  	joinmanstr = joinmanstr + $(this).val() + ';' 
+	  })
+	  $('.ejoinman').each(function(index,element){
+	  	console.log('element',element)
+	  	console.log($(this).val())
+	  	ejoinmanstr = ejoinmanstr + $(this).val() + ';'
+	  })
+	  console.log('final joinman',joinmanstr)
+	  console.log('final ejoinman',ejoinmanstr)
+
+	  data.field.id= id
+	  data.field.name = $('#name').val()
+	  data.field.ename = $('#ename').val()
+	  data.field.intro = editor1.txt.html()
+	  data.field.eintro = editor2.txt.html()
+	  data.field.time = $('#time').val()
+	  data.field.address = $('#address').val()
+	  data.field.eaddress = $('#eaddress').val()
+	  data.field.eshow = $('#eshow').attr('value')
+	  data.field.type = $('#type option:selected').val()
+	  data.field.joinmanstr = joinmanstr
+	  data.field.ejoinmanstr = ejoinmanstr
+	  data.field.showin = showinarr
+
+	  console.log('学术交流 add  data field',data.field);
+	  $.ajax({
+	  	url:'/spatial/manage/xsjledit',
+	  	type:'POST',
+	  	data:data.field,
+	  	dataType : "json",
+	  	success:function(result){
+	  		if(result.code == 0){
+	  			console.log('update success')
+	  			//墨绿深蓝风
+				layer.alert('保存成功', {
+				  skin: 'layui-layer-molv' //样式类名
+				  ,closeBtn: 0,
+				  time: 3000, //20s后自动关闭
+				}, function(){
+					layer.close(frameindex);
+				});	  			
+	  		}
+	  	},
+	  	error:function(msg){
+	  		console.log('ajax error msg',msg)
+	  	}
+	  })
+	});
+
+   
+	var E = window.wangEditor
+    var editor1 = new E('#intro'),editor2 = new E('#eintro')
+    editor1.customConfig.zIndex = 100
+    editor1.customConfig.uploadImgServer = '/spatial/manage/xsjlimgupload'
+    editor2.customConfig.uploadImgServer = '/spatial/manage/xsjlimgupload'
+
+    editor1.customConfig.showLinkImg = false
+    editor2.customConfig.showLinkImg = false
+
+    editor1.customConfig.uploadFileName = "files"; 
+    editor2.customConfig.uploadFileName = "files"; 
+    // 将图片大小限制为 4M
+	editor1.customConfig.uploadImgMaxSize = 4 * 1024 * 1024
+	editor2.customConfig.uploadImgMaxSize = 4 * 1024 * 1024
+
+	editor1.customConfig.uploadImgMaxLength = 5
+	editor2.customConfig.uploadImgMaxLength = 5
+
+	editor1.customConfig.debug = true; //是否开启Debug 默认为false 建议开启 可以看到错误
+	editor1.customConfig.debug = true;
+
+	editor1.customConfig.uploadImgHooks = {
+	    customInsert: function (insertImg, result, editor) {
+	        // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+	        // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+	        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+	        console.log(result,result.data)
+	        let imgobj = []
+	        result.data.forEach(function(item,index){
+	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        })
+	        console.log(imgobj)
+	        insertImg(imgobj)
+	    }
+	}
+
+	editor2.customConfig.uploadImgHooks = {
+	    customInsert: function (insertImg, result, editor) {
+	        // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+	        // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+	        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+	        console.log(result,result.data)
+	        let imgobj = []
+	        result.data.forEach(function(item,index){
+	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        })
+	        console.log(imgobj)
+	        insertImg(imgobj)
+	    }
+	}
+	
+    // 或者 var editor = new E( document.getElementById('editor') )
+    editor1.create()
+    editor2.create()
+
+    //初始赋值
+    console.log('<%- JSON.stringify(data).replace(/^\"|\"$/g,'') %>')
+    //初始化表单值
+    $('#name').val('<%- data.name%>')
+    $('#address').val('<%- data.address%>')
+    if('<%- data.ename%>'){
+    	$('#ename').val('<%- data.ename%>')
+    }
+    if('<%- data.eaddress%>'){
+    	$('#eaddress').val('<%- data.eaddress%>')
+    }
+    
+    $('#time').val('<%- data.time%>')
+    let eshow = '<%- data.eshow %>'
+    console.log('eshow',eshow)
+    if(eshow == 1){
+    	$('#eshow').attr('value',1)
+    	$("input[name='eshow']").attr("checked",true)
+    	form.render('checkbox')
+    }else{
+    	$('#eshow').attr('value',0)
+    	$("input[name='eshow']").attr("checked",false)
+    	form.render('checkbox')
+    }
+    editor1.txt.html('<%- data.intro %>')
+    editor2.txt.html('<%- data.eintro %>')
+  	$('#type').val('<%- data.type%>')
+  	form.render('select')
+  	//参加人员
+  	let joinmanstr = '<%- data.joinman%>',
+  		joinmanarr = joinmanstr.split(';')
+  		joinmanarr.pop()
+  	let ejoinmanstr = '<%- data.ejoinman%>',
+  		ejoinmanarr = ejoinmanstr.split(';')
+  		ejoinmanarr.pop()
+  		console.log('joinmanarr',joinmanarr,ejoinmanarr)
+  	$.each(joinmanarr,function(index,value){
+  		if(index==0){
+  			$('#firstjoinman .joinman').val(value)
+  			$('#firstjoinman .ejoinman').val(ejoinmanarr[index])
+  		}else{
+  			let newelement = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;"><input type="text" class="layui-input joinman" value="'+value+'"></div><label class="layui-form-label labelwidth"></label><div class="layui-input-inline" style="width: 272px;"><input type="text" class="layui-input ejoinman" value="'+ejoinmanarr[index]+'"></div><a class="layui-btn layui-btn-sm" onclick="yichu(this)">移除</a></div>'
+			$('#addjoinman').append(newelement)
+			form.render()
+  		}
+  	})
+  	//初始化复选框
+		    	let showinstr = '<%- data.showin%>'.split(';')
+		    	console.log('showinstr',showinstr)
+		    	$.each(showinstr,function(i,item){
+		    		if(item=='A'){
+		    			$('#AAA').prop('checked',true)
+		    		}
+		    		if(item=='B'){
+		    			$('#BBB').prop('checked',true)
+		    		}
+		    		if(item=='C'){
+		    			$('#CCC').prop('checked',true)
+		    		}
+		    		if(item=='D'){
+		    			$('#DDD').prop('checked',true)
+		    		}
+		    		if(item=='E'){
+		    			$('#EEE').prop('checked',true)
+		    		}
+		    	})
+  				form.render()
+  	
+})
+  
+</script>
+</body>
+</html>

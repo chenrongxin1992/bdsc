@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>新增开放基金</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+	.layui-table td, .layui-table th {
+		text-align: center;
+		min-width: 120px;
+	}
+	</style>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote">当前位置：实验室管理 > 发布管理 > 新增开放基金</blockquote>
+
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">题目</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="title" type="text" class="layui-input" id="title" autocomplete="off" >
+		       </div>
+		       <label class="layui-form-label">姓名</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="name" type="text" class="layui-input" id="name" autocomplete="off" >
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">单位</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="unit" type="text" class="layui-input" id="unit" autocomplete="off" >
+		       </div>
+		       <label class="layui-form-label">年度</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="year" type="text" class="layui-input" id="year" autocomplete="off" >
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">职称</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="jobtitle" type="text" class="layui-input" id="jobtitle" autocomplete="off" >
+		       </div>
+		       <label class="layui-form-label">性别</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <select name="gender" id="gender" lay-filter="gender" lay-verifh="required">
+		          	  <option value="男">男</option>
+		          	  <option value="女">女</option>
+		              <!-- 动态获取 -->
+		          </select>
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">身份证号</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="idcard" type="text" class="layui-input" id="idcard" autocomplete="off" >
+		       </div>
+		       <label class="layui-form-label">手机</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="mphone" type="text" class="layui-input" id="mphone" autocomplete="off" >
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">email</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="email" type="text" class="layui-input" id="email" autocomplete="off" >
+		       </div>
+		       <label class="layui-form-label">关键字</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="keyword" type="text" class="layui-input" id="keyword" autocomplete="off" >
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">基金文档编号</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="fundnumber" type="text" class="layui-input" id="fundnumber" autocomplete="off" >
+		       </div>
+		       <label class="layui-form-label">资助方向</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <select name="direction" id="direction" lay-filter="direction" lay-verifh="required">
+		          	  <option value="海岸带">海岸带</option>
+		          	  <option value="时空分析">时空分析</option>
+		          	  <option value="多传感器">多传感器</option>
+		              <!-- 动态获取 -->
+		          </select>
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">是否获得资助</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <select name="issubsidize" id="issubsidize" lay-filter="issubsidize" lay-verifh="required">
+		          	  <option value="是">是</option>
+		          	  <option value="否">否</option>
+		              <!-- 动态获取 -->
+		          </select>
+		       </div>
+		       <label class="layui-form-label">资助金额</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="sum" type="text" class="layui-input" id="sum" autocomplete="off" >
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">数据</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		          <input name="data" type="text" class="layui-input" id="data" autocomplete="off" >
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">摘要(EN)</label>
+				<div class="layui-input-inline" style="width: 272px;">
+					<textarea id="digest" class="layui-textarea" style="height: 100px;"  value=""></textarea>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">显示在</label>
+					<div class="layui-input-block" >
+				      <input type="checkbox" name="showin" value="A" title="AAA" id="AAA">
+				      <input type="checkbox" name="showin" value="B" title="BBB" id="BBB">
+				      <input type="checkbox" name="showin" value="C" title="CCC" id="CCC">
+				      <input type="checkbox" name="showin" value="D" title="DDD" id="DDD">
+				      <input type="checkbox" name="showin" value="E" title="EEE" id="EEE">
+				    </div> 
+	        </div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<label class="layui-form-label"></label>
+				<div class="layui-input-inline" style="width: 272px;">
+					<button class="layui-btn layui-btn-sm" lay-filter="update" lay-submit id="btnsave"><i class="layui-icon">&#xe609;</i>保存</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form','upload','layer','laydate'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form,
+    	upload = layui.upload,
+    	layer = layui.layer,
+    	laydate = layui.laydate
+    let id = '<%-data.id%>'
+
+    if(id==''||id==null||typeof(id)=='undefined'){
+		console.log('新增',id)
+		//初始化选择
+	}else{
+		console.log('编辑',id)
+		$('#title').val('<%-data.title%>')
+		$('#name').val('<%-data.name%>')
+		$('#unit').val('<%-data.unit%>')
+		$('#year').val('<%-data.year%>')
+		$('#jobtitle').val('<%-data.jobtitle%>')
+		$('#gender').val('<%-data.gender%>')
+		$('#idcard').val('<%-data.idcard%>')
+		$('#mphone').val('<%-data.mphone%>')
+		$('#email').val('<%-data.email%>')
+		$('#keyword').val('<%-data.keyword%>')
+		$('#fundnumber').val('<%-data.fundnumber%>')
+		$('#direction').val('<%-data.direction%>')
+		$('#issubsidize').val('<%-data.issubsidize%>')
+		$('#sum').val('<%-data.sum%>')
+		$('#data').val('<%-data.data%>')
+		$('#digest').val('<%-data.digest%>')
+		//初始化复选框
+		    	let showinstr = '<%- data.showin%>'.split(';')
+		    	console.log('showinstr',showinstr)
+		    	$.each(showinstr,function(i,item){
+		    		if(item=='A'){
+		    			$('#AAA').prop('checked',true)
+		    		}
+		    		if(item=='B'){
+		    			$('#BBB').prop('checked',true)
+		    		}
+		    		if(item=='C'){
+		    			$('#CCC').prop('checked',true)
+		    		}
+		    		if(item=='D'){
+		    			$('#DDD').prop('checked',true)
+		    		}
+		    		if(item=='E'){
+		    			$('#EEE').prop('checked',true)
+		    		}
+		    	})
+		form.render()
+	}
+	
+    form.on('submit(update)', function(data){
+    	 //复选框
+            let showinarr = new Array();
+            $("input:checkbox[name='showin']:checked").each(function(i){
+                showinarr.push($(this).val())
+            })
+			console.log('showinarr',showinarr)
+			showinarr = showinarr.join(';')
+			console.log('showinarr',showinarr)
+		 data.field.id = id
+		 data.field.title = $('#title').val()//类别
+		 data.field.name = $('#name').val()
+		 data.field.unit = $('#unit').val()
+	     data.field.year = $('#year').val()
+	     data.field.jobtitle = $('#jobtitle').val()
+	     data.field.gender = $('#gender option:selected').val()
+	     data.field.idcard = $('#idcard').val()
+	     data.field.mphone = $('#mphone').val()
+	     data.field.email = $('#email').val()
+	     data.field.keyword = $('#keyword').val()
+	     data.field.fundnumber = $('#fundnumber').val()
+	     data.field.direction = $('#direction option:selected').val()
+	     data.field.issubsidize = $('#issubsidize option:selected').val()
+	     data.field.sum = $('#sum').val()
+	     data.field.data = $('#data').val()
+	     data.field.digest = $('#digest').val()
+	     data.field.showin = showinarr
+	     console.log('submit data',data)
+	     $.ajax({
+			  	url:'/spatial/manage/kfjjadd',
+			  	type:'POST',
+			  	data:data.field,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('update success')
+			  			//墨绿深蓝风
+						layer.alert('保存成功', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						  ,time : 2000
+						}, function(){
+							layer.close(frameindex);
+						});	  			
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax error msg',msg)
+			  	}
+			  })
+	     return false
+    })
+});
+</script>
+<script type="text/html" id="pdftpl">
+  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+</script>
+</body>
+</html>

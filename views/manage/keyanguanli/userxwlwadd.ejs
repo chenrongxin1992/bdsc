@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>新增用户学位论文</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		.filedelbtn{
+			margin:0 8px;
+		}
+		#fujian p {
+			margin:2px 0;
+		}
+		.labelwidth{
+			width: 120px;
+		}
+		.inputwidth{
+			width: 100px;
+			display:inline;
+			margin:0 2px;
+		}
+		.thtext{
+			text-align: center !important;
+		}
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">论文名称</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="name" autocomplete="off" class="layui-input" id="name" lay-verify="required">
+				    </div>
+				    <label class="layui-form-label labelwidth" >论文名称(EN)</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="ename"  autocomplete="off" class="layui-input" id="ename">
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+		    	<label class="layui-form-label ">作者</label>
+		    	<div class="layui-inline">
+					<a class="layui-btn layui-btn-sm zuozhe">增加</a>
+				</div>
+		    </div>
+
+		    <div id="zuozhe">
+		    </div>
+
+		    <div class="layui-form-item">
+		    	<label class="layui-form-label ">指导老师</label>
+		    	<div class="layui-inline">
+					<a class="layui-btn layui-btn-sm adddw">增加</a>
+				</div>
+		    </div>
+
+		    <div id="adddw">
+		    </div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">授予年份</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="publishyear"  autocomplete="off" class="layui-input" id="publishyear">
+				      <!-- js中publishyear换成year -->
+				    </div> 
+				<label class="layui-form-label ">页数</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="pags"  autocomplete="off" class="layui-input" id="pags">
+				      <!-- js中publishyear换成year -->
+				    </div> 
+	        </div>	
+	        <div class="layui-form-item">
+				<label class="layui-form-label ">单位</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="unit"  autocomplete="off" class="layui-input" id="unit">
+				      <!-- js中publishyear换成year -->
+				    </div> 
+				<label class="layui-form-label ">单位(EN)</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="eunit"  autocomplete="off" class="layui-input" id="eunit">
+				      <!-- js中publishyear换成year -->
+				    </div> 
+	        </div>	
+
+	        <div class="layui-form-item">
+				<label class="layui-form-label">摘要</label>
+				<textarea id="digest" class="layui-textarea" style="width: 710px;height: 150px;"  value=""></textarea>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">摘要(EN)</label>
+				<textarea id="edigest" class="layui-textarea" style="width: 710px;height:150px;" value=""></textarea>
+			</div>
+
+			<div class="layui-form-item">
+		    	<label class="layui-form-label ">关联人员</label>
+		    	<div class="layui-inline">
+					<a class="layui-btn layui-btn-sm addman">增加</a>
+				</div>
+		    </div>
+
+		    <div id="addman">
+		    </div>
+
+		    <div class="layui-form-item">
+		    	<label class="layui-form-label ">关联项目</label>
+		    	
+		    	<div class="layui-input-inline" >
+		    		<div class="layui-input-inline" style="width: 272px;" >
+			          <a class="layui-btn layui-btn-sm" id="glxm"><i class="layui-icon">&#xe654;</i>关联</a>
+			        </div>
+		    	</div>
+		    </div>
+
+		    <div id="chooseglxm">
+
+		    </div>
+
+		    <div class="layui-form-item">
+				<label class="layui-form-label ">显示在</label>
+					<div class="layui-input-block" >
+				      <input type="checkbox" name="showin" value="A" title="AAA" id="AAA">
+				      <input type="checkbox" name="showin" value="B" title="BBB" id="BBB">
+				      <input type="checkbox" name="showin" value="C" title="CCC" id="CCC">
+				      <input type="checkbox" name="showin" value="D" title="DDD" id="DDD">
+				      <input type="checkbox" name="showin" value="E" title="EEE" id="EEE">
+				    </div> 
+	       </div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<div class="layui-col-md-offset1">
+					<button class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon" id="btnsave">&#xe609;</i>保存</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+	//删除input
+	function yichu(obj){
+		console.log('obj',$(obj))
+		$(obj).parent().remove()
+		return false
+	}
+	//子页面调用函数
+	function getSonData(sondata){
+		console.log('getSonData',sondata)
+		let appendstr = '',count = 0
+		$('#chooseglxm').children().remove()
+		$.each(sondata,function(index,item){
+			count = index + 1
+			//如果已经选过，则跳过不append
+			appendstr = '<div class="layui-form-item" id="'+item.id+'"><label class="layui-form-label"></label><div class="layui-input-inline" style="min-width:400px;"> '+ count + '  ' + item.name+' </div></div>'
+			
+			$('#chooseglxm').append(appendstr)
+		})
+	}
+	// 作者合并
+	  function getzuozhe() {
+	    let str = "";
+	    $("select[class='zuozhe']").each(function() {
+	      if ($(this).val() != -1) {
+	        str += $(this).find("option:selected").text() + ";";
+	      } else {
+	        let name = $(this).attr("id");
+	        let value = $("." + name).val();
+	        if (value == "") {
+	          $.alert("zuozhe不能为空", $("." + name));
+	        }
+	        str += value + ";";
+	      }
+	    //console.log('关联人员名称合并',str.substring(0, str.length - 1))
+	    });
+	    console.log('作者合并',str)
+	    return str.substring(0, str.length - 1);
+	  }
+	// 关联人员id合并
+	  function getRelevance() {
+	    let str = "";
+	    let foo = $("select[class='relevance']");
+	    $(foo).each(function() {
+	      str += this.value + ";";
+	    });
+	    console.log('关联人员id合并',str)
+	    return str.substring(0, str.length - 1);
+	  }
+	// 关联人员名称合并
+	  function relevanceName() {
+	    let str = "";
+	    $("select[class='relevance']").each(function() {
+	      if ($(this).val() != -1) {
+	        str += $(this).find("option:selected").text() + ";";
+	      } else {
+	        let name = $(this).attr("id");
+	        let value = $("." + name).val();
+	        if (value == "") {
+	          $.alert("人员名称不能为空", $("." + name));
+	        }
+	        str += value + ";";
+	      }
+	    console.log('关联人员名称合并',str.substring(0, str.length - 1))
+	    });
+	    return str;
+	  }
+	  //关联项目id合并
+	  function relevanceproid(){
+	  	let str = ''
+	  	$('#chooseglxm').children().each(function(){
+	  		if($(this).attr('id')){
+	  			str += $(this).attr('id') + ';'
+	  		}
+	  	})
+	  	console.log('关联项目id',str.substring(0,str.length-1))
+	  	return str.substring(0,str.length-1)
+	  }
+	  //导师合并
+	  function getcertiger(){
+	  	let str = ''
+	  	//console.log($('#adddw').children())
+	  	$('#adddw').children().each(function(){
+	  		//console.log($(this))
+	  		//console.log($(this))
+	  		//console.log($(this).find("input[name='certigier']").val())
+	  		if($(this).find("input[name='tutor']").val()){
+	  			str += $(this).find("input[name='tutor']").val() + ';'
+	  		}
+	  	})
+	  	console.log('导师',str.substring(0,str.length-1))
+	  	return str.substring(0,str.length-1)
+	  }
+	  function getecertiger(){
+	  	let str = ''
+	  	$('#adddw').children().children().each(function(){
+	  		if($(this).find("input[name='etutor']").val()){
+	  			str += $(this).find("input[name='etutor']").val() + ';'
+	  		}
+	  	})
+	  	console.log('导师en',str.substring(0,str.length-1))
+	  	return str.substring(0,str.length-1)
+	  }
+	  
+	$(function(){
+		let checkadmain = '<%-rolename%>'
+		console.log('checkadmain',checkadmain)
+		if(checkadmain=='管理员'){
+			console.log('管理员可以编辑所有')
+		}else{
+			console.log('非管理员只能查看，或者在科研管理中发布自己的')
+			$('#btnsave').addClass('layui-btn-disabled').attr('disabled',"true");
+		}
+		layui.use(['jquery','layer','form','laydate','upload'], function(){ 
+		    let $ = layui.$, //重点处
+		    	laydate = layui.laydate,
+		    	upload = layui.upload
+		    let form = layui.form,layer = layui.layer
+		    let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		    console.log('frameindex',frameindex)
+		    //当访问的时候数据存在，初始化form
+		    let id = '<%-data.id%>'
+		    let manarr = [],optionstr='',dwarr=[],dwstr=''//关联人员
+		    let zuozhearr = [],zuozhestr = ''
+		    if(id==''||id==null||typeof(id)=='undefined'){
+		    	console.log('新增专利登记',id)
+		    }else{
+		    	console.log('编辑获奖登记，需要初始化表单')
+		    	$('#name').val('<%-data.name%>')
+		    	$('#ename').val('<%-data.ename%>')
+		    	$('#publishyear').val('<%-data.publishyear%>')
+		    	//select
+		    	$('#unit').val('<%- data.unit%>')
+		    	$('#pags').val('<%- data.pags%>')
+		    	$('#eunit').val('<%- data.eunit%>')
+		    	$('#digest').val('<%- data.digest%>')
+		    	$('#edigest').val('<%- data.edigest%>')
+
+		    	//初始化复选框
+		    	let showinstr = '<%- data.showin%>'.split(';')
+		    	console.log('showinstr',showinstr)
+		    	$.each(showinstr,function(i,item){
+		    		if(item=='A'){
+		    			$('#AAA').prop('checked',true)
+		    		}
+		    		if(item=='B'){
+		    			$('#BBB').prop('checked',true)
+		    		}
+		    		if(item=='C'){
+		    			$('#CCC').prop('checked',true)
+		    		}
+		    		if(item=='D'){
+		    			$('#DDD').prop('checked',true)
+		    		}
+		    		if(item=='E'){
+		    			$('#EEE').prop('checked',true)
+		    		}
+		    	})
+  				form.render()
+  				
+  				//初始化关联人员
+  				let relevance = ('<%-data.relevance%>').split(';'),
+  					relevancename = ('<%-data.relevancename%>').split(';')
+  				if(manarr.length==0){
+  					$.ajax({
+						url:'/spatial/manage/getAllResUser',//可共用
+						type:'get',
+						success:function(result){
+						  		console.log('relevance',result,typeof(result))
+						  		console.log('add relevancename',$('.relevancename').length)
+						  		zuozhearr = result
+						  		manarr = result
+						  		for(let i=0;i<relevance.length;i++){
+						  			optionstr = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;" ><select name="type" class="relevance" id="select'+i+'"><option value="">请选择</option>' 
+							  		$.each(manarr,function(index,item){
+							  			optionstr = optionstr + '<option value="'+item.id+'">'+item.name+'</option>'
+							  		})
+							  		optionstr = optionstr + '</select></div><div class="layui-input-inline"><a class="layui-btn layui-btn-sm yichuman">移除</a></div></div>'
+									$('#addman').append(optionstr)
+									form.render()
+									//设置选中状态dd[lay-value=' + data.schoolId + ']
+						  		}
+						  		for(let i=0;i<relevance.length;i++){
+						  			console.log('relevance',relevance[i],'dd[lay-value="'+relevance[i]+'"]')
+									console.log($('#select'+i).siblings('div.layui-form-select').find('dl').find('dd[lay-value="'+relevance[i]+'"]'))
+									$('#select'+i).siblings('div.layui-form-select').find('dl').find('dd[lay-value="'+relevance[i]+'"]').click()
+						  		}
+						},
+						error:function(error){
+						  		console.log('getAllResUser error',error)
+						}
+					})	
+  				}else{
+  					for(let i=0;i<relevance.length;i++){
+						  			optionstr = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;" ><select name="type" class="relevance" id="select'+i+'"><option value="">请选择</option>' 
+							  		$.each(manarr,function(index,item){
+							  			optionstr = optionstr + '<option value="'+item.id+'">'+item.name+'</option>'
+							  		})
+							  		optionstr = optionstr + '</select></div><div class="layui-input-inline"><a class="layui-btn layui-btn-sm yichuman">移除</a></div></div>'
+									$('#addman').append(optionstr)
+									form.render()
+									//设置选中状态dd[lay-value=' + data.schoolId + ']
+						  		}
+						  		for(let i=0;i<relevance.length;i++){
+						  			console.log('relevance',relevance[i],'dd[lay-value="'+relevance[i]+'"]')
+									console.log($('#select'+i).siblings('div.layui-form-select').find('dl').find('dd[lay-value="'+relevance[i]+'"]'))
+									$('#select'+i).siblings('div.layui-form-select').find('dl').find('dd[lay-value="'+relevance[i]+'"]').click()
+						  		}
+  				}
+  				
+				//初始化作者
+				let zuozhe = ('<%-data.authors%>').split(';')
+				if(zuozhearr.length==0){
+					console.log('dddddddddddddddd')
+					$.ajax({
+						url:'/spatial/manage/getAllResUser',//可共用
+						type:'get',
+						success:function(result){
+						  		console.log('zuozhe',result,typeof(result))
+						  		console.log('add zuozhe',$('.zuozhe').length)
+						  		zuozhearr = result
+						  		manarr = result
+						  		for(let i=0;i<zuozhe.length;i++){
+						  			zuozhestr = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;" ><select name="type" class="zuozhe" id="select'+i+'"><option value="">请选择</option>' 
+							  		$.each(zuozhearr,function(index,item){
+							  			zuozhestr = zuozhestr + '<option value="'+item.id+'">'+item.name+'</option>'
+							  		})
+							  		zuozhestr = zuozhestr + '</select></div><div class="layui-input-inline"><a class="layui-btn layui-btn-sm yichuzuozhe">移除</a></div></div>'
+							  		//console.log('zuozhestr',zuozhestr)
+									$('#zuozhe').append(zuozhestr)
+									form.render()
+									//设置选中状态dd[lay-value=' + data.schoolId + ']
+						  		}
+						  		for(let i=0;i<zuozhe.length;i++){
+						  			console.log('zuozhe',zuozhe[i],'dd[lay-value="'+zuozhe[i]+'"]')
+									console.log(($('#select'+i).siblings('div.layui-form-select').find('dl').find('dd')))
+									let searchdd = $('#select'+i).siblings('div.layui-form-select').find('dl').find('dd')
+									$.each(searchdd,function(k,val){
+										console.log('i,val',k,$(val).text())
+										if($(val).text()==zuozhe[i]){
+											$(val).click()
+										}
+									})
+									form.render()
+									//$('#select'+i).siblings('div.layui-form-select').find('dl').find('dd[lay-value="'+zuozhe[i]+'"]').click()
+						  		}
+						},
+						error:function(error){
+						  		console.log('getAllResUser error',error)
+						}
+					})	
+				}else{
+					console.log('jjjjjjjjjjjjjj')
+					for(let i=0;i<zuozhe.length;i++){
+						  			zuozhestr = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;" ><select name="type" class="zuozhe" id="select'+i+'"><option value="">请选择</option>' 
+							  		$.each(zuozhearr,function(index,item){
+							  			zuozhestr = zuozhestr + '<option value="'+item.id+'">'+item.name+'</option>'
+							  		})
+							  		zuozhestr = zuozhestr + '</select></div><div class="layui-input-inline"><a class="layui-btn layui-btn-sm yichuzuozhe">移除</a></div></div>'
+									$('#zuozhe').append(zuozhestr)
+									form.render()
+									//设置选中状态dd[lay-value=' + data.schoolId + ']
+						  		}
+						  		for(let i=0;i<zuozhe.length;i++){
+						  			console.log('zuozhe',zuozhe[i],'dd[lay-value="'+zuozhe[i]+'"]')
+									console.log($('#select'+i).siblings('div.layui-form-select').find('dl').find('dd[lay-value="'+zuozhe[i]+'"]'))
+									$('#select'+i).siblings('div.layui-form-select').find('dl').find('dd[lay-value="'+zuozhe[i]+'"]').click()
+						  		}
+				}
+				//初始化授予单位
+				let certigier = '<%-data.tutor%>',
+  					certigierarr = certigier.split(';'),
+  					ecertigier = '<%-data.etutor%>',
+  					ecertigierarr = ecertigier.split(';')
+  					$.each(certigierarr,function(index,item){
+
+  						let appendstr = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;">' +
+						'<input type="text" name="tutor"  autocomplete="off" class="layui-input" id="tutor" placeholder="中文" value="'+item+'"></div><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;" ><input type="text" name="etutor"  autocomplete="off" class="layui-input" id="etutor" placeholder="EN" value="'+ecertigierarr[index]+'"></div><div class="layui-input-inline"><a class="layui-btn layui-btn-sm yichudw">移除</a></div></div>'
+  							$(appendstr).appendTo($('#adddw'))
+							form.render()
+  					})
+				//初始化关联项目
+				$.ajax({
+					url:'/spatial/manage/getglxmfun',//可共用
+					type:'post',
+					data:{'relid':id,'tname':'patent'},
+					success:function(result){
+						console.log('result',result)
+						if(result.code==0){
+							let count = 0
+							console.log('result',result)
+							if(result.data!=null){
+									$.each(result.data,function(index,item){
+									count = index + 1
+									//如果已经选过，则跳过不append
+									appendstr = '<div class="layui-form-item" id="'+item.id+'"><label class="layui-form-label"></label><div class="layui-input-inline" style="min-width:400px;"> '+ count + '  ' + item.name+' </div></div>'
+									
+									$('#chooseglxm').append(appendstr)
+								})
+								}else{return false}
+							
+						}
+					},
+					error:function(msg){
+						console.log('getrelevancepro err',msg)
+					}
+				})		
+		    }
+			//添加授予单位/导师
+		    $('body').on('click','.adddw',function(){
+		    	console.log('添加导师',dwarr.length)
+				dwstr = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;">' +
+						'<input type="text" name="tutor"  autocomplete="off" class="layui-input" id="tutor" placeholder="中文"></div><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;" ><input type="text" name="etutor"  autocomplete="off" class="layui-input" id="etutor" placeholder="EN"></div><div class="layui-input-inline"><a class="layui-btn layui-btn-sm yichudw">移除</a></div></div>'
+				console.log('dwstr',dwstr)
+				$('#adddw').append(dwstr)
+				form.render()
+			})
+			//移除授予单位
+		    $('body').on('click','.yichudw',function(){
+		    	console.log('移除导师',$(this).parent().parent())
+		    	$(this).parent().parent().remove()//layui-form-item
+		    })
+			//添加作者
+			 $('body').on('click','.zuozhe',function(){
+		    	console.log('添加作者',zuozhearr.length)
+		    	if(manarr.length==0){
+		    		console.log('首次请求')
+		    		$.ajax({
+						url:'/spatial/manage/getAllResUser',
+					  	type:'get',
+					  	success:function(result){
+					  		console.log(result,typeof(result))
+					  		console.log('add zuozhe',$('.zuozhe').length)
+					  		zuozhearr = result
+					  		zuozhestr = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;" ><select name="type" class="zuozhe"><option value="">请选择</option>' 
+					  		$.each(zuozhearr,function(index,item){
+					  			zuozhestr = zuozhestr + '<option value="'+item.id+'">'+item.name+'</option>'
+					  		})
+					  		zuozhestr = zuozhestr + '</select></div><div class="layui-input-inline"><a class="layui-btn layui-btn-sm yichuzuozhe">移除</a></div></div>'
+							$('#zuozhe').append(zuozhestr)
+							form.render()
+					  	},
+					  	error:function(error){
+					  		console.log('getAllResUser error',error)
+					  	}
+					})
+		    	}else{
+		    		console.log('not 第一次请求',zuozhearr,zuozhestr)
+		    		$('#zuozhe').append(zuozhestr)
+					form.render()
+		    	}
+		    })
+			//添加关联人员
+			
+		    $('body').on('click','.addman',function(){
+		    	console.log('添加关联人员',manarr.length)
+		    	if(manarr.length==0){
+		    		console.log('首次请求')
+		    		$.ajax({
+						url:'/spatial/manage/getAllResUser',
+					  	type:'get',
+					  	success:function(result){
+					  		console.log(result,typeof(result))
+					  		console.log('add relevancename',$('.relevancename').length)
+					  		manarr = result
+					  		optionstr = '<div class="layui-form-item"><label class="layui-form-label"></label><div class="layui-input-inline" style="width: 272px;" ><select name="type" class="relevance"><option value="">请选择</option>' 
+					  		$.each(manarr,function(index,item){
+					  			optionstr = optionstr + '<option value="'+item.id+'">'+item.name+'</option>'
+					  		})
+					  		optionstr = optionstr + '</select></div><div class="layui-input-inline"><a class="layui-btn layui-btn-sm yichuman">移除</a></div></div>'
+							$('#addman').append(optionstr)
+							form.render()
+					  	},
+					  	error:function(error){
+					  		console.log('getAllResUser error',error)
+					  	}
+					})
+		    	}else{
+		    		console.log('not 第一次请求',manarr,optionstr)
+		    		$('#addman').append(optionstr)
+					form.render()
+		    	}
+		    })
+		    //移除人员
+		    $('body').on('click','.yichuman',function(){
+		    	console.log('移除人员',$(this).parent().parent())
+		    	$(this).parent().parent().remove()//layui-form-item
+		    })
+		    //移除作者
+		    $('body').on('click','.yichuzuozhe',function(){
+		    	console.log('移除作者',$(this).parent().parent())
+		    	$(this).parent().parent().remove()//layui-form-item
+		    })
+		    
+			$('#glxm').on('click',function(){
+				console.log('弹框的时候需要将已选项目传到子页面判断是否已选')
+				console.log('length',$('#chooseglxm').children())
+				let idarr = []
+				if($('#chooseglxm').children().length!=0){
+					console.log('有已选项目')
+					$.each($('#chooseglxm').children(),function(index,item){
+						idarr.push($(item).attr('id'))
+					})
+					console.log('idarr',idarr)
+				}
+				json = JSON.stringify(idarr)
+				console.log('父页面json',json)
+				layer.open({
+				  title: '关联项目',
+				  type: 2,
+				  area: ['700px', '450px'],
+				  fixed: false, //不固定
+				  maxmin: true,
+				  content: '/spatial/manage/glxm'//可共用
+				});
+			})
+		    
+		    form.on('submit(update)', function(data){
+		    //复选框
+            let showinarr = new Array();
+            $("input:checkbox[name='showin']:checked").each(function(i){
+                showinarr.push($(this).val())
+            })
+			console.log('showinarr',showinarr)
+			showinarr = showinarr.join(';')
+			console.log('showinarr',showinarr)
+
+			  //更新
+			  console.log('submit data',data)
+			  console.log()
+			  data.field.id = id
+			  data.field.name = $('#name').val()
+			  data.field.ename = $('#ename').val()
+			  data.field.authors = getzuozhe()
+			  data.field.tutor = getcertiger()
+			  data.field.etutor = getecertiger()
+			  data.field.publishyear = $('#publishyear').val()
+			  data.field.unit = $('#unit').val()
+			  data.field.eunit = $('#eunit').val()
+			  data.field.digest = $('#digest').val()
+			  data.field.edigest = $('#edigest').val()
+			  data.field.relevance = getRelevance()
+			  data.field.relevancename = relevanceName()
+			  data.field.relevanceproid = relevanceproid()
+			  data.field.showin = showinarr
+			  //data.field.authors = getauthors()
+
+			  console.log('获奖登记 add  data field',data.field);
+			  $.ajax({
+			  	url:'/spatial/manage/userxwlwadd',
+			  	type:'POST',
+			  	data:data.field,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('update success')
+			  			//墨绿深蓝风
+						layer.alert('保存成功', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						  ,time : 2000
+						}, function(){
+							layer.close(frameindex);
+						});	  			
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax error msg',msg)
+			  	}
+			  })
+			});
+		})
+	})
+</script>
+</body>
+</html>

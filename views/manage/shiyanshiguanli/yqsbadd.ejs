@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>新增仪器设备</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		.filedelbtn{
+			margin:0 8px;
+		}
+		#fujian p {
+			margin:2px 0;
+		}
+		.labelwidth{
+			width: 120px;
+		}
+		.inputwidth{
+			width: 100px;
+			display:inline;
+			margin:0 2px;
+		}
+		.thtext{
+			text-align: center !important;
+		}
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">名称</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="name" autocomplete="off" class="layui-input" id="name" lay-verify="required" >
+				    </div>
+				    <label class="layui-form-label labelwidth" >价值(元)</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="value"  autocomplete="off" class="layui-input" id="value" >
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">单位</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="unit" autocomplete="off" class="layui-input" id="unit" lay-verify="required" >
+				    </div>
+				    <label class="layui-form-label labelwidth" >品牌</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="brand"  autocomplete="off" class="layui-input" id="brand" >
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">型号</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="model" autocomplete="off" class="layui-input" id="model" >
+				    </div>
+				    <label class="layui-form-label labelwidth" >设备编号</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="number"  autocomplete="off" class="layui-input" id="number" >
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label ">负责人</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="dutyman" autocomplete="off" class="layui-input" id="dutyman" >
+				    </div>
+				    <label class="layui-form-label labelwidth" >管理员</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="manager"  autocomplete="off" class="layui-input" id="manager" >
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">图片</label>
+				<button type="button" class="layui-btn" id="test1">上传图片</button>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label"></label>
+				<div class="layui-upload-list">
+				    <img class="layui-upload-img" id="demo1" style="max-width: 100px;">
+				    <p id="demoText"></p>
+				 </div>
+			</div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<div class="layui-col-md-offset1">
+					<button class="layui-btn layui-btn-sm" lay-filter="update" lay-submit id="btnsave"><i class="layui-icon">&#xe609;</i>保存</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		let checkadmain = '<%-rolename%>'
+		console.log('checkadmain',checkadmain)
+		if(checkadmain=='管理员'){
+			console.log('管理员可以编辑所有')
+		}else{
+			console.log('非管理员只能查看，或者在科研管理中发布自己的')
+			$('#btnsave').addClass('layui-btn-disabled').attr('disabled',"true");
+		}
+		layui.use(['jquery','layer','form','laydate','upload'], function(){ 
+		    let $ = layui.$, //重点处
+		    	laydate = layui.laydate,
+		    	upload = layui.upload
+		    let form = layui.form,layer = layui.layer
+		    let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		    console.log('frameindex',frameindex)
+		    //当访问的时候数据存在，初始化form
+		    let id = '<%-data.id%>'
+		    console.log('id',id)
+		    let manarr = [],optionstr=''//关联人员
+		    if(id==''||id==null||typeof(id)=='undefined'){
+		    	console.log('新增仪器设备')
+		    }else{
+		    	console.log('新增仪器设备 ')
+		    	$('#name').val('<%=data.name%>')
+		    	$('#value').val('<%=data.value%>')
+		    	$('#unit').val('<%=data.unit%>')
+		    	$('#brand').val('<%=data.brand%>')
+		    	$('#model').val('<%=data.model%>')
+		    	$('#number').val('<%=data.number%>')
+		    	$('#dutyman').val('<%=data.dutyman%>')
+		    	$('#manager').val('<%=data.manager%>')
+		    	$('#demo1').attr('src', '/spatial'+'<%-data.pic%>')
+					
+		    }
+			
+			let uploadInst = upload.render({
+			    elem: '#test1'
+			    ,url: '/spatial/manage/yqsbupload'
+			    ,before: function(obj){
+			      //预读本地文件示例，不支持ie8
+			      obj.preview(function(index, file, result){
+			        $('#demo1').attr('src', result); //图片链接（base64）
+			      });
+			    }
+			    ,done: function(res){
+			      console.log('upload success',res)
+			      $('#demo1').attr('src', (res.data)[0])
+			      //上传成功
+			    }
+			    ,error: function(){
+			      //演示失败状态，并实现重传
+			      var demoText = $('#demoText');
+			      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+			      demoText.find('.demo-reload').on('click', function(){
+			        uploadInst.upload();
+			      });
+			    }
+			  });
+		    
+		    form.on('submit(update)', function(data){
+			  //更新
+			  console.log('submit data',data)
+			  console.log()
+			  data.field.id = id
+			  data.field.name = $('#name').val()
+			  data.field.value = $('#value').val()
+			  data.field.unit = $('#unit').val()
+			  data.field.brand = $('#brand').val()
+			  data.field.model = $('#model').val()
+			  data.field.number = $('#number').val()
+			  data.field.dutyman = $('#dutyman').val()
+			  data.field.manager = $('#manager').val()
+			  data.field.pic = $('#demo1').attr('src')
+
+			  console.log('仪器设备 add  data field',data.field);
+			  $.ajax({
+			  	url:'/spatial/manage/yqsbadd',
+			  	type:'POST',
+			  	data:data.field,
+			  	dataType : "json",
+			  	success:function(result){
+			  		console.log('update success',result)
+			  		if(result.code == 0){
+			  			console.log('update success',result)
+			  			//墨绿深蓝风
+			  			//return false
+						layer.alert('保存成功', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						  ,time : 2000
+						}, function(){
+							layer.close(frameindex);
+							//window.location.href = '/spatial/manage/userkyxmadd?id='+result.id
+						});	  
+						return false			
+			  		}
+			  		return false	
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax error msg',msg)
+			  	}
+			  })
+			  return false
+			});//form
+			return false
+		})
+		return false
+	})
+</script>
+</body>
+</html>

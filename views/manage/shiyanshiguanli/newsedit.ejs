@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>新闻中心查看&编辑</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">标题</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
+				    </div>
+				    <label class="layui-form-label" style="width: 120px;">标题(EN)</label>
+				    <div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="etitle"  autocomplete="off" class="layui-input" id="etitle">
+				    </div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">发布时间</label>
+					<div class="layui-input-inline" style="width: 272px;">
+	        			<input type="text" class="layui-input" id="time" placeholder="yyyy-MM-dd">
+	      			</div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">内容</label>
+				<div class="layui-input-block" id="content">
+					
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">内容(EN)</label>
+				<div class="layui-input-block" id="econtent">
+					
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">显示在</label>
+					<div class="layui-input-block" >
+				      <input type="checkbox" name="showin" value="A" title="AAA" id="AAA">
+				      <input type="checkbox" name="showin" value="B" title="BBB" id="BBB">
+				      <input type="checkbox" name="showin" value="C" title="CCC" id="CCC">
+				      <input type="checkbox" name="showin" value="D" title="DDD" id="DDD">
+				      <input type="checkbox" name="showin" value="E" title="EEE" id="EEE">
+				    </div> 
+	       </div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<div class="layui-col-md-offset1">
+					<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
+<script type="text/javascript">
+layui.use(['jquery','layer','form','laydate'], function(){ 
+    let $ = layui.$, //重点处
+    	laydate = layui.laydate
+    let form = layui.form,layer = layui.layer
+    let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+    console.log('frameindex',frameindex)
+    //日期
+    laydate.render({
+	    elem: '#time'
+	});
+    let id = '<%- data.id %>'
+    form.on('submit(update)', function(data){
+    		 //复选框
+            let showinarr = new Array();
+            $("input:checkbox[name='showin']:checked").each(function(i){
+                showinarr.push($(this).val())
+            })
+			console.log('showinarr',showinarr)
+			showinarr = showinarr.join(';')
+			console.log('showinarr',showinarr)
+	  //更新
+	  data.field.id = id
+	  data.field.title = $('#title').val()
+	  data.field.etitle = $('#etitle').val()
+	  data.field.content = editor1.txt.html()
+	  data.field.econtent = editor2.txt.html()
+	  data.field.showin = showinarr
+	  console.log('update data field',data.field);
+	  $.ajax({
+	  	url:'/spatial/manage/newsedit',
+	  	type:'POST',
+	  	data:data.field,
+	  	dataType : "json",
+	  	success:function(result){
+	  		if(result.code == 0){
+	  			console.log('update success')
+	  			//墨绿深蓝风
+				layer.alert('更新成功', {
+				  skin: 'layui-layer-molv' //样式类名
+				  ,closeBtn: 0
+				}, function(){
+					layer.close(frameindex);
+				});	  			
+	  		}
+	  	},
+	  	error:function(msg){
+	  		console.log('ajax error msg',msg)
+	  	}
+	  })
+	});
+
+   
+	var E = window.wangEditor
+    var editor1 = new E('#content'),
+    	editor2 = new E('#econtent')
+
+    editor1.customConfig.uploadImgServer = '/spatial/manage/newsimgupload'
+    editor2.customConfig.uploadImgServer = '/spatial/manage/newsimgupload'
+
+    editor1.customConfig.showLinkImg = false
+    editor2.customConfig.showLinkImg = false
+
+    editor1.customConfig.uploadFileName = "files"; 
+    editor2.customConfig.uploadFileName = "efiles"; 
+
+    // 将图片大小限制为 4M
+	editor1.customConfig.uploadImgMaxSize = 4 * 1024 * 1024
+	editor2.customConfig.uploadImgMaxSize = 4 * 1024 * 1024
+
+	// editor1.customConfig.uploadImgHeaders = {
+ //            'Accept' : 'multipart/form-data'
+ //    };
+ //    editor2.customConfig.uploadImgHeaders = {
+ //            'Accept' : 'multipart/form-data'
+ //    };
+	// 限制一次最多上传 5 张图片
+	editor1.customConfig.uploadImgMaxLength = 5
+	editor2.customConfig.uploadImgMaxLength = 5
+
+	editor1.customConfig.debug = true; //是否开启Debug 默认为false 建议开启 可以看到错误
+	editor2.customConfig.debug = true;
+
+
+	editor1.customConfig.uploadImgHooks = {
+	    customInsert: function (insertImg, result, editor) {
+	        // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+	        // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+	        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+	        console.log(result,result.data)
+	        let imgobj = []
+	        result.data.forEach(function(item,index){
+	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        })
+	        console.log(imgobj)
+	        insertImg(imgobj)
+	    }
+	}
+	editor2.customConfig.uploadImgHooks = {
+	    customInsert: function (insertImg, result, editor) {
+	        // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+	        // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+	        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+	        console.log(result,result.data)
+	        let imgobj = []
+	        result.data.forEach(function(item,index){
+	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        })
+	        console.log(imgobj)
+	        insertImg(imgobj)
+	    }
+	}
+	
+    // 或者 var editor = new E( document.getElementById('editor') )
+    editor1.create()
+    editor2.create()
+    console.log('<%- JSON.stringify(data).replace(/^\"|\"$/g,'') %>')
+    //初始化表单值
+    $('#title').val('<%- data.title%>')
+    if('<%- data.etitle%>'){
+    	$('#etitle').val('<%- data.etitle%>')
+    }
+    
+    $('#time').val('<%- data.time%>')
+    editor1.txt.html('<%- JSON.stringify(data.content).replace(/^\"|\"$/g,'') %>')
+    editor2.txt.html('<%- JSON.stringify(data.econtent).replace(/^\"|\"$/g,'') %>')
+
+    //初始化复选框
+		    	let showinstr = '<%- data.showin%>'.split(';')
+		    	console.log('showinstr',showinstr)
+		    	$.each(showinstr,function(i,item){
+		    		if(item=='A'){
+		    			$('#AAA').prop('checked',true)
+		    		}
+		    		if(item=='B'){
+		    			$('#BBB').prop('checked',true)
+		    		}
+		    		if(item=='C'){
+		    			$('#CCC').prop('checked',true)
+		    		}
+		    		if(item=='D'){
+		    			$('#DDD').prop('checked',true)
+		    		}
+		    		if(item=='E'){
+		    			$('#EEE').prop('checked',true)
+		    		}
+		    	})
+  				form.render()
+    
+})
+</script>
+</body>
+</html>

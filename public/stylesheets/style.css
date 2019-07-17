@@ -1,0 +1,16 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.grid-demo {
+    padding: 10px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #79C48C;
+    color: #fff;
+}

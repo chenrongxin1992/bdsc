@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>新增用户</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+	.layui-table td, .layui-table th {
+		text-align: center;
+		min-width: 120px;
+	}
+	</style>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote">当前位置：实验室管理 > 发布管理 > 新增用户</blockquote>
+
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">真实姓名</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="name" type="text" class="layui-input" id="name" autocomplete="off" lay-verify="required" >
+		       </div>
+		       <label class="layui-form-label">登录账号</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="account" type="text" class="layui-input" id="account" autocomplete="off" lay-verify="required">
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">登录密码</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input name="password" type="password" class="layui-input" id="password" autocomplete="off" value="111111">
+		       </div>
+		       <div class="layui-form-mid layui-word-aux" id="canreset">默认密码为111111</div>
+		       <div class="layui-input-inline" style="">
+		       		<button class="layui-btn" id="resetbtn">重置密码</button>
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">角色</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		           <input type="checkbox" name="role" title="管理员" lay-skin="primary" value="1" id="checkbox1">
+		           <input type="checkbox" name="role" title="科研人员" lay-skin="primary" value="2" id="checkbox2">
+		       </div>
+			</div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<label class="layui-form-label"></label>
+				<div class="layui-input-inline" style="width: 272px;">
+					<button class="layui-btn layui-btn-sm" lay-filter="update" lay-submit id="btnsave"><i class="layui-icon">&#xe609;</i>保存</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form','upload','layer','laydate'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form,
+    	upload = layui.upload,
+    	layer = layui.layer,
+    	laydate = layui.laydate
+    let id = '<%-data.id%>'
+
+    let checkadmain = '<%-rolename%>'
+		console.log('checkadmain',checkadmain)
+		if(checkadmain=='管理员'){
+			console.log('管理员可以编辑所有')
+		}else{
+			console.log('非管理员只能查看，或者在科研管理中发布自己的')
+			$('#btnsave').addClass('layui-btn-disabled').attr('disabled',"true");
+		}
+
+    if(id==''||id==null||typeof(id)=='undefined'){
+		console.log('新增',id)
+		//初始化选择
+		
+	}else{
+		console.log('编辑',id)
+		$('#name').val('<%-data.name%>')
+		$('#account').val('<%-data.account%>')
+		
+		$('#password').attr('disabled',"true")
+		//初始化checkbox
+		let rolestr = '<%-rolestr%>'.split(',')
+		console.log('rolestr',rolestr)
+		if(rolestr){
+			$.each(rolestr,function(i,item){
+				if(item=='1'){
+					console.log('ddd')
+					//$("checkbox1").attr("checked",'checked')
+					$("#checkbox1").prop("checked", true)
+					form.render()
+				}
+				if(item=='2'){
+					$("#checkbox2").prop("checked", true)
+				}
+			})
+		}
+		form.render()
+	}
+
+	let checkclick = 0
+	$('#resetbtn').on('click',function(){
+		console.log('reset password')
+		checkclick++
+		$('#password').val('111111')
+	})
+    form.on('submit(update)', function(data){
+    	//checkbox
+    	let checkboxstr = ''
+    	 $("input:checkbox[name='role']:checked").each(function(i){
+                console.log('checkbox',$(this).val())
+                checkboxstr += $(this).val() + ';';
+         });
+         console.log('checkboxstr',checkboxstr)
+     	 
+		 data.field.id = id
+		 data.field.password = $('#password').val()//类别
+		 data.field.name = $('#name').val()
+		 data.field.account = $('#account').val()
+	     data.field.rolestr = checkboxstr.substring(0,checkboxstr.length-1)
+	     
+	     console.log('submit data',data)
+	     $.ajax({
+			  	url:'/spatial/manage/yjtdadd',
+			  	type:'POST',
+			  	data:data.field,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('update success')
+			  			//墨绿深蓝风
+						let frameindex = layer.alert('修改成功', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						  ,time : 2000
+						}, function(){
+							layer.close(frameindex);
+						});	  			
+			  		}else{
+			  			let frameindex = layer.alert(result.msg, {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						  ,time : 3000
+						}, function(){
+							layer.close(frameindex);
+						});	
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax error msg',msg)
+			  	}
+			  })
+	     return false
+    })
+});
+</script>
+<script type="text/html" id="pdftpl">
+  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+</script>
+</body>
+</html>

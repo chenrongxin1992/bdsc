@@ -1,0 +1,297 @@
+{
+	"shiyanshiManagement": [
+		{
+			"title": "系统管理",
+			"icon": "&#xe630;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "实验室",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/shiyanshi",
+					"spread": false
+				},
+				{
+					"title": "实验室主任",
+					"icon": "&#xe609;",
+					"href": "/spatial/manage/syszr",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "学术委员会",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/xueshuweiyuanhui",
+					"spread": false
+				},
+				{
+					"title": "研究方向",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/yjfx",
+					"spread": false
+				},
+				{
+					"title": "仪器设备",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/yqsb",
+					"spread": false
+				},
+				{
+					"title": "设备使用情况",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/yqsbuse",
+					"spread": false
+				},
+				{
+					"title": "学术交流",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/xsjl",
+					"spread": false
+				},
+				{
+					"title": "开放基金",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/kfjj",
+					"spread": false
+				},
+				{
+					"title": "成果展示",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/cgzs",
+					"spread": false
+				},
+				{
+					"title": "首页图片",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/sytp",
+					"spread": false
+				},
+				{
+					"title": "研究团队",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/yjtd",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "发布管理",
+			"icon": "&#xe630;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "新闻中心",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/news",
+					"spread": false
+				},
+				{
+					"title": "通知公告",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/tzgg",
+					"spread": false
+				},
+				{
+					"title": "规章制度",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/gzzd",
+					"spread": false
+				},
+				{
+					"title": "最新成果",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/zxcg",
+					"spread": false
+				},
+				{
+					"title": "招聘信息",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/zpxx",
+					"spread": false
+				},
+				{
+					"title": "网站链接",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/wzlj",
+					"spread": false
+				},
+				{
+					"title": "开放基金附件",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/kfjjfj",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "科研管理",
+			"icon": "&#xe630;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "科研项目",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/kyxm",
+					"spread": false
+				},
+				{
+					"title": "期刊论文",
+					"icon": "&#xe609;",
+					"href": "/spatial/manage/qklw",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "会议论文",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/hylw",
+					"spread": false
+				},
+				{
+					"title": "学位论文",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/xwlw",
+					"spread": false
+				},
+				{
+					"title": "专著",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/zz",
+					"spread": false
+				},
+				{
+					"title": "获奖",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/hj",
+					"spread": false
+				},
+				{
+					"title": "专利",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/zl",
+					"spread": false
+				}
+			]
+		}
+	],
+	"keyanManagement": [
+		{
+			"title": "项目管理",
+			"icon": "&#xe630;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "科研项目",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/userkyxm",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "科研成果",
+			"icon": "&#xe630;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "期刊论文",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/userqklw",
+					"spread": false
+				},
+				{
+					"title": "会议论文",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/userhylw",
+					"spread": false
+				},
+				{
+					"title": "学位论文",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/userxwlw",
+					"spread": false
+				},
+				{
+					"title": "专著登记",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/userzzdj",
+					"spread": false
+				},
+				{
+					"title": "获奖登记",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/userhjdj",
+					"spread": false
+				},
+				{
+					"title": "专利登记",
+					"icon": "&#xe61c;",
+					"href": "/spatial/manage/userzldj",
+					"spread": false
+				}
+			]
+		}
+	],
+	"memberCenter": [
+		{
+			"title": "用户中心",
+			"icon": "&#xe612;",
+			"href": "page/user/userList.html",
+			"spread": false
+		},
+		{
+			"title": "会员等级",
+			"icon": "icon-vip",
+			"href": "page/user/userGrade.html",
+			"spread": false
+		}
+	],
+	"systemeSttings": [
+		{
+			"title": "系统基本参数",
+			"icon": "&#xe631;",
+			"href": "page/systemSetting/basicParameter.html",
+			"spread": false
+		},{
+			"title": "系统日志",
+			"icon": "icon-log",
+			"href": "page/systemSetting/logs.html",
+			"spread": false
+		},{
+			"title": "友情链接",
+			"icon": "&#xe64c;",
+			"href": "page/systemSetting/linkList.html",
+			"spread": false
+		},{
+			"title": "图标管理",
+			"icon": "&#xe857;",
+			"href": "page/systemSetting/icons.html",
+			"spread": false
+		}
+	],
+	"seraphApi": [
+		{
+			"title": "三级联动模块",
+			"icon": "icon-mokuai",
+			"href": "page/doc/addressDoc.html",
+			"spread": false
+		},{
+			"title": "bodyTab模块",
+			"icon": "icon-mokuai",
+			"href": "page/doc/bodyTabDoc.html",
+			"spread": false
+		},{
+			"title": "三级菜单",
+			"icon": "icon-mokuai",
+			"href": "page/doc/navDoc.html",
+			"spread": false
+		}
+	]
+}
+
+

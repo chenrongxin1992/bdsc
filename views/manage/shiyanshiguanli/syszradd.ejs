@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>新增实验室主任</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+	.layui-table td, .layui-table th {
+		text-align: center;
+		min-width: 120px;
+	}
+	</style>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote">当前位置：实验室管理 > 系统管理 > 新增实验室主任</blockquote>
+
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+			<div class="layui-form-item">
+				<label class="layui-form-label">姓名</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		          <input type="text" name="name" id="name" class="layui-input" lay-verify="required" placeholder="中文名称">
+		        </div>
+		        <label class="layui-form-label">姓名(EN)</label>
+				<div class="layui-input-inline" style="width: 272px;">
+		          <input type="text" name="ename" id="ename" class="layui-input" lay-verify="required" placeholder="英文名称">
+		        </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">简介</label>
+				<div class="layui-input-block" id="introduction">
+					
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">简介(EN)</label>
+				<div class="layui-input-block" id="eintroduction">
+					
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">图片</label>
+				<button type="button" class="layui-btn" id="test1">上传</button>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label"></label>
+				<div class="layui-upload-list">
+				    <img class="layui-upload-img" id="demo1" style="max-width: 300px;" src="<%-data.photo%>">
+				    <p id="demoText"></p>
+				 </div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label ">显示在</label>
+					<div class="layui-input-block" >
+				      <input type="checkbox" name="showin" value="A" title="AAA" id="AAA">
+				      <input type="checkbox" name="showin" value="B" title="BBB" id="BBB">
+				      <input type="checkbox" name="showin" value="C" title="CCC" id="CCC">
+				      <input type="checkbox" name="showin" value="D" title="DDD" id="DDD">
+				      <input type="checkbox" name="showin" value="E" title="EEE" id="EEE">
+				    </div> 
+	       </div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<label class="layui-form-label"></label>
+				<div class="layui-input-inline" style="width: 272px;">
+					<button class="layui-btn layui-btn-sm" lay-filter="update" lay-submit id="btnsave"><i class="layui-icon">&#xe609;</i>保存</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form','upload','layer'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form,
+    	upload = layui.upload,
+    	layer = layui.layer
+    let id = '<%-data.id%>'
+    if(id==''||id==null||typeof(id)=='undefined'){
+		console.log('新增',id)
+	}else{
+		console.log('编辑',id,'<%-data.eshow%>')
+
+		$('#name').val('<%-data.name%>')
+		$('#ename').val('<%-data.ename%>')
+		$('#tenure').val('<%-data.tenure%>')
+		//初始化复选框
+		    	let showinstr = '<%- data.showin%>'.split(';')
+		    	console.log('showinstr',showinstr)
+		    	$.each(showinstr,function(i,item){
+		    		if(item=='A'){
+		    			$('#AAA').prop('checked',true)
+		    		}
+		    		if(item=='B'){
+		    			$('#BBB').prop('checked',true)
+		    		}
+		    		if(item=='C'){
+		    			$('#CCC').prop('checked',true)
+		    		}
+		    		if(item=='D'){
+		    			$('#DDD').prop('checked',true)
+		    		}
+		    		if(item=='E'){
+		    			$('#EEE').prop('checked',true)
+		    		}
+		    	})
+  				form.render()
+
+	}
+	//图标上传
+	let uploadInst = upload.render({
+	    elem: '#test1'
+	    ,url: '/spatial/manage/syszrupload'
+	    ,before: function(obj){
+	      //预读本地文件示例，不支持ie8
+	      obj.preview(function(index, file, result){
+	        $('#demo1').attr('src', result); //图片链接（base64）
+	      });
+	    }
+	    ,done: function(res){
+	      console.log('upload success',res)
+	      $('#demo1').attr('src', '/spatial'+(res.data)[0])
+	      //上传成功
+	    }
+	    ,error: function(){
+	      //演示失败状态，并实现重传
+	      var demoText = $('#demoText');
+	      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+	      demoText.find('.demo-reload').on('click', function(){
+	        uploadInst.upload();
+	      });
+	    }
+	  });
+
+    form.on('submit(update)', function(data){
+    	//复选框
+            let showinarr = new Array();
+            $("input:checkbox[name='showin']:checked").each(function(i){
+                showinarr.push($(this).val())
+            })
+			console.log('showinarr',showinarr)
+			showinarr = showinarr.join(';')
+			console.log('showinarr',showinarr)
+		 data.field.id = id
+		 data.field.introduction = editor1.txt.html()//类别
+		 data.field.eintroduction = editor2.txt.html()//类别
+		 data.field.name = $('#name').val()
+		 data.field.ename = $('#name').val()
+		 data.field.tenure = $('#tenure').val()
+		 data.field.showin = showinarr
+	     console.log('submit data',data)
+	     $.ajax({
+			  	url:'/spatial/manage/syszradd',
+			  	type:'POST',
+			  	data:data.field,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('update success')
+			  			//墨绿深蓝风
+						let frameindex = layer.alert('保存成功', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						  ,time : 2000
+						}, function(){
+							layer.close(frameindex);
+						});	  			
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax error msg',msg)
+			  	}
+			  })
+	     return false
+    })
+    var E = window.wangEditor
+    var editor1 = new E('#introduction'),
+    	editor2 = new E('#eintroduction')
+    // 或者 var editor = new E( document.getElementById('editor') )
+    editor1.create()
+    editor2.create()
+
+    editor1.txt.html('<%- JSON.stringify(data.introduction).replace(/^\"|\"$/g,'') %>')
+    editor2.txt.html('<%- JSON.stringify(data.eintroduction).replace(/^\"|\"$/g,'') %>')
+});
+</script>
+<script type="text/html" id="pdftpl">
+  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>spatial_lab</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+	.btnfloat{
+			float: right;
+		}
+	</style>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote">实验室信息<div id="btnele" style="display: inline;"><button class="layui-btn layui-btn-sm btnfloat" id="editbtn">编辑</button></div></blockquote>
+	<table class="layui-table" id="shiyanshi">
+	    <tbody>
+	      <tr>
+	        <td style="width:120px;background-color: #009688;color:#fff;text-align: center;">实验室名称</td>
+	        <td><%=shiyanshi.name%></td>
+	      </tr>
+	      <tr>
+	        <td style="width:120px;background-color: #009688;color:#fff;text-align: center;">英文名称</td>
+	        <td><%=shiyanshi.ename%></td>
+	      </tr>
+	      <tr>
+	        <td style="width:120px;background-color: #009688;color:#fff;text-align: center;">创建时间</td>
+	        <td><%=shiyanshi.createtime%></td>
+	      </tr>
+	      <tr>
+	        <td style="width:120px;background-color: #009688;color:#fff;text-align: center;">介绍</td>
+	        <td><%-shiyanshi.description%></td>
+	      </tr>
+	      <tr>
+	        <td style="width:120px;background-color: #009688;color:#fff;text-align: center;">英文介绍</td>
+	        <td><%-shiyanshi.edescription%></td>
+	      </tr>
+	      <tr>
+	        <td style="width:120px;background-color: #009688;color:#fff;text-align: center;">实验室照片</td>
+	        <td><% shiyanshi.picarr.forEach(function(item,index){ %>
+	        	<img src="<%=item%>" style="width:auto;height:auto;max-width:100%;max-height:100%;margin:5px;">
+	        	<% }) %>
+	        </td>
+	      </tr>
+        </tbody>
+  </table>
+
+	<script type="text/javascript" src="../layui/layui.js"></script>
+
+<script type="text/javascript">
+layui.use(['jquery','table','layer'], function(){ 
+    let $ = layui.$ //重点处
+    let layer = layui.layer
+	$('body').on('click', '#editbtn', function() {
+    	//新增
+    	let index = layui.layer.open({
+            title : "编辑实验室",
+            type : 2,
+            content : "sysedit?id=<%-shiyanshi.id%>",
+            success : function(layero, index){
+                var body = layui.layer.getChildFrame('body', index);
+                //console.log('click data --->',data)
+                //body.find('#id').val(data.id)
+                //form.render()
+                //赋值到内容表单
+            }
+        })
+        layui.layer.full(index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        $(window).on("resize",function(){
+            layui.layer.full(index);
+        })
+    })
+})
+</script>
+</body>
+</html>
