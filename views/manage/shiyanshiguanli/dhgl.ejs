@@ -46,8 +46,8 @@ layui.use(['jquery','table','form','treetable'], function(){
                 treeDefaultClose: false,//是否默认折叠
                 treeLinkage: true,//父级展开时是否自动展开所有子级
                 elem: '#permissionTable',
-                url: '/spatial/manage/getallmenu',
-                //url: '/spatial/layui/data.json',
+                url: '/manage/getallmenu',
+                //url: '/layui/data.json',
                 page: false,
                 cols: [[
                     {type: 'numbers', title: '序号'},
@@ -123,7 +123,7 @@ layui.use(['jquery','table','form','treetable'], function(){
 	{{# } }}
 </script>
 <script type="text/html" id="pdftpl">
-  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+  <a href='{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
 </script>
 </body>
 </html>

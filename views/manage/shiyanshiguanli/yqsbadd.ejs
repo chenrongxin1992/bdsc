@@ -145,13 +145,13 @@
 		    	$('#number').val('<%=data.number%>')
 		    	$('#dutyman').val('<%=data.dutyman%>')
 		    	$('#manager').val('<%=data.manager%>')
-		    	$('#demo1').attr('src', '/spatial'+'<%-data.pic%>')
+		    	$('#demo1').attr('src', ''+'<%-data.pic%>')
 					
 		    }
 			
 			let uploadInst = upload.render({
 			    elem: '#test1'
-			    ,url: '/spatial/manage/yqsbupload'
+			    ,url: '/manage/yqsbupload'
 			    ,before: function(obj){
 			      //预读本地文件示例，不支持ie8
 			      obj.preview(function(index, file, result){
@@ -190,7 +190,7 @@
 
 			  console.log('仪器设备 add  data field',data.field);
 			  $.ajax({
-			  	url:'/spatial/manage/yqsbadd',
+			  	url:'/manage/yqsbadd',
 			  	type:'POST',
 			  	data:data.field,
 			  	dataType : "json",
@@ -206,7 +206,7 @@
 						  ,time : 2000
 						}, function(){
 							layer.close(frameindex);
-							//window.location.href = '/spatial/manage/userkyxmadd?id='+result.id
+							//window.location.href = '/manage/userkyxmadd?id='+result.id
 						});	  
 						return false			
 			  		}

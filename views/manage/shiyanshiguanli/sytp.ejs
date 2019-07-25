@@ -44,7 +44,7 @@ layui.use(['jquery','table','form'], function(){
 	    elem: '#sytp_table'
 	    ,id:'table_sytp'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-	    ,url: '/spatial/manage/sytp_data' //数据接口
+	    ,url: '/manage/sytp_data' //数据接口
 	    ,page: true //开启分页
 	    ,cols: [[ //表头
 	      {field: 'id', title: '序号',width:90,align:'center'}
@@ -112,7 +112,7 @@ layui.use(['jquery','table','form'], function(){
 	      layer.close(index);
 	      //向服务端发送删除指令
 	       $.ajax({
-			  	url:'/spatial/manage/sytpdel',
+			  	url:'/manage/sytpdel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -148,12 +148,12 @@ layui.use(['jquery','table','form'], function(){
 	  	}
 	  }else if(layEvent === 'preview'){
 	  	console.log('preview')
-	  	let src = '/spatial'+ data.pic
+	  	let src = ''+ data.pic
 	  	layer.photos({ photos: {"data": [{"src": src}]} });
 	  	// let index = layui.layer.open({
     //         title : "图片",
     //         type : 2,
-    //         content : "/spatial"+data.pic,
+    //         content : ""+data.pic,
     //         success : function(layero, index){
     //         }
     //     })
@@ -172,10 +172,10 @@ layui.use(['jquery','table','form'], function(){
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script type="text/html" id="pdftpl">
-  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+  <a href='{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
 </script>
 <script type="text/html" id="sytpimg">
-	<img src="/spatial{{d.pic}}" style="height: 100px;max-width: 100%;" class="previewimg" />
+	<img src="{{d.pic}}" style="height: 100px;max-width: 100%;" class="previewimg" />
 </script>
 </body>
 </html>

@@ -7,7 +7,7 @@
     const mongoose = require('mongoose')
     mongoose.Promise = global.Promise;
     //服务器上
-    const DB_URL = 'mongodb://spatial_lab:youtrytry@localhost:27017/spatial_lab'
+    const DB_URL = 'mongodb://bdsc:youtrytry@localhost:27017/bdsc'
     //本地
     //const DB_URL = 'mongodb://localhost:27017/dxxxhjs'
     mongoose.connect(DB_URL,{useNewUrlParser:true})
@@ -258,6 +258,7 @@ var newsSchema = new Schema({
     etitle : {type:String},
     econtent : {type:String},
     pageview : {type:String},
+    defaultimg : {type:String,default:null},//默认图片
     eshow : {type:Number,default:0},//英文时是否显示，0不显示，1显示
     showin : {type:String,default:'A'}//显示在哪些页面(A,B,C,D,E)
 },{collection:'news'})
@@ -287,6 +288,17 @@ var regulationsSchema = new Schema({
     pdfname : {type:String},
     showin : {type:String,default:'A'}//显示在哪些页面(A,B,C,D,E)
 },{collection:'regulations'})
+
+//新增一个科研成果
+var bdsc_kycgSchema = new Schema({
+    id : {type:Number},
+    title : {type:String},
+    content : {type:String},
+    time : {type:String},
+    //pdf : {type:String},
+    //pdfname : {type:String},
+    showin : {type:String,default:'A'}//显示在哪些页面(A,B,C,D,E)
+},{collection:'bdsc_kycg'})
 
 //最新成果
 var index_achievementSchema = new Schema({
@@ -561,3 +573,4 @@ exports.equipment = mongoose.model('equipment',equipmentSchema)
 exports.equipment_use = mongoose.model('equipment_use',equipment_useSchema)
 exports.fundopen = mongoose.model('fundopen',fundopenSchema)
 exports.menu = mongoose.model('menu',menuSchema)
+exports.bdsc_kycg = mongoose.model('bdsc_kycg',bdsc_kycgSchema)

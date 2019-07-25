@@ -116,7 +116,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	//拖拽上传
 	upload.render({
 	    elem: '#tzggupload'
-	    ,url: '/spatial/manage/tzggupload'
+	    ,url: '/manage/tzggupload'
 	    ,accept : 'file'
 	    ,multiple: true
 	    ,before:function(obj){
@@ -211,7 +211,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	  data.field.showin = showinarr
 	  console.log('update data field',data.field);
 	  $.ajax({
-	  	url:'/spatial/manage/tzggedit',
+	  	url:'/manage/tzggedit',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",
@@ -239,8 +239,8 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
     var editor1 = new E('#content'),
     	editor2 = new E('#econtent')
 
-    editor1.customConfig.uploadImgServer = '/spatial/manage/tzggimgupload'
-    editor2.customConfig.uploadImgServer = '/spatial/manage/tzggimgupload'
+    editor1.customConfig.uploadImgServer = '/manage/tzggimgupload'
+    editor2.customConfig.uploadImgServer = '/manage/tzggimgupload'
 
     editor1.customConfig.showLinkImg = false
     editor2.customConfig.showLinkImg = false
@@ -275,7 +275,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://bdsc.szu.edu.cn'+item)
 	        })
 	        console.log(imgobj)
 	        insertImg(imgobj)
@@ -290,7 +290,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://bdsc.szu.edu.cn'+item)
 	        })
 	        console.log(imgobj)
 	        insertImg(imgobj)

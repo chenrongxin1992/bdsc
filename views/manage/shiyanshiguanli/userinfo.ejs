@@ -159,7 +159,7 @@ layui.use(['jquery','layer','upload','form'], function(){
     	$('#uploadarea').append(uploadbtn)
     	let uploadInst  = upload.render({
 		    elem: '#uploadbtn'
-		    ,url: '/spatial/manage/userimgupload'
+		    ,url: '/manage/userimgupload'
 		    , accept: 'images'
 		    ,size: 1024 //限制文件大小，单位 KB
 		    ,before: function(obj){
@@ -174,7 +174,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 		        return layer.msg('上传失败');
 		      }else{
 		      	console.log('userimg',res.data)
-		      	$('#userimg').attr('src','/spatial'+res.data)
+		      	$('#userimg').attr('src',''+res.data)
 		      }
 		      //上传成功
 		    }
@@ -200,7 +200,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 		console.log('savebtn')
 		console.log($('#gender option:selected').val(),$('#degree option:selected').val())
 		$.ajax({
-			url:'/spatial/manage/userinfo',
+			url:'/manage/userinfo',
 			type:'post',
 			dataType : "json",
 			data:{

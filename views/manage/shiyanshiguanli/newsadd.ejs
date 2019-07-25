@@ -56,10 +56,11 @@
 				<label class="layui-form-label ">显示在</label>
 					<div class="layui-input-block" >
 				      <input type="checkbox" name="showin" value="A" title="AAA" id="AAA">
-				      <input type="checkbox" name="showin" value="B" title="BBB" id="BBB">
-				      <input type="checkbox" name="showin" value="C" title="CCC" id="CCC">
-				      <input type="checkbox" name="showin" value="D" title="DDD" id="DDD">
-				      <input type="checkbox" name="showin" value="E" title="EEE" id="EEE">
+				      <input type="checkbox" name="showin" value="B" title="组织架构" id="BBB">
+				      <input type="checkbox" name="showin" value="C" title="理事会" id="CCC">
+				      <input type="checkbox" name="showin" value="D" title="实验室领导" id="DDD">
+				      <input type="checkbox" name="showin" value="E" title="技术委员会" id="EEE">
+				      <input type="checkbox" name="showin" value="F" title="学术活动" id="FFF">
 				    </div> 
 	       </div>
 
@@ -103,9 +104,10 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	  data.field.content = editor1.txt.html()
 	  data.field.econtent = editor2.txt.html()
 	  data.field.showin = showinarr
+	  data.field.defaultimg = defaultimg
 	  console.log('news add  data field',data.field);
 	  $.ajax({
-	  	url:'/spatial/manage/newsadd',
+	  	url:'/manage/newsadd',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",
@@ -113,7 +115,7 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	  		if(result.code == 0){
 	  			console.log('update success')
 	  			//墨绿深蓝风
-				layer.alert('新增成功', {
+				let frameindex = layer.alert('新增成功', {
 				  skin: 'layui-layer-molv' //样式类名
 				  ,closeBtn: 0
 				}, function(){
@@ -132,8 +134,8 @@ layui.use(['jquery','layer','form','laydate'], function(){
     var editor1 = new E('#content'),
     	editor2 = new E('#econtent')
 
-    editor1.customConfig.uploadImgServer = '/spatial/manage/newsimgupload'
-    editor2.customConfig.uploadImgServer = '/spatial/manage/newsimgupload'
+    editor1.customConfig.uploadImgServer = '/manage/newsimgupload'
+    editor2.customConfig.uploadImgServer = '/manage/newsimgupload'
 
     editor1.customConfig.showLinkImg = false
     editor2.customConfig.showLinkImg = false
@@ -151,7 +153,7 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	editor1.customConfig.debug = true; //是否开启Debug 默认为false 建议开启 可以看到错误
 	editor2.customConfig.debug = true;
 
-
+	let defaultimg = ''
 	editor1.customConfig.uploadImgHooks = {
 	    customInsert: function (insertImg, result, editor) {
 	        // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
@@ -161,8 +163,9 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://bdsc.szu.edu.cn'+item)
 	        })
+	        defaultimg = (result.data)[0]
 	        console.log(imgobj)
 	        insertImg(imgobj)
 	    }
@@ -176,7 +179,7 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://bdsc.szu.edu.cn'+item)
 	        })
 	        console.log(imgobj)
 	        insertImg(imgobj)

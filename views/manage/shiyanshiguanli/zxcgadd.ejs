@@ -106,7 +106,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 		console.log('编辑',id)
 		$('#type').val('<%-data.tname%>')
 		$('#eshow').val('<%-data.eshow%>')
-		$('#demo1').attr('src', '/spatial'+'<%-data.pic%>')
+		$('#demo1').attr('src', ''+'<%-data.pic%>')
 		//初始化复选框
 		    	let showinstr = '<%- data.showin%>'.split(';')
 		    	console.log('showinstr',showinstr)
@@ -129,7 +129,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 		    	})
   				form.render()
 		$.ajax({
-			url:'/spatial/manage/getcg'
+			url:'/manage/getcg'
 			,method:'post'
 			,data:{'tname':'<%-data.tname%>'}
 			,dataType:'json'
@@ -153,7 +153,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 			return false
 		}
 		$.ajax({
-			url:'/spatial/manage/getcg'
+			url:'/manage/getcg'
 			,method:'post'
 			,data:{'tname':data.value}
 			,dataType:'json'
@@ -176,7 +176,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 		console.log('删除id',delid)
 		$(this).closest('tr').remove()
 		$.ajax({
-			url:'/spatial/manage/kfjjfjdel',
+			url:'/manage/kfjjfjdel',
 			method:'post',
 			data:{id:delid},
 			dataType : "json",
@@ -198,7 +198,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 	})
 	let uploadInst = upload.render({
 	    elem: '#test1'
-	    ,url: '/spatial/manage/zxcgupload'
+	    ,url: '/manage/zxcgupload'
 	    ,before: function(obj){
 	      //预读本地文件示例，不支持ie8
 	      obj.preview(function(index, file, result){
@@ -236,7 +236,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 	     data.field.showin = showinarr
 	     console.log('submit data',data)
 	     $.ajax({
-			  	url:'/spatial/manage/zxcgadd',
+			  	url:'/manage/zxcgadd',
 			  	type:'POST',
 			  	data:data.field,
 			  	dataType : "json",
@@ -262,7 +262,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 });
 </script>
 <script type="text/html" id="pdftpl">
-  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+  <a href='{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
 </script>
 </body>
 </html>

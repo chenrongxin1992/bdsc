@@ -205,7 +205,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 
 	  console.log('学术交流 add  data field',data.field);
 	  $.ajax({
-	  	url:'/spatial/manage/xsjledit',
+	  	url:'/manage/xsjledit',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",
@@ -232,8 +232,8 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	var E = window.wangEditor
     var editor1 = new E('#intro'),editor2 = new E('#eintro')
     editor1.customConfig.zIndex = 100
-    editor1.customConfig.uploadImgServer = '/spatial/manage/xsjlimgupload'
-    editor2.customConfig.uploadImgServer = '/spatial/manage/xsjlimgupload'
+    editor1.customConfig.uploadImgServer = '/manage/xsjlimgupload'
+    editor2.customConfig.uploadImgServer = '/manage/xsjlimgupload'
 
     editor1.customConfig.showLinkImg = false
     editor2.customConfig.showLinkImg = false
@@ -259,7 +259,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://bdsc.szu.edu.cn'+item)
 	        })
 	        console.log(imgobj)
 	        insertImg(imgobj)
@@ -275,7 +275,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://bdsc.szu.edu.cn'+item)
 	        })
 	        console.log(imgobj)
 	        insertImg(imgobj)

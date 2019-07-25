@@ -210,7 +210,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 
 	  console.log('学术交流 add  data field',data.field);
 	  $.ajax({
-	  	url:'/spatial/manage/xsjladd',
+	  	url:'/manage/xsjladd',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",
@@ -218,7 +218,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	  		if(result.code == 0){
 	  			console.log('update success')
 	  			//墨绿深蓝风
-				layer.alert('新增成功', {
+				let frameindex = layer.alert('新增成功', {
 				  skin: 'layui-layer-molv' //样式类名
 				  ,closeBtn: 0
 				}, function(){
@@ -236,8 +236,8 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	var E = window.wangEditor
     var editor1 = new E('#intro'),editor2 = new E('#eintro')
     editor1.customConfig.zIndex = 100
-    editor1.customConfig.uploadImgServer = '/spatial/manage/xsjlimgupload'
-    editor2.customConfig.uploadImgServer = '/spatial/manage/xsjlimgupload'
+    editor1.customConfig.uploadImgServer = '/manage/xsjlimgupload'
+    editor2.customConfig.uploadImgServer = '/manage/xsjlimgupload'
 
     editor1.customConfig.showLinkImg = false
     editor2.customConfig.showLinkImg = false
@@ -245,7 +245,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
     editor1.customConfig.uploadFileName = "files"; 
     editor2.customConfig.uploadFileName = "files"; 
     // 将图片大小限制为 4M
-	editor1.customConfig.uploadImgMaxSize = 4 * 1024 * 1024
+	//editor1.customConfig.uploadImgMaxSize = 4 * 1024 * 1024
 	editor2.customConfig.uploadImgMaxSize = 4 * 1024 * 1024
 
 	editor1.customConfig.uploadImgMaxLength = 5
@@ -263,7 +263,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://bdsc.szu.edu.cn'+item)
 	        })
 	        console.log(imgobj)
 	        insertImg(imgobj)
@@ -279,7 +279,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://bdsc.szu.edu.cn'+item)
 	        })
 	        console.log(imgobj)
 	        insertImg(imgobj)

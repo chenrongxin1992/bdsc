@@ -6,11 +6,11 @@ const async = require('async')
 const fs = require('fs')
 
 //这是给图片上传的路径
-const uploadDir = path.resolve(__dirname, '../../public/images/attachment')//G:\spatial_lab\public\images\attachment
+const uploadDir = path.resolve(__dirname, '../../public/images/attachment')//G:\bdsc\public\images\attachment
 fs.existsSync(uploadDir) || fs.mkdirSync(uploadDir)
 
 //这是给附件的上传路径
-const attachmentuploaddir = path.resolve(__dirname, '../../public/attachment')//G:\spatial_lab\public\attachment
+const attachmentuploaddir = path.resolve(__dirname, '../../public/attachment')//G:\bdsc\public\attachment
 fs.existsSync(attachmentuploaddir) || fs.mkdirSync(attachmentuploaddir)
 
 const multiparty = require('multiparty')
@@ -54,6 +54,8 @@ const yqsb = require('../../db/db_structure').equipment//仪器设备
 const yqsb_use = require('../../db/db_structure').equipment_use//仪器设备
 const kfjj = require('../../db/db_structure').fundopen
 const menu = require('../../db/db_structure').menu
+
+const bdsc_kycg = require('../../db/db_structure').bdsc_kycg
 
 const mysql = require('mysql')
 
@@ -157,7 +159,7 @@ router.get('/login',function(req,res){
 }).post('/userimgupload',function(req,res){
 	console.log('userimgupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\userimg')
-	let userimg = attachmentuploaddir + '\\userimg'//G:\spatial_lab\public\attachment\indexpic
+	let userimg = attachmentuploaddir + '\\userimg'//G:\bdsc\public\attachment\indexpic
 	fs.existsSync(userimg) || fs.mkdirSync(userimg)
 	console.log('userinfo img dir ',userimg)
 	let form = new multiparty.Form();
@@ -288,7 +290,7 @@ router.get('/shiyanshi',function(req,res){
 }).post('/sysupload',function(req,res){
 	console.log('sysupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\shiyanshi')
-	let shiyanshidir = attachmentuploaddir + '\\shiyanshi'//G:\spatial_lab\public\attachment\shiyanshi
+	let shiyanshidir = attachmentuploaddir + '\\shiyanshi'//G:\bdsc\public\attachment\shiyanshi
 	fs.existsSync(shiyanshidir) || fs.mkdirSync(shiyanshidir)
 	console.log('shiyanshidir dir ',shiyanshidir)
 	let form = new multiparty.Form();
@@ -989,7 +991,7 @@ router.get('/yqsb',function(req,res){
 }).post('/yqsbupload',function(req,res){
 	console.log('yqsbupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\yqsb')
-	let yqsbdir = attachmentuploaddir + '\\yqsb'//G:\spatial_lab\public\attachment\gzzdpdf
+	let yqsbdir = attachmentuploaddir + '\\yqsb'//G:\bdsc\public\attachment\gzzdpdf
 	fs.existsSync(yqsbdir) || fs.mkdirSync(yqsbdir)
 	console.log('yqsbdir dir ',yqsbdir)
 	let form = new multiparty.Form();
@@ -2259,7 +2261,7 @@ router.get('/xsjl',function(req,res){
 	res.render('manage/shiyanshiguanli/xsjladd')
 }).post('/xsjlimgupload',function(req,res){
 	console.log(uploadDir,uploadDir + '\\xsjl')
-	let xsjlimgdir = uploadDir + '\\xsjl'//G:\spatial_lab\public\images\attachment\xsjl
+	let xsjlimgdir = uploadDir + '\\xsjl'//G:\bdsc\public\images\attachment\xsjl
 	fs.existsSync(xsjlimgdir) || fs.mkdirSync(xsjlimgdir)
 	console.log('xsjl img dir ',xsjlimgdir)
 	let form = new multiparty.Form();
@@ -2515,7 +2517,7 @@ router.get('/cgzs',function(req,res){
 }).post('/cgzsupload',function(req,res){
 	console.log('cgzsupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\cgzs')
-	let cgzsdir = attachmentuploaddir + '\\cgzs'//G:\spatial_lab\public\attachment\gzzdpdf
+	let cgzsdir = attachmentuploaddir + '\\cgzs'//G:\bdsc\public\attachment\gzzdpdf
 	fs.existsSync(cgzsdir) || fs.mkdirSync(cgzsdir)
 	console.log('cgzsdir dir ',cgzsdir)
 	let form = new multiparty.Form();
@@ -2656,7 +2658,7 @@ router.get('/sytp',function(req,res){
 }).post('/sytpupload',function(req,res){
 	console.log('sytpupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\indexpic')
-	let sytpdir = attachmentuploaddir + '\\indexpic'//G:\spatial_lab\public\attachment\indexpic
+	let sytpdir = attachmentuploaddir + '\\indexpic'//G:\bdsc\public\attachment\indexpic
 	fs.existsSync(sytpdir) || fs.mkdirSync(sytpdir)
 	console.log('tzgg img dir ',sytpdir)
 	let form = new multiparty.Form();
@@ -2825,7 +2827,7 @@ router.get('/news',function(req,res){
 		})
 }).post('/newsimgupload',function(req,res){
 	console.log(uploadDir,uploadDir + '\\news')
-	let newsimgdir = uploadDir + '\\news'//G:\spatial_lab\public\images\attachment\news
+	let newsimgdir = uploadDir + '\\news'//G:\bdsc\public\images\attachment\news
 	fs.existsSync(newsimgdir) || fs.mkdirSync(newsimgdir)
 	console.log('news img dir ',newsimgdir)
 	let form = new multiparty.Form();
@@ -2860,7 +2862,7 @@ router.get('/news',function(req,res){
 }).post('/newsedit',function(req,res){
 	console.log('newsedit post')
 	console.log('content',req.body)
-	news.updateOne({'id':req.body.id},{'title':req.body.title,'etitle':req.body.etitle,'content':req.body.content,'econtent':req.body.econtent,'showin':req.body.showin},function(error){
+	news.updateOne({'id':req.body.id},{'title':req.body.title,'etitle':req.body.etitle,'content':req.body.content,'econtent':req.body.econtent,'showin':req.body.showin,'defaultimg':req.body.defaultimg},function(error){
 		if(error){
 			console.log('newsedit error',error)
 			res.json({'code':-1,'msg':error})
@@ -2892,7 +2894,8 @@ router.get('/news',function(req,res){
 				time : req.body.time,
 				content : req.body.content,
 				econtent : req.body.econtent,
-				showin:req.body.showin
+				showin:req.body.showin,
+				defaultimg:req.body.defaultimg
 			})
 			newsadd.save(function(err,doc){
 				if(err){
@@ -3002,7 +3005,7 @@ router.get('/tzgg',function(req,res){
 	res.render('manage/shiyanshiguanli/tzggadd')
 }).post('/tzggimgupload',function(req,res){
 	console.log(uploadDir,uploadDir + '\\tzgg')
-	let tzggimgdir = uploadDir + '\\tzgg'//G:\spatial_lab\public\images\attachment\tzgg
+	let tzggimgdir = uploadDir + '\\tzgg'//G:\bdsc\public\images\attachment\tzgg
 	fs.existsSync(tzggimgdir) || fs.mkdirSync(tzggimgdir)
 	console.log('tzgg img dir ',tzggimgdir)
 	let form = new multiparty.Form();
@@ -3037,7 +3040,7 @@ router.get('/tzgg',function(req,res){
 }).post('/tzggupload',function(req,res){//附件上传
 	console.log('tzggupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\tzgg')
-	let tzggdir = attachmentuploaddir + '\\tzgg'//G:\spatial_lab\public\attachment\tzgg
+	let tzggdir = attachmentuploaddir + '\\tzgg'//G:\bdsc\public\attachment\tzgg
 	fs.existsSync(tzggdir) || fs.mkdirSync(tzggdir)
 	console.log('tzgg img dir ',tzggdir)
 	let form = new multiparty.Form();
@@ -3196,7 +3199,7 @@ router.get('/gzzd',function(req,res){
 							cb(error)
 						}
 						//获取搜索参数的记录总数
-						tzgg.count(_filter,function(err,count_search){
+						gzzd.count(_filter,function(err,count_search){
 							if(err){
 								console.log('gzzd_data count_search err',err)
 								cb(err)
@@ -3241,7 +3244,7 @@ router.get('/gzzd',function(req,res){
 }).post('/gzzdupload',function(req,res){
 	console.log('gzzdupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\gzzdpdf')
-	let gzzddir = attachmentuploaddir + '\\gzzdpdf'//G:\spatial_lab\public\attachment\gzzdpdf
+	let gzzddir = attachmentuploaddir + '\\gzzdpdf'//G:\bdsc\public\attachment\gzzdpdf
 	fs.existsSync(gzzddir) || fs.mkdirSync(gzzddir)
 	console.log('gzzd img dir ',gzzddir)
 	let form = new multiparty.Form();
@@ -3333,6 +3336,193 @@ router.get('/gzzd',function(req,res){
 		res.json({'code':0,'msg':'update success'})
 	})
 })
+
+//新增科研成果bdsc
+router.get('/bdsc_kycg',function(req,res){
+	console.log('返回 bdsc_kycg 页面')
+	res.render('manage/shiyanshiguanli/bdsc_kycg')
+}).get('/bdsc_kycg_data',function(req,res){
+	console.log('router bdsc_kycg')
+	let page = req.query.page,
+		limit = req.query.limit,
+		search_txt = req.query.search_txt
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = bdsc_kycg.find({}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('bdsc_kycg get total err',err)
+						cb(err)
+					}
+					console.log('bdsc_kycg count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+			if(search_txt){
+				console.log('带搜索参数',search_txt)
+				let _filter = {
+					$or:[
+						{title:{$regex:search_txt,$options:'$i'}},//忽略大小写
+						{content:{$regex:search_txt,$options:'$i'}}
+					]
+				}
+				console.log('_filter',_filter)
+				let search = bdsc_kycg.find(_filter)
+					search.sort({'time':-1})//正序
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('bdsc_kycg error',error)
+							cb(error)
+						}
+						//获取搜索参数的记录总数
+						bdsc_kycg.count(_filter,function(err,count_search){
+							if(err){
+								console.log('bdsc_kycg count_search err',err)
+								cb(err)
+							}
+							console.log('搜索到记录数',count_search)
+							total = count_search
+							cb(null,docs)
+						})
+					})
+			}else{
+				console.log('不带搜索参数')
+				let search = bdsc_kycg.find({})
+					search.sort({'time':-1})//正序
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('bdsc_kycg error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})
+			}
+		}
+	],function(error,result){
+		if(error){
+			console.log('bdsc_kycg async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('bdsc_kycg async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).post('/bdsc_kycgdel',function(req,res){
+	console.log('gzzd del')
+	bdsc_kycg.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('bdsc_kycg del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del bdsc_kycg success'})
+	})
+}).post('/bdsc_kycgadd',function(req,res){
+	let search = bdsc_kycg.findOne({})
+		search.sort({'id':-1})//倒序，取最大值
+		search.limit(1)
+		search.exec(function(error,doc){
+			if(error){
+				console.log('bdsc_kycgadd error',error)
+				return res.json({'code':-1,'msg':error})
+			}
+			let id = 0
+			if(doc){
+				id = parseInt(doc.id) + 1
+			}
+			console.log('最大id',id)
+			//console.log(req.body.patharr)
+			let bdsc_kycgadd = new bdsc_kycg({
+				id : id,
+				title : req.body.title,
+				content : req.body.content,
+				time:req.body.time,
+				//pdf : req.body.patharr,
+				//pdfname : req.body.namearr,
+				showin:req.body.showin
+			})
+			bdsc_kycgadd.save(function(err,doc){
+				if(err){
+					console.log('bdsc_kycgadd save err',err)
+					return res.json({'code':-1,'msg':err})
+				}
+				console.log('save success',doc)
+				return res.json({'code':0,'msg':'bdsc_kycg save success'})
+			})
+		})
+}).get('/bdsc_kycgadd',function(req,res){
+	console.log('bdsc_kycg add')
+	res.render('manage/shiyanshiguanli/bdsc_kycgadd')
+}).get('/bdsc_kycgedit',function(req,res){
+	console.log('返回bdsc_kycgedit页面',req.query.id)
+	let id = req.query.id
+	let search = bdsc_kycg.findOne({'id':id})
+		search.exec(function(error,doc){
+			if(error){
+				console.log('bdsc_kycgedit error',error)
+				return res.json({'error':error})
+			}
+			console.log('type of doc',typeof(doc),doc)
+			res.render('manage/shiyanshiguanli/bdsc_kycgedit',{'data':doc})
+		})
+}).post('/bdsc_kycgedit',function(req,res){
+	console.log('bdsc_kycgedit post')
+	console.log('content',req.body,req.body.patharr,typeof(req.body.patharr))
+	bdsc_kycg.updateOne({'id':req.body.id},{'title':req.body.title,'content':req.body.content,'time':req.body.time,'showin':req.body.showin},function(error){
+		if(error){
+			console.log('bdsc_kycgedit error',error)
+			res.json({'code':-1,'msg':error})
+		}
+		console.log('bdsc_kycgedit success')
+		res.json({'code':0,'msg':'update success'})
+	})
+}).post('/bdsc_kycgimgupload',function(req,res){
+	console.log(uploadDir,uploadDir + '\\bdsc_kycg')
+	let bdsc_kycgimgdir = uploadDir + '\\news'//G:\bdsc\public\images\attachment\bdsc_kycg
+	fs.existsSync(bdsc_kycgimgdir) || fs.mkdirSync(bdsc_kycgimgdir)
+	console.log('news img dir ',bdsc_kycgimgdir)
+	let form = new multiparty.Form();
+    //设置编码
+    form.encoding = 'utf-8';
+    //设置文件存储路径
+    form.uploadDir = bdsc_kycgimgdir
+    console.log('form.uploadDir-->',form.uploadDir)
+    let baseimgpath = bdsc_kycgimgdir.split('\\')
+    	baseimgpath.shift()
+    	baseimgpath.shift()
+    	baseimgpath.shift()
+    	baseimgpath = baseimgpath.join('/')
+    	console.log('baseimgpath',baseimgpath)
+    form.parse(req, function(err, fields, files) {
+    	if(err){
+    		console.log('newsimgupload parse err',err.stack)
+    	}
+    	console.log('fields->',fields)
+    	console.log('files->',files)
+    	console.log('files length->',files.files.length)
+    	let uploadfiles =  files.files
+    	let returnimgurl = []
+    	uploadfiles.forEach(function(item,index){
+    		console.log('读取文件路径-->',item.path,bdsc_kycgimgdir+'\\'+item.originalFilename)
+    		returnimgurl.push('/'+baseimgpath+'/'+item.originalFilename)///images/attachment/news/84f1914cedd048ad90eeaaefc25c7be9.jpeg
+			fs.renameSync(item.path,bdsc_kycgimgdir+'\\'+item.originalFilename);
+    	})
+    	console.log('returnimgurl',returnimgurl)
+    	return res.json({"errno":0,"data":returnimgurl})
+    })
+})
+
 
 //实验室管理tab/发布管理/最新成果
 router.get('/zxcg',function(req,res){
@@ -3533,7 +3723,7 @@ router.get('/zxcg',function(req,res){
 }).post('/zxcgupload',function(req,res){
 	console.log('zxcgupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\zxcg')
-	let zxcgdir = attachmentuploaddir + '\\zxcg'//G:\spatial_lab\public\attachment\gzzdpdf
+	let zxcgdir = attachmentuploaddir + '\\zxcg'//G:\bdsc\public\attachment\gzzdpdf
 	fs.existsSync(zxcgdir) || fs.mkdirSync(zxcgdir)
 	console.log('zxcgdir dir ',zxcgdir)
 	let form = new multiparty.Form();
@@ -3787,7 +3977,7 @@ router.get('/wzlj',function(req,res){
 }).post('/wzljupload',function(req,res){
 	console.log('wzljupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\wzlj')
-	let wzljdir = attachmentuploaddir + '\\wzlj'//G:\spatial_lab\public\attachment\gzzdpdf
+	let wzljdir = attachmentuploaddir + '\\wzlj'//G:\bdsc\public\attachment\gzzdpdf
 	fs.existsSync(wzljdir) || fs.mkdirSync(wzljdir)
 	console.log('wzljdir dir ',wzljdir)
 	let form = new multiparty.Form();
@@ -4090,7 +4280,7 @@ router.get('/kfjjfj',function(req,res){
 }).post('/kfjjfjupload',function(req,res){
 	console.log('kfjjfjupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\kaifangjijin')
-	let kaifangjijindir = attachmentuploaddir + '\\kaifangjijin'//G:\spatial_lab\public\attachment\gzzdpdf
+	let kaifangjijindir = attachmentuploaddir + '\\kaifangjijin'//G:\bdsc\public\attachment\gzzdpdf
 	fs.existsSync(kaifangjijindir) || fs.mkdirSync(kaifangjijindir)
 	console.log('kaifangjijindir  dir ',kaifangjijindir)
 	let form = new multiparty.Form();
@@ -7660,7 +7850,7 @@ router.get('/userzzdj',function(req,res){
 }).post('/userzzupload',function(req,res){
 	console.log('userzzupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\zhuanzhu')
-	let zhuanzhudir = attachmentuploaddir + '\\zhuanzhu'//G:\spatial_lab\public\attachment\gzzdpdf
+	let zhuanzhudir = attachmentuploaddir + '\\zhuanzhu'//G:\bdsc\public\attachment\gzzdpdf
 	fs.existsSync(zhuanzhudir) || fs.mkdirSync(zhuanzhudir)
 	console.log('zhuanzhudir img dir ',zhuanzhudir)
 	let form = new multiparty.Form();

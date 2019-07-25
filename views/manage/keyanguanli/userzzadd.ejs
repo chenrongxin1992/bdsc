@@ -262,7 +262,7 @@
 		    //执行实例
 			  let uploadInst = upload.render({
 			    elem: '#upload' //绑定元素
-			    ,url: '/spatial/manage/userzzupload' //上传接口
+			    ,url: '/manage/userzzupload' //上传接口
 			     ,type: 'iamges' //上传接口
 			    ,done: function(res){
 			      //上传完毕回调
@@ -270,7 +270,7 @@
 			      if($('#uploadimg').children().length!=0){
 			      	$('#uploadimg').children().remove()
 			      }
-			      let str = "<img src=/spatial"+(res.data)[0]+" alt="+(res.returnfilename)[0]+" style='max-width:200px;' title="+(res.returnfilename)[0]+" name="+(res.data)[0]+"> <img src='/spatial/images/button-del.png' class='delete' />"
+			      let str = "<img src="+(res.data)[0]+" alt="+(res.returnfilename)[0]+" style='max-width:200px;' title="+(res.returnfilename)[0]+" name="+(res.data)[0]+"> <img src='/images/button-del.png' class='delete' />"
 			      $('#uploadimg').append(str)
 			    }
 			    ,error: function(){
@@ -322,7 +322,7 @@
   				form.render()
 		    	//select
 		    	//初始化封面
-		    	let imgstr = "<img src=/spatial"+'<%-data.pic%>'+ " style='max-width:200px;' name='<%-data.pic%>'> <img src='/spatial/images/button-del.png' class='delete' />"
+		    	let imgstr = "<img src="+'<%-data.pic%>'+ " style='max-width:200px;' name='<%-data.pic%>'> <img src='/images/button-del.png' class='delete' />"
 		    	console.log('imgstr',imgstr)
 		    	$('#uploadimg').append(imgstr)
 		    	console.log('imgstr',$('#uploadimg'))
@@ -349,7 +349,7 @@
   					})
   				//初始化关联项目
 				$.ajax({
-					url:'/spatial/manage/getglxmfun',//可共用
+					url:'/manage/getglxmfun',//可共用
 					type:'post',
 					data:{'relid':id,'tname':'periodical_article'},
 					success:function(result){
@@ -469,7 +469,7 @@
 				  area: ['700px', '450px'],
 				  fixed: false, //不固定
 				  maxmin: true,
-				  content: '/spatial/manage/glxm'//可共用
+				  content: '/manage/glxm'//可共用
 				});
 			})
 		    
@@ -505,7 +505,7 @@
 			  //return false
 			  console.log('专著登记 add  data field',data.field);
 			  $.ajax({
-			  	url:'/spatial/manage/userzzadd',
+			  	url:'/manage/userzzadd',
 			  	type:'POST',
 			  	data:data.field,
 			  	dataType : "json",

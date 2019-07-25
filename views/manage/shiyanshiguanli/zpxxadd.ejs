@@ -137,7 +137,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 
 	  console.log('news add  data field',data.field);
 	  $.ajax({
-	  	url:'/spatial/manage/zpxxadd',
+	  	url:'/manage/zpxxadd',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",
@@ -163,8 +163,8 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	var E = window.wangEditor
     var editor1 = new E('#content'),editor2 = new E('#econtent')
     editor1.customConfig.zIndex = 100
-    editor1.customConfig.uploadImgServer = '/spatial/manage/zpxximgupload'
-    editor2.customConfig.uploadImgServer = '/spatial/manage/zpxximgupload'
+    editor1.customConfig.uploadImgServer = '/manage/zpxximgupload'
+    editor2.customConfig.uploadImgServer = '/manage/zpxximgupload'
 
     editor1.customConfig.showLinkImg = false
     editor2.customConfig.showLinkImg = false
@@ -190,7 +190,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://116.13.96.53:81'+item)
 	        })
 	        console.log(imgobj)
 	        insertImg(imgobj)
@@ -206,7 +206,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://116.13.96.53:81'+item)
 	        })
 	        console.log(imgobj)
 	        insertImg(imgobj)

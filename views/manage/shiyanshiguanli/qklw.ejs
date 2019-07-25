@@ -43,7 +43,7 @@ layui.use(['jquery','table','form'], function(){
 	    elem: '#qklw_table'
 	    ,id:'table_qklw'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-	    ,url: '/spatial/manage/qklw_data' //数据接口
+	    ,url: '/manage/qklw_data' //数据接口
 	    ,page: true //开启分页
 	    ,cols: [[ //表头
 	      {field: 'id', title: '序号',width:90,align:'center'}
@@ -67,7 +67,7 @@ layui.use(['jquery','table','form'], function(){
     $('#downexcel').on('click', function(){
     	//do somehing
     	console.log('导出excel')
-    	window.location.href = '/spatial/manage/qklwdown';
+    	window.location.href = '/manage/qklwdown';
     })
     //监听工具条
 	table.on('tool(qklw_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -103,7 +103,7 @@ layui.use(['jquery','table','form'], function(){
 	      layer.close(index);
 	      //向服务端发送删除指令
 	       $.ajax({
-			  	url:'/spatial/manage/qklwdel',
+			  	url:'/manage/qklwdel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -130,7 +130,7 @@ layui.use(['jquery','table','form'], function(){
 	{{# } }}
 </script>
 <script type="text/html" id="pdftpl">
-  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+  <a href='{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
 </script>
 </body>
 </html>

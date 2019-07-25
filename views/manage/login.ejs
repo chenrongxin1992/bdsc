@@ -20,7 +20,7 @@
     <div id="mydiv">
         <div class="login-main">
             <div class="layui-elip">login&nbsp;<span class="version">v1.0.0</span></div>
-            <form class="layui-form" action="/spatial/manage/login">
+            <form class="layui-form" action="/manage/login">
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
                         <label for="username">用户名</label>
@@ -54,7 +54,7 @@
 
             $.ajax({
                 type:"get",
-                url: "/spatial/manage/vcode",
+                url: "/manage/vcode",
                 data: {　　    　  
                     size: 4,  //验证码长度
                     width: 130,
@@ -84,7 +84,7 @@
                         icon: 1,
                         time: 1000
                     }, function() {
-                        window.location.href = '/spatial/manage/index';
+                        window.location.href = '/manage/index';
                     });
                 } else {
                     layer.msg(data.msg, { icon: 5 });
@@ -115,7 +115,7 @@
         $("#verify").click(function() {
             $.ajax({
                 type:"get",
-                url: "/spatial/manage/vcode",
+                url: "/manage/vcode",
                 data: {　　    　  
                     size: 4,  //验证码长度
                     width: 130,

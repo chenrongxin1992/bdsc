@@ -98,7 +98,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 		console.log('删除id',delid)
 		$(this).closest('tr').remove()
 		$.ajax({
-			url:'/spatial/manage/kfjjfjdel',
+			url:'/manage/kfjjfjdel',
 			method:'post',
 			data:{id:delid},
 			dataType : "json",
@@ -120,7 +120,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 	})
     let uploadInst = upload.render({
 			elem: '#kfjjfjupload' //绑定元素
-			,url: '/spatial/manage/kfjjfjupload' //上传接口
+			,url: '/manage/kfjjfjupload' //上传接口
 			,type: 'file' //上传接口
 			,auto: false
 			,bindAction: '#test9'
@@ -143,7 +143,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 						  '</tr>'
 				$(str).appendTo($('#zuozhetable tbody:last'))
 				$.ajax({
-					url:'/spatial/manage/kfjjfjadd',
+					url:'/manage/kfjjfjadd',
 					method:'post',
 					data:{type:type,url:(res.data)[0],name:(res.returnfilename)[0]},
 					dataType : "json",
@@ -163,7 +163,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 });
 </script>
 <script type="text/html" id="pdftpl">
-  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+  <a href='{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
 </script>
 </body>
 </html>

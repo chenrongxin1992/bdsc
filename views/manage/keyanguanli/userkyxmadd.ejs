@@ -263,7 +263,7 @@
 
 				//初始化关联项目
 				$.ajax({
-					url:'/spatial/manage/glcginit',
+					url:'/manage/glcginit',
 					type:'post',
 					data:{'relid':id,'tname':'project_achievement'},
 					success:function(result){
@@ -310,7 +310,7 @@
 				  area: ['700px', '450px'],
 				  fixed: false, //不固定
 				  maxmin: true,
-				  content: '/spatial/manage/userkyxmglxm'
+				  content: '/manage/userkyxmglxm'
 				});
 			})
 		    
@@ -348,7 +348,7 @@
 
 			  console.log('用户新增项目 add  data field',data.field);
 			  $.ajax({
-			  	url:'/spatial/manage/userkyxmadd',
+			  	url:'/manage/userkyxmadd',
 			  	type:'POST',
 			  	data:data.field,
 			  	dataType : "json",
@@ -362,7 +362,7 @@
 						  ,time : 2000
 						}, function(){
 							layer.close(frameindex);
-							//window.location.href = '/spatial/manage/userkyxmadd?id='+result.id
+							//window.location.href = '/manage/userkyxmadd?id='+result.id
 						});	  			
 			  		}
 			  	},

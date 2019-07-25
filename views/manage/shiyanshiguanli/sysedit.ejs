@@ -69,7 +69,7 @@
 			    <div id="sysimg">
 					<% data.picarr.forEach(function(item,index){ %>		
 					<div class="layui-input-block" id="uploadimg">
-		        		<img src="<%=item%>" style="width:300px;margin-top: 15px;"><img src='/spatial/images/button-del.png' class='delete' />
+		        		<img src="<%=item%>" style="width:300px;margin-top: 15px;"><img src='/images/button-del.png' class='delete' />
 		        	</div>		        	
 		        	<% }) %>
 		        </div>
@@ -105,7 +105,7 @@ layui.use(['jquery','layer','form','layedit','laydate','upload'], function(){
     let upload = layui.upload
     let uploadInst = upload.render({
 			    elem: '#upload' //绑定元素
-			    ,url: '/spatial/manage/sysupload' //上传接口
+			    ,url: '/manage/sysupload' //上传接口
 			     ,type: 'iamges' //上传接口
 			    ,done: function(res){
 			      //上传完毕回调
@@ -113,7 +113,7 @@ layui.use(['jquery','layer','form','layedit','laydate','upload'], function(){
 			      // if($('#uploadimg').children().length!=0){
 			      // 	$('#uploadimg').children().remove()
 			      // }
-			      let str = "<div class='layui-input-block' id='uploadimg'><img src=/spatial"+(res.data)[0]+" alt="+(res.returnfilename)[0]+" style='width:300px;margin-top:15px;' title="+(res.returnfilename)[0]+" name="+(res.data)[0]+"> <img src='/spatial/images/button-del.png' class='delete' /></div>"
+			      let str = "<div class='layui-input-block' id='uploadimg'><img src="+(res.data)[0]+" alt="+(res.returnfilename)[0]+" style='width:300px;margin-top:15px;' title="+(res.returnfilename)[0]+" name="+(res.data)[0]+"> <img src='/images/button-del.png' class='delete' /></div>"
 			      $('#sysimg').append(str)
 			    }
 			    ,error: function(){
@@ -152,7 +152,7 @@ layui.use(['jquery','layer','form','layedit','laydate','upload'], function(){
 	  data.field.pic = allpic
 	  console.log('data',data)
 	  $.ajax({
-	  	url:'/spatial/manage/sysedit',
+	  	url:'/manage/sysedit',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",

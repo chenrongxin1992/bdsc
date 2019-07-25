@@ -43,7 +43,7 @@ layui.use(['jquery','table','form'], function(){
 	    elem: '#kyxm_table'
 	    ,id:'table_kyxm'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-	    ,url: '/spatial/manage/kyxm_data' //数据接口
+	    ,url: '/manage/kyxm_data' //数据接口
 	    ,page: true //开启分页
 	    ,cols: [[ //表头
 	      {field: 'id', title: '序号',width:90,align:'center'}
@@ -68,7 +68,7 @@ layui.use(['jquery','table','form'], function(){
     $('#downexcel').on('click', function(){
     	//do somehing
     	console.log('导出excel')
-    	window.location.href = '/spatial/manage/kyxmdown';
+    	window.location.href = '/manage/kyxmdown';
 	    // let index = layui.layer.open({
      //        title : "查看 | 编辑",
      //        type : 2,
@@ -116,7 +116,7 @@ layui.use(['jquery','table','form'], function(){
 	      layer.close(index);
 	      //向服务端发送删除指令
 	       $.ajax({
-			  	url:'/spatial/manage/kyxmdel',
+			  	url:'/manage/kyxmdel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -143,7 +143,7 @@ layui.use(['jquery','table','form'], function(){
 	{{# } }}
 </script>
 <script type="text/html" id="pdftpl">
-  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+  <a href='{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
 </script>
 </body>
 </html>

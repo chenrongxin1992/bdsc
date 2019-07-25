@@ -126,7 +126,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 	//图标上传
 	let uploadInst = upload.render({
 	    elem: '#test1'
-	    ,url: '/spatial/manage/syszrupload'
+	    ,url: '/manage/syszrupload'
 	    ,before: function(obj){
 	      //预读本地文件示例，不支持ie8
 	      obj.preview(function(index, file, result){
@@ -135,7 +135,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 	    }
 	    ,done: function(res){
 	      console.log('upload success',res)
-	      $('#demo1').attr('src', '/spatial'+(res.data)[0])
+	      $('#demo1').attr('src', ''+(res.data)[0])
 	      //上传成功
 	    }
 	    ,error: function(){
@@ -166,7 +166,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 		 data.field.showin = showinarr
 	     console.log('submit data',data)
 	     $.ajax({
-			  	url:'/spatial/manage/syszradd',
+			  	url:'/manage/syszradd',
 			  	type:'POST',
 			  	data:data.field,
 			  	dataType : "json",
@@ -201,7 +201,7 @@ layui.use(['jquery','table','form','upload','layer'], function(){
 });
 </script>
 <script type="text/html" id="pdftpl">
-  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+  <a href='{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
 </script>
 </body>
 </html>

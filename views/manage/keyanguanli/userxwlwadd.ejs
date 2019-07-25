@@ -315,7 +315,7 @@
   					relevancename = ('<%-data.relevancename%>').split(';')
   				if(manarr.length==0){
   					$.ajax({
-						url:'/spatial/manage/getAllResUser',//可共用
+						url:'/manage/getAllResUser',//可共用
 						type:'get',
 						success:function(result){
 						  		console.log('relevance',result,typeof(result))
@@ -365,7 +365,7 @@
 				if(zuozhearr.length==0){
 					console.log('dddddddddddddddd')
 					$.ajax({
-						url:'/spatial/manage/getAllResUser',//可共用
+						url:'/manage/getAllResUser',//可共用
 						type:'get',
 						success:function(result){
 						  		console.log('zuozhe',result,typeof(result))
@@ -433,7 +433,7 @@
   					})
 				//初始化关联项目
 				$.ajax({
-					url:'/spatial/manage/getglxmfun',//可共用
+					url:'/manage/getglxmfun',//可共用
 					type:'post',
 					data:{'relid':id,'tname':'patent'},
 					success:function(result){
@@ -478,7 +478,7 @@
 		    	if(manarr.length==0){
 		    		console.log('首次请求')
 		    		$.ajax({
-						url:'/spatial/manage/getAllResUser',
+						url:'/manage/getAllResUser',
 					  	type:'get',
 					  	success:function(result){
 					  		console.log(result,typeof(result))
@@ -509,7 +509,7 @@
 		    	if(manarr.length==0){
 		    		console.log('首次请求')
 		    		$.ajax({
-						url:'/spatial/manage/getAllResUser',
+						url:'/manage/getAllResUser',
 					  	type:'get',
 					  	success:function(result){
 					  		console.log(result,typeof(result))
@@ -563,7 +563,7 @@
 				  area: ['700px', '450px'],
 				  fixed: false, //不固定
 				  maxmin: true,
-				  content: '/spatial/manage/glxm'//可共用
+				  content: '/manage/glxm'//可共用
 				});
 			})
 		    
@@ -599,7 +599,7 @@
 
 			  console.log('获奖登记 add  data field',data.field);
 			  $.ajax({
-			  	url:'/spatial/manage/userxwlwadd',
+			  	url:'/manage/userxwlwadd',
 			  	type:'POST',
 			  	data:data.field,
 			  	dataType : "json",

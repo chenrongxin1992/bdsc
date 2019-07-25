@@ -90,7 +90,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	let filelist = []
 	upload.render({
 	    elem: '#gzzdupload'
-	    ,url: '/spatial/manage/gzzdupload'
+	    ,url: '/manage/gzzdupload'
 	    ,accept : 'file'
 	    ,multiple: true
 	    ,before:function(obj){
@@ -161,7 +161,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	  data.field.showin = showinarr
 	  console.log('news add  data field',data.field);
 	  $.ajax({
-	  	url:'/spatial/manage/gzzdadd',
+	  	url:'/manage/gzzdadd',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",
@@ -187,7 +187,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	var E = window.wangEditor
     var editor1 = new E('#content')
 
-    editor1.customConfig.uploadImgServer = '/spatial/manage/gzzdimgupload'
+    editor1.customConfig.uploadImgServer = '/manage/gzzdimgupload'
 
     editor1.customConfig.showLinkImg = false
 
@@ -208,7 +208,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	        console.log(result,result.data)
 	        let imgobj = []
 	        result.data.forEach(function(item,index){
-	        	imgobj.push('http://116.13.96.53:81/spatial'+item)
+	        	imgobj.push('http://116.13.96.53:81'+item)
 	        })
 	        console.log(imgobj)
 	        insertImg(imgobj)

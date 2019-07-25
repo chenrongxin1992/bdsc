@@ -87,7 +87,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 		console.log('新增',id)
 		//初始化选择
 		$.ajax({
-			url:'/spatial/manage/getallequi',
+			url:'/manage/getallequi',
 			method:'get',
 			success:function(result){
 				console.log('result',result)
@@ -103,7 +103,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 			}
 		})
 		$.ajax({
-			url:'/spatial/manage/getAllResUser',
+			url:'/manage/getAllResUser',
 			method:'get',
 			success:function(result){
 				console.log('result',result)
@@ -120,7 +120,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 	}else{
 		console.log('编辑',id)
 		$.ajax({
-			url:'/spatial/manage/getallequi',
+			url:'/manage/getallequi',
 			method:'get',
 			success:function(result){
 				console.log('result',result)
@@ -137,7 +137,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 			}
 		})
 		$.ajax({
-			url:'/spatial/manage/getAllResUser',
+			url:'/manage/getAllResUser',
 			method:'get',
 			success:function(result){
 				console.log('result',result)
@@ -166,7 +166,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 	     data.field.equid = $('#equipmentname option:selected').val()
 	     console.log('submit data',data)
 	     $.ajax({
-			  	url:'/spatial/manage/yqsbuseadd',
+			  	url:'/manage/yqsbuseadd',
 			  	type:'POST',
 			  	data:data.field,
 			  	dataType : "json",
@@ -192,7 +192,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 });
 </script>
 <script type="text/html" id="pdftpl">
-  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+  <a href='{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
 </script>
 </body>
 </html>

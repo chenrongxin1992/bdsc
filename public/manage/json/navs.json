@@ -9,68 +9,68 @@
 				{
 					"title": "实验室",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/shiyanshi",
+					"href": "/manage/shiyanshi",
 					"spread": false
 				},
 				{
 					"title": "实验室主任",
 					"icon": "&#xe609;",
-					"href": "/spatial/manage/syszr",
+					"href": "/manage/syszr",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "学术委员会",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/xueshuweiyuanhui",
+					"href": "/manage/xueshuweiyuanhui",
 					"spread": false
 				},
 				{
 					"title": "研究方向",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/yjfx",
+					"href": "/manage/yjfx",
 					"spread": false
 				},
 				{
 					"title": "仪器设备",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/yqsb",
+					"href": "/manage/yqsb",
 					"spread": false
 				},
 				{
 					"title": "设备使用情况",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/yqsbuse",
+					"href": "/manage/yqsbuse",
 					"spread": false
 				},
 				{
 					"title": "学术交流",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/xsjl",
+					"href": "/manage/xsjl",
 					"spread": false
 				},
 				{
 					"title": "开放基金",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/kfjj",
+					"href": "/manage/kfjj",
 					"spread": false
 				},
 				{
 					"title": "成果展示",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/cgzs",
+					"href": "/manage/cgzs",
 					"spread": false
 				},
 				{
 					"title": "首页图片",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/sytp",
+					"href": "/manage/sytp",
 					"spread": false
 				},
 				{
 					"title": "研究团队",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/yjtd",
+					"href": "/manage/yjtd",
 					"spread": false
 				}
 			]
@@ -84,43 +84,49 @@
 				{
 					"title": "新闻中心",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/news",
+					"href": "/manage/news",
 					"spread": false
 				},
 				{
 					"title": "通知公告",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/tzgg",
+					"href": "/manage/tzgg",
 					"spread": false
 				},
 				{
 					"title": "规章制度",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/gzzd",
+					"href": "/manage/gzzd",
+					"spread": false
+				},
+				{
+					"title": "科研成果",
+					"icon": "&#xe61c;",
+					"href": "/manage/bdsc_kycg",
 					"spread": false
 				},
 				{
 					"title": "最新成果",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/zxcg",
+					"href": "/manage/zxcg",
 					"spread": false
 				},
 				{
 					"title": "招聘信息",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/zpxx",
+					"href": "/manage/zpxx",
 					"spread": false
 				},
 				{
 					"title": "网站链接",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/wzlj",
+					"href": "/manage/wzlj",
 					"spread": false
 				},
 				{
 					"title": "开放基金附件",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/kfjjfj",
+					"href": "/manage/kfjjfj",
 					"spread": false
 				}
 			]
@@ -134,44 +140,44 @@
 				{
 					"title": "科研项目",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/kyxm",
+					"href": "/manage/kyxm",
 					"spread": false
 				},
 				{
 					"title": "期刊论文",
 					"icon": "&#xe609;",
-					"href": "/spatial/manage/qklw",
+					"href": "/manage/qklw",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "会议论文",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/hylw",
+					"href": "/manage/hylw",
 					"spread": false
 				},
 				{
 					"title": "学位论文",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/xwlw",
+					"href": "/manage/xwlw",
 					"spread": false
 				},
 				{
 					"title": "专著",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/zz",
+					"href": "/manage/zz",
 					"spread": false
 				},
 				{
 					"title": "获奖",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/hj",
+					"href": "/manage/hj",
 					"spread": false
 				},
 				{
 					"title": "专利",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/zl",
+					"href": "/manage/zl",
 					"spread": false
 				}
 			]
@@ -187,7 +193,7 @@
 				{
 					"title": "科研项目",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/userkyxm",
+					"href": "/manage/userkyxm",
 					"spread": false
 				}
 			]
@@ -201,37 +207,37 @@
 				{
 					"title": "期刊论文",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/userqklw",
+					"href": "/manage/userqklw",
 					"spread": false
 				},
 				{
 					"title": "会议论文",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/userhylw",
+					"href": "/manage/userhylw",
 					"spread": false
 				},
 				{
 					"title": "学位论文",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/userxwlw",
+					"href": "/manage/userxwlw",
 					"spread": false
 				},
 				{
 					"title": "专著登记",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/userzzdj",
+					"href": "/manage/userzzdj",
 					"spread": false
 				},
 				{
 					"title": "获奖登记",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/userhjdj",
+					"href": "/manage/userhjdj",
 					"spread": false
 				},
 				{
 					"title": "专利登记",
 					"icon": "&#xe61c;",
-					"href": "/spatial/manage/userzldj",
+					"href": "/manage/userzldj",
 					"spread": false
 				}
 			]

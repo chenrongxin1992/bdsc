@@ -83,7 +83,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	let filelist = []
 	upload.render({
 	    elem: '#gzzdupload'
-	    ,url: '/spatial/manage/sytpupload'
+	    ,url: '/manage/sytpupload'
 	    ,accept : 'images'
 	    ,multiple: false
 	    ,before:function(obj){
@@ -155,7 +155,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	  data.field.showin = showinarr
 	  console.log('news add  data field',data.field);
 	  $.ajax({
-	  	url:'/spatial/manage/sytpadd',
+	  	url:'/manage/sytpadd',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",
@@ -163,7 +163,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	  		if(result.code == 0){
 	  			console.log('update success')
 	  			//墨绿深蓝风
-				layer.alert('新增成功', {
+				let frameindex = layer.alert('新增成功', {
 				  skin: 'layui-layer-molv' //样式类名
 				  ,closeBtn: 0
 				}, function(){

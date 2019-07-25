@@ -74,12 +74,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ 
     resave: true, //是指每次请求都重新设置session cookie，假设你的cookie是6000毫秒过期，每次请求都会再设置6000毫秒
     saveUninitialized: false, // 是指无论有没有session cookie，每次请求都设置个session cookie ，默认给个标示为 connect.sid。
-    secret: 'spatial',
+    secret: 'bdsc',
     cookie:{ 
         maxAge: 6* 60 * 60 * 1000//60分钟有效期
         //expires : new Date(Date.now() + 7200000)//默认是UTC时间，Date.now()获取当前时间的时间戳，输出是毫秒。
     },
-    store:new MongoStore({url: 'mongodb://spatial_lab:youtrytry@localhost:27017/spatial_lab'})
+    store:new MongoStore({url: 'mongodb://bdsc:youtrytry@localhost:27017/bdsc'})
 }));
 
 app.use(function(req,res,next){ 
@@ -112,7 +112,7 @@ app.use('/manage',function(req,res,next){
   }else{
     if(req.session.account==''||req.session.account==null){
         console.log('no login redirect')
-        return res.redirect('/spatial/manage/login')
+        return res.redirect('/manage/login')
     }else{
       next()
     }

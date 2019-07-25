@@ -233,7 +233,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 	     data.field.showin = showinarr
 	     console.log('submit data',data)
 	     $.ajax({
-			  	url:'/spatial/manage/kfjjadd',
+			  	url:'/manage/kfjjadd',
 			  	type:'POST',
 			  	data:data.field,
 			  	dataType : "json",
@@ -259,7 +259,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 });
 </script>
 <script type="text/html" id="pdftpl">
-  <a href='/spatial{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
+  <a href='{{d.pdf}}' class="layui-table-link">{{d.pdfname}}</a>
 </script>
 </body>
 </html>

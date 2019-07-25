@@ -36,7 +36,7 @@ layui.use(['jquery','table','form'], function(){
 	    elem: '#yqsbuse_table'
 	    ,id:'table_yqsbuse'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-	    ,url: '/spatial/manage/yqsbuse_data' //数据接口
+	    ,url: '/manage/yqsbuse_data' //数据接口
 	    ,page: true //开启分页
 	    ,cols: [[ //表头
 	      {type: 'numbers', title: '序号',width:90,fixed: 'left',align:'center'}
@@ -104,7 +104,7 @@ layui.use(['jquery','table','form'], function(){
 	      layer.close(index);
 	      //向服务端发送删除指令
 	       $.ajax({
-			  	url:'/spatial/manage/yqsbusedel',
+			  	url:'/manage/yqsbusedel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",

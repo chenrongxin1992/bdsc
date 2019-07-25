@@ -367,7 +367,7 @@
   				let relevance = ('<%-data.relevance%>').split(';'),
   					relevancename = ('<%-data.relevancename%>').split(';')
   				$.ajax({
-					url:'/spatial/manage/getAllResUser',
+					url:'/manage/getAllResUser',
 					type:'get',
 					success:function(result){
 					  		console.log(result,typeof(result))
@@ -395,7 +395,7 @@
 				})	
 				//初始化关联项目
 				$.ajax({
-					url:'/spatial/manage/getrelevancepro',
+					url:'/manage/getrelevancepro',
 					type:'post',
 					data:{'relid':id,'tname':'periodical_article'},
 					success:function(result){
@@ -493,7 +493,7 @@
 		    	if(manarr.length==0){
 		    		console.log('首次请求')
 		    		$.ajax({
-						url:'/spatial/manage/getAllResUser',
+						url:'/manage/getAllResUser',
 					  	type:'get',
 					  	success:function(result){
 					  		console.log(result,typeof(result))
@@ -541,7 +541,7 @@
 				  area: ['700px', '450px'],
 				  fixed: false, //不固定
 				  maxmin: true,
-				  content: '/spatial/manage/qklwglxm'
+				  content: '/manage/qklwglxm'
 				});
 			})
 		    
@@ -580,7 +580,7 @@
 
 			  console.log('期刊论文 add  data field',data.field);
 			  $.ajax({
-			  	url:'/spatial/manage/qklwadd',
+			  	url:'/manage/qklwadd',
 			  	type:'POST',
 			  	data:data.field,
 			  	dataType : "json",
