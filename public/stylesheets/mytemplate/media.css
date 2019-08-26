@@ -352,7 +352,7 @@
 @media screen and (max-width: 400px) {
 	.botlinks .links-wrap { display:block; float:none; margin:9px auto;}	
 	.wp-container3 .modl { width:auto;}
-	.post-news .news-item .meta-title {width: 80%;}
+	.post-news .news-item .meta-title {width: 70%;}
 	.news_con {
     float: left;
     width: 75%;
