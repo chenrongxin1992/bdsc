@@ -10,6 +10,7 @@
 <meta name="description" content="大数据系统计算技术国家工程实验室" >
 <script type="text/javascript" src="./javascripts/mytemplate//extends.js"></script>
 <link rel="stylesheet" href="./stylesheets/mytemplate/uikit.min.css" type="text/css"/>
+<link rel="stylesheet" href="./stylesheets/mytemplate/slideshow.css" type="text/css"/>
 <link rel="stylesheet" href="./stylesheets/mytemplate/style.css" type="text/css" />
 <link rel="stylesheet" href="./stylesheets/mytemplate/mobile.css" type="text/css"/>
 <link rel="stylesheet" href="./stylesheets/mytemplate/media.css" type="text/css"/>
@@ -150,6 +151,15 @@
     font-weight: 400;
     color: #ffffff;
 }
+@media screen and (min-width: 900px) {
+    .mycontent{
+        width:1140px;
+        height:450px;
+        margin:00px auto;
+        overflow:hidden;
+    }
+}
+
 </style>
 <!--[if lt IE 9]>
 <script src="extends/libs/html5.js"></script>
@@ -255,13 +265,18 @@
 <div class="wrapper mbanner" id="banner">
 	<div class="inner clearfix">
 		<div frag="">
-            <div class="content" style="width:1140px;height:450px;margin:00px auto;overflow:hidden;">
-                <div id="myslider">
-                    <% indexpic.forEach(function(item){%>
-                    <a href="#"><img src="<%=item.pic%>"/><div class="vui-slide-mask"></div><div class="vui-slide-text"><div class="text"><%=item.describe%></div></div></a>
-                    <%})%>
-
-                </div>
+            <div class="content mycontent" style="">
+                
+                <ul class="uk-slideshow uk-overlay-active" data-uk-slideshow="{autoplay:true,animation: 'random-fx'}" style="height: 450px;">
+                 <% indexpic.forEach(function(item){%>
+                    <li>
+                        <img src="<%=item.pic%>" width="" height="450px" alt="">
+                        <div class="uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-overlay-slide-bottom">
+                            <h3 style="font-size: 20px;"><%=item.describe%></h3>
+                        </div>
+                    </li>
+                 <%})%>
+                </ul>
             </div>
 			
 		</div>
@@ -601,7 +616,7 @@
 <script type="text/javascript" src="./javascripts/mytemplate/app.js"></script>
 <script type="text/javascript" src="./javascripts/mytemplate/uikit.min.js"></script>
 <script type="text/javascript" src="./javascripts/mytemplate/slideshow.min.js"></script>
-<script type="text/javascript" src="./javascripts/mytemplate/vmc.slider.full.min.js"></script>
+<script type="text/javascript" src="./javascripts/mytemplate/slideshow-fx.js"></script>
 <script type="text/javascript">
 $(function(){
 	// 初始化SDAPP
@@ -611,25 +626,25 @@ $(function(){
 		}
 	});
 
-    $('#myslider').vmcSlider({
-                width: 1140,
-                height: 450,
-                gridCol: 10,
-                gridRow: 5,
-                gridVertical: 20,
-                gridHorizontal: 10,
-                autoPlay: true,
-                ascending: true,
-                effects: [
-                    'fade', 'fadeLeft', 'fadeRight', 'fadeTop', 'fadeBottom', 'fadeTopLeft', 'fadeBottomRight',
-                    'blindsLeft', 'blindsRight', 'blindsTop', 'blindsBottom', 'blindsTopLeft', 'blindsBottomRight',
-                    'curtainLeft', 'curtainRight', 'interlaceLeft', 'interlaceRight', 'mosaic', 'bomb', 'fumes'
-                ],
-                ie6Tidy: false,
-                random: false,
-                duration: 3500,
-                speed: 1000
-            });
+    // $('#myslider').vmcSlider({
+    //             width: 1140,
+    //             height: 450,
+    //             gridCol: 10,
+    //             gridRow: 5,
+    //             gridVertical: 20,
+    //             gridHorizontal: 10,
+    //             autoPlay: true,
+    //             ascending: true,
+    //             effects: [
+    //                 'fade', 'fadeLeft', 'fadeRight', 'fadeTop', 'fadeBottom', 'fadeTopLeft', 'fadeBottomRight',
+    //                 'blindsLeft', 'blindsRight', 'blindsTop', 'blindsBottom', 'blindsTopLeft', 'blindsBottomRight',
+    //                 'curtainLeft', 'curtainRight', 'interlaceLeft', 'interlaceRight', 'mosaic', 'bomb', 'fumes'
+    //             ],
+    //             ie6Tidy: false,
+    //             random: false,
+    //             duration: 3500,
+    //             speed: 1000
+    //         });
 
 });
 </script>
