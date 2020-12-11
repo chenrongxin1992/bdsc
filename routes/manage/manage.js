@@ -2895,8 +2895,9 @@ router.get('/news',function(req,res){
 				content : req.body.content,
 				econtent : req.body.econtent,
 				showin:req.body.showin,
-				defaultimg:req.body.defaultimg
+				defaultimg:getImgSrc(req.body.content)
 			})
+			
 			newsadd.save(function(err,doc){
 				if(err){
 					console.log('newsadd save err',err)
@@ -2917,7 +2918,29 @@ router.get('/news',function(req,res){
 		return res.json({'code':'0','msg':'del news success'})
 	})
 })
-
+function getImgSrc(str){
+	//匹配并获取第一张图片座位封面，若没有图片，使用默认图 /attachment/ueditor_images/BDSC.jpg
+			let imgReg = /<img.*?(?:>|\/>)/gi //匹配图片中的img标签
+          	let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i // 匹配图片中的src
+          	let arr = str.match(imgReg)  //筛选出所有的img
+          	let srcArr = []
+          	console.log('check arr----->',arr)
+          	if(arr){
+          		for (let i = 0; i < 1; i++) {
+		            let src = arr[i].match(srcReg)
+		            // 获取图片地址
+		            srcArr.push(src[1])
+	       		 }
+          	}else{
+          		srcArr[0] = '/attachment/ueditor_images/BDSC.jpg'
+          	}
+	        
+	        if(typeof(srcArr[0])=='undefined'||srcArr[0]==''){
+	        	srcArr[0] = '/attachment/ueditor_images/BDSC.jpg'
+	        }
+	        console.log('check defaultimg---->',srcArr)
+	        return srcArr[0]
+}
 //实验室管理tab/发布管理/通知公告
 router.get('/tzgg',function(req,res){
 	console.log('返回notice页面')
@@ -3086,7 +3109,7 @@ router.get('/tzgg',function(req,res){
 			if(doc){
 				id = parseInt(doc.id) + 1
 			}
-			console.log('最大id',doc.id)
+			//console.log('最大id',doc.id)
 			console.log(req.body.patharr)
 			let tzggadd = new tzgg({
 				id : id,

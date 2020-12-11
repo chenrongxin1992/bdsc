@@ -153,12 +153,16 @@
 }
 @media screen and (min-width: 900px) {
     .mycontent{
-        width:1140px;
+        width:1150px;
         height:450px;
         margin:00px auto;
         overflow:hidden;
     }
 }
+.navi-aside-toggle{
+    display: none!important;
+}
+
 
 </style>
 <!--[if lt IE 9]>
@@ -170,7 +174,7 @@
 <div class="wrapper header" id="header">
 	<div class="inner">
 		<div class="mod clearfix">
-			<a class="navi-aside-toggle"></a>
+			<!-- <a class="navi-aside-toggle"></a> -->
 			<div class="head-left" frag="">
 				<!--logo开始-->
 				<div class="sitelogo" frag="" portletmode="simpleSiteAttri">
@@ -272,7 +276,7 @@
                     <li>
                         <img src="<%=item.pic%>" width="" height="450px" alt="">
                         <div class="uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-overlay-slide-bottom">
-                            <h3 style="font-size: 20px;"><%=item.describe%></h3>
+                            <a class="slider_a"><h3 style="font-size: 22px;"><%=item.describe%></h3></a>
                         </div>
                     </li>
                  <%})%>
@@ -412,7 +416,7 @@
                                 </div> 
 
                                 <div class="tabmore">
-                                    <span frag="按钮" type=""><a href="" class="w8_more"><span frag="">更多&gt;</span></a></span> 
+                                    <span frag="按钮" type=""><a href="/yjpt" class="w8_more"><span frag="">更多&gt;</span></a></span> 
                                 </div>
                             </div>
                         </div>
@@ -427,7 +431,7 @@
                         <ul class="tab-menu clearfix">
                             <li>
                                 <h3 class="post-title">
-                                    <a href="">通知公告 </a>
+                                    <a href="/tzgg">通知公告 </a>
                                 </h3>
                             </li>
                         </ul>
@@ -447,9 +451,10 @@
                                             </div>
                                             <div class="news_con">
                                                 <div class="news_title">
-                                                    <a href='' target='_blank' title='' alt=''><%=item.title%></a>
+                                                    <a href='/tzggdetail?id=<%=item.id%>' target='_blank' title='' alt=''><%=item.title%></a>
                                                 </div>
                                                 <div class="news_text">
+                                                    <%-item.content%>
                                                     <!-- 发布部门：教务处 -->
                                                 </div>
                                             </div>
@@ -498,7 +503,7 @@
                                 </div> 
 
                                 <div class="tabmore">
-                                    <span frag="按钮" type="更多"><a href="" class="w9_more"><span frag="按钮内容">更多&gt;</span></a></span> 
+                                    <span frag="按钮" type="更多"><a href="/tzgg" class="w9_more"><span frag="按钮内容">更多&gt;</span></a></span> 
                                 </div>
                             </div>
                         </div>

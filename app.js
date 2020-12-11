@@ -13,6 +13,7 @@ var users = require('./routes/users');
 
 //后台路由
 var manage = require('./routes/manage/manage');//后台管理路由
+const ueditor = require('./routes/ueditor/ueditor');
 
 //日志
 var FileStreamRotator = require('file-stream-rotator')
@@ -119,7 +120,7 @@ app.use('/manage',function(req,res,next){
   }
 })
 app.use('/manage', manage);//后台路由
-
+app.use('/ueditor', ueditor);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

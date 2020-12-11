@@ -40,15 +40,23 @@
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">内容</label>
-				<div class="layui-input-block" id="content">
+				<!-- <div class="layui-input-block" id="content">
 					
+				</div> -->
+				<div class="layui-input-block" id="content_bk">
+					<input id="contentValue"  value="<%=data.content%>" type="hidden" />
+					<script id="content" type="text/plain" ></script>
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">内容(EN)</label>
-				<div class="layui-input-block" id="econtent">
+				<!-- <div class="layui-input-block" id="econtent">
 					
+				</div> -->
+				<div class="layui-input-block" id="econtent_bk">
+					<input id="contentValue"  value="<%=data.econtent%>" type="hidden" />
+					<script id="econtent" type="text/plain" ></script>
 				</div>
 			</div>
 
@@ -74,6 +82,9 @@
 	</form>
 
 <script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
 <script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
 <!-- <script type="text/javascript" src="newsAdd.js"></script> -->
 <script type="text/javascript">
@@ -83,6 +94,26 @@ layui.use(['jquery','layer','form','laydate'], function(){
     let form = layui.form,layer = layui.layer
     let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
     console.log('frameindex',frameindex)
+    let ue1,ue2
+		ue1 = UE.getEditor('content',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue1.ready(function () {//研究方向
+	   		console.log('初始内容...')
+	   		//先赋值给一个隐藏的input,然后获取再初始化
+	   		let htmlStr = $("#contentValue").val();
+	   		console.log('htmlStr--->',htmlStr)
+	   		if(typeof(htmlStr)!='undefined'){
+	   			ue1.setContent(htmlStr,false)
+	   		}
+	    });
+		ue2 = UE.getEditor('econtent',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	   		console.log('初始内容EN...')
+	   		let htmlStr = $("#econtentValue").val();
+	   		console.log('ehtmlStr--->',htmlStr)
+	   		if(typeof(htmlStr)!='undefined'){
+	   			ue2.setContent(htmlStr,false)
+	   		}
+	    });
     //日期
     laydate.render({
 	    elem: '#time'
@@ -101,8 +132,8 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	  data.field.id = id
 	  data.field.title = $('#title').val()
 	  data.field.etitle = $('#etitle').val()
-	  data.field.content = editor1.txt.html()
-	  data.field.econtent = editor2.txt.html()
+	  data.field.content = ue1.getContent()//editor1.txt.html()
+	  data.field.econtent = ue1.getContent()//editor2.txt.html()
 	  data.field.showin = showinarr
 	  data.field.defaultimg = defaultimg
 	  console.log('update data field',data.field);

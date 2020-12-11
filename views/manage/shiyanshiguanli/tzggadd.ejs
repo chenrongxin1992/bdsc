@@ -212,11 +212,11 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	  		if(result.code == 0){
 	  			console.log('update success')
 	  			//墨绿深蓝风
-				layer.alert('新增成功', {
+				layer.msg('新增成功', {
 				  skin: 'layui-layer-molv' //样式类名
 				  ,closeBtn: 0
 				}, function(){
-					layer.close(frameindex);
+					//layer.close(frameindex);
 				});	  			
 	  		}
 	  	},

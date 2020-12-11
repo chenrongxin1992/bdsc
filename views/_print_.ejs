@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="座位牌打印系统">
+  <meta name="author" content="CRX">
+  <title>座位牌打印系统</title>
+  <link rel="shortcut icon" href="./_print_/favicon.ico">
+  <link rel="stylesheet" href="./css/layui.css">
+  <link rel="stylesheet" href="./css/modules/layui-icon-extend/iconfont.css">
+  <!-- <script type="text/javascript" src="https://cdn.repository.webfont.com/wwwroot/js/wf/youziku.api.min.js"></script> -->
+
+  <style type="text/css">
+  body{
+  	font-family: '' !important; 
+  }
+	.h1title{
+		font-size: 35px;
+		line-height: 60px;
+		text-align: center;
+		color: #950040;
+		margin:10px auto;
+	}
+	#printcontent{
+	}
+	/*预览使用*/
+	.printcontentdemo{
+		
+    	font-family:  STXinwei;
+    	text-align: center;
+    	background-color: #D95166;
+    	font-size: 200px;
+    	background-image:url(./img/newtest1.png); background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;
+	}
+	.printcontentdemo2{
+    	font-family:  STXinwei;
+    	text-align: center;
+    	background-color: #D95166;
+    	font-size: 200px;
+    	background-image:url(./img/newtest2.png); background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;
+	}
+	.printcontentdemo1{
+    	font-family: STXinwei;
+    	text-align: center;
+    	background-color: #D95166;
+    	font-size: 175px;
+	}
+	.layui-elem-quote{
+		border-left: 5px solid #950040;
+	}
+	
+	.layui-btn{
+		background-color:#950040;
+	}
+	.pname{
+		transform:rotate(180deg);
+		-ms-transform:rotate(180deg); 	/* IE 9 */
+		-moz-transform:rotate(180deg); 	/* Firefox */
+		-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+		-o-transform:rotate(180deg); 	/* Opera */
+		padding-bottom: 30mm;
+	}
+	.pname2{
+		padding-top: 40mm;
+	}
+	.pname_a4{
+		padding-top: 20mm;
+	}
+	.pnameyulan{
+		transform:rotate(180deg);
+		-ms-transform:rotate(180deg); 	/* IE 9 */
+		-moz-transform:rotate(180deg); 	/* Firefox */
+		-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+		-o-transform:rotate(180deg); 	/* Opera */
+		/*padding-top: 10mm;*/
+		padding-bottom: 5mm;
+	}
+	.pnameyulan2{
+		padding-top: 20mm;
+	}
+	.gap{
+		height: 87mm;
+	}
+	.layui-layer-molv .layui-layer-title{
+		background: #950040!important;
+	    color: #fff;
+	    border: none;
+	}
+	.layui-layer-molv .layui-layer-btn a {
+		background: #950040!important;
+    	border-color: #950040!important;
+	}
+	@media print {
+	  @page {
+	    margin: -15mm; 
+	  }
+	}
+  </style>
+</head>
+<body>
+ 
+	<div class="layui-container">  
+	  <h1 class="h1title">深圳大学座位牌打印系统</h1>
+
+	  <blockquote class="layui-elem-quote layui-text">
+		  卡片信息
+	  </blockquote>
+
+	  <form class="layui-form layui-form-pane" action="">
+	  	<div class="layui-form-item layui-form-text">
+		    <label class="layui-form-label">卡片名字（多个名字用中文逗号'，'分隔）</label>
+		    <div class="layui-input-block">
+		      <textarea placeholder="请输入姓名" class="layui-textarea" name="multiname" lay-verify="name"></textarea>
+		    </div>
+		</div>
+
+		<div class="layui-form-item">
+		    <label class="layui-form-label">重复次数</label>
+		    <div class="layui-input-inline">
+		      <select name="cishu" lay-filter="cishu">
+		        <option value="1">1</option>
+		        <option value="2" selected="">2</option>
+		        <option value="3">3</option>
+		        <option value="400">4</option>
+		      </select>
+		    </div>
+
+			<label class="layui-form-label">规格</label>
+		    <div class="layui-input-inline">
+		      <select name="type" lay-filter="type">
+		        <option value="190*202" selected="">180*200(名牌纸)</option>
+		        <option value="224*297">210*297(A4纸)</option>
+		      </select>
+		    </div>
+		</div>
+
+		<div class="layui-form-item">
+		    <div class="layui-input-block">
+		      <button class="layui-btn" lay-submit="" lay-filter="preview"><i class="iconfont layui-extendyulan"></i> 预览</button>
+		      <button class="layui-btn" lay-submit="" lay-filter="print"><i class="iconfont layui-extenddayin"></i> 打印</button>
+		    </div>
+	  	</div>
+	  </form>
+	  
+	  <div id="printcontent">
+	  	
+	  </div>
+
+	  <hr style="height:1px;border:none;border-top:1px dashed #950040;">
+	  <footer style="text-align: center;">
+	    <p class="text-center" style="color: #950040;">2019 &copy; SZU</p>
+	  </footer>
+	</div>
+
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script src="./js/jquery.min.js"></script>
+<script src="./js/layui.js"></script>
+<script src="./js/printThis.js"></script>
+<script src="./js/jQuery.print.js"></script>
+<script>
+layui.use(['layer', 'form'], function(){
+  var layer = layui.layer
+  ,form = layui.form;
+  
+  //提示浏览器
+
+	layer.alert('系统需使用较新的浏览器内核，若您使用360浏览器，请切换到“极速模式”。', {
+	  skin: 'layui-layer-molv' //样式类名
+	  ,closeBtn: 0
+	});
+  //自定义验证规则
+  form.verify({
+    name: function(value){
+      if(value.length < 2){
+        return '请输入要打印的姓名';
+      }
+    }
+  });
+  form.on('select(cishu)', function(data){
+  	console.log(data)
+  	$('#printcontent').empty()
+  	$('#printcontent').css('display','')
+  })
+  form.on('select(type)', function(data){
+  	console.log(data)
+  	$('#printcontent').empty()
+  	$('#printcontent').css('display','')
+  })
+
+  form.on('submit(preview)', function(data){
+  	if($('.printcontentdemo')){
+  		$('#printcontent').empty()
+  	}
+  	if($('#printcontent').css('display')=='none'){
+  		$('#printcontent').css('display','')
+  	}
+  	let allname_arr = getallname(data.field.multiname)
+  	console.log('getallname',getallname)
+    let cishu = data.field.cishu,
+    	guige = (data.field.type).split('*')
+    let chang = guige[0],
+    	kuan = guige[1]
+
+    let finalarr = new Array()
+    for(let i=0;i<allname_arr.length;i++){
+    	for(let j=0;j<cishu;j++){
+    		finalarr.push(allname_arr[i])
+    	}
+    }
+    console.log('finalarr',finalarr)
+    let tmpclass = '',tmpnameyulan = ''
+    if(chang == '190'){
+    	tmpclass = 'printcontentdemo'
+    }
+    else{
+    	tmpclass = 'printcontentdemo1'
+    }
+    for(let i=0;i<finalarr.length;i++){
+    	if(i%2==1){
+    		tmpclass = 'printcontentdemo2'
+    		tmpnameyulan = 'pnameyulan2'
+    	}else{
+    		tmpclass = 'printcontentdemo'
+    		tmpnameyulan = 'pnameyulan'
+    	}
+    	//加一个区分的class,pt,ptt,对应printcontentdemo和printcontentdemo2,pn,pnn
+    	let str = "<div class='layui-row'><div class='layui-col-lg12'><div class='pt" + i + ' ' + tmpclass + "'><div class='pn"+i + ' ' +tmpnameyulan+"'>"+finalarr[i]+"</div></div></div></div>"
+    	//return false
+    	
+	    $("#printcontent").append(str);
+	    //文字个数大于3小于6，调整大小和位置
+		    if(finalarr[i].length>3 && finalarr[i].length<=6){
+		    	console.log('名字',finalarr[i],finalarr[i].length)
+		    	$('.pt' + i).css("font-size", '110px')
+		    	$('.pn' + i).css("padding-bottom", '18mm')
+		    	// $('.printcontentdemo2').css("font-size", '110px')
+		    	// $('.pnameyulan2').css("padding-top", '35mm')
+		    }
+		    if(finalarr[i].length>6 && finalarr[i].length<=11){
+		    	console.log('名字',finalarr[i],finalarr[i].length,'ddd')
+		    	$('.pt' + i).css("font-size", '60px')
+		    	$('.pn' + i).css("padding-bottom", '22mm')
+		    	if(i%2==1){
+		    		$('.pt' + i).css("font-size", '60px')
+		    		$('.pn' + i).css("padding-top", '35mm')
+		    	}
+		    	// $('.printcontentdemo2').css("font-size", '60px')
+		    	// $('.pnameyulan2').css("padding-top", '35mm')
+		    }
+		    if(finalarr[i].length>11){
+		    	console.log('名字',finalarr[i],finalarr[i].length)
+		    	if(i%2==1){
+		    		$('.pt' + i).css("font-size", '53px')
+		    		$('.pn' + i).css("padding-top", '35mm')
+		    	}
+		    	$('.pt' + i).css("font-size", '53px')
+		    	$('.pn' + i).css("padding-bottom", '25mm')
+		    	// $('.printcontentdemo2').css("font-size", '53px')
+		    	// $('.pnameyulan2').css("padding-top", '35mm')
+		    }
+    }
+    //return false
+    	$('.printcontent').trigger('create')
+	    $('.printcontentdemo'  ).css('width',chang+'mm')
+	    $('.printcontentdemo' ).css('height',74.25+'mm')
+	    $('.printcontentdemo'  ).css('margin','0px auto')
+	    $('.printcontentdemo2'  ).css('width',chang+'mm')
+	    $('.printcontentdemo2' ).css('height',74.25+'mm')
+	    $('.printcontentdemo2'  ).css('margin','0px auto')
+	    let allname_arr_shengpizi = allname_arr.toString(),
+	    	reg_shengpizi = new RegExp(/焜/)
+	    if(allname_arr_shengpizi.match(reg_shengpizi)){
+	    	console.log('预览，生僻字转换.....')
+	    	$('.printcontentdemo' ).css('font-family','STKaiti')
+	    	$('.printcontentdemo2' ).css('font-family','STKaiti')
+	    // 	$youziku.submit("printcontentdemo");
+	    // $youziku.load(".printcontentdemo", "5464acb4800c4eaca7aa001b605a66bd","");
+     //    $youziku.draw(0);
+     //    $youziku.submit("printcontentdemo2");
+	    // $youziku.load(".printcontentdemo2", "5464acb4800c4eaca7aa001b605a66bd","");
+     //    $youziku.draw(0);
+	    }
+	    
+	return false
+  });
+
+  form.on('submit(print)', function(data){
+  	if($('.printcontentdemo')){
+  		$('#printcontent').empty()
+  	}
+  	if($('#printcontent').css('display')=='none'){
+  		$('#printcontent').css('display','')
+  	}
+  	let allname_arr = getallname(data.field.multiname)
+  	console.log('getallname111',getallname)
+    let cishu = data.field.cishu,
+    	guige = (data.field.type).split('*')
+    let chang = guige[0],
+    	kuan = guige[1]
+
+    let finalarr = new Array()
+    for(let i=0;i<allname_arr.length;i++){
+    	for(let j=0;j<cishu;j++){
+    		finalarr.push(allname_arr[i])
+    	}
+    }
+    console.log('finalarr',finalarr)
+    
+    $('#printcontent').css('display','none')
+    let tmpclass = '',tmpnameyulan='',tmpname2=''
+    if(chang == '190'){
+    	tmpclass = 'printcontentdemo'
+    }
+    else{
+    	tmpclass = 'printcontentdemo1'
+    }
+    for(let i=0;i<finalarr.length;i++){
+    	if(i%2==1){
+    		tmpclass = 'printcontentdemo2'
+    		tmpnameyulan = 'pnameyulan2'
+    		tmpname2 = 'pname2'
+
+    	}else{
+    		tmpclass = 'printcontentdemo'
+    		tmpnameyulan = 'pnameyulan'
+    		tmpname2 = 'pname'
+    	}
+    	if(chang == '190'){
+    		let str = " <div class='layui-row'><div class='layui-col-lg12'><div class='pt" + i + ' ' + tmpclass + "'><div class='pn"+i + ' ' +tmpname2+"'>"+finalarr[i]+"</div></div></div></div>"
+		    if(i%2==0 && i!=0){
+		    	let str1 = " <div class='layui-row'><div class='layui-col-lg12'><div class='gap gap" + i + "'></div></div></div>"
+		    	$("#printcontent").append(str1);
+		    }
+		    
+		    $("#printcontent").append(str);
+		    //文字个数大于3小于6，调整大小和位置
+		    if(finalarr[i].length>3 && finalarr[i].length<=6){
+		    	console.log('名字',finalarr[i],finalarr[i].length)
+		    	$('.pt' + i).css("font-size", '110px')
+		    	$('.pn' + i).css("padding-bottom", '38mm')
+		    	if(i%2==0){
+		    		$('.gap' + i).css("height", '110mm')
+		    	}
+		    	//$('.printcontentdemo').css("font-size", '110px')
+		    	//$('.pnameyulan').css("padding-bottom", '18mm')
+		    	//$('.printcontentdemo2').css("font-size", '110px')
+		    	//$('.pnameyulan2').css("padding-top", '35mm')
+		    }
+		    if(finalarr[i].length>6 && finalarr[i].length<=11){
+		    	console.log('名字',finalarr[i],finalarr[i].length,'ddd')
+		    	$('.pt' + i).css("font-size", '60px')
+		    	$('.pn' + i).css("padding-bottom", '50mm')
+		    	if(i%2==1){
+		    		$('.pt' + i).css("font-size", '60px')
+		    		$('.pn' + i).css("padding-top", '45mm')
+		    	}
+		    	if(i%2==0){
+		    		$('.gap' + i).css("height", '110mm')
+		    	}
+		    	//$('.printcontentdemo').css("font-size", '60px')
+		    	//$('.pnameyulan').css("padding-bottom", '22mm')
+		    	//$('.printcontentdemo2').css("font-size", '60px')
+		    	//$('.pnameyulan2').css("padding-top", '35mm')
+		    }
+		    if(finalarr[i].length>11){
+		    	console.log('名字',finalarr[i],finalarr[i].length)
+		    	if(i%2==1){
+		    		$('.pt' + i).css("font-size", '53px')
+		    		$('.pn' + i).css("padding-top", '60mm')
+		    	}
+		    	if(i%2==0){
+		    		$('.gap' + i).css("height", '110mm')
+		    	}
+		    	$('.pt' + i).css("font-size", '53px')
+		    	$('.pn' + i).css("padding-bottom", '50mm')
+		    	// $('.printcontentdemo').css("font-size", '53px')
+		    	// $('.pnameyulan').css("padding-bottom", '25mm')
+		    	// $('.printcontentdemo2').css("font-size", '53px')
+		    	// $('.pnameyulan2').css("padding-top", '35mm')
+		    }
+
+    	}else{
+    		let str = " <div class='layui-row'><div class='layui-col-lg12'><div class='" + tmpclass + "'><div class='pname_a4'>"+finalarr[i]+"</div></div></div></div>"
+	    	$("#printcontent").append(str);
+	    	
+    	}
+    }
+    if(chang=='190'){
+    	chang = '195'
+	    $("#printcontent").css('margin-top','550px');
+	    $('.printcontent').trigger('create')
+	    $('.printcontentdemo' ).css('width',chang+'mm')
+	    $('.printcontentdemo' ).css('height',105+'mm')
+	    $('.printcontentdemo').css('margin','0px auto')
+	    $('.printcontentdemo2'  ).css('width',chang+'mm')
+		$('.printcontentdemo2' ).css('height',105+'mm')
+		$('.printcontentdemo2'  ).css('margin','0px auto')
+    }else{
+    	$("#printcontent").css('margin-top','550px');
+	    $('.printcontent').trigger('create')
+	    $('.printcontentdemo' ).css('width',chang+'mm')
+	    $('.printcontentdemo' ).css('height',74.25+'mm')
+	    $('.printcontentdemo').css('margin','0px auto')
+	    $('.printcontentdemo2'  ).css('width',chang+'mm')
+		$('.printcontentdemo2' ).css('height',74.25+'mm')
+		$('.printcontentdemo2'  ).css('margin','0px auto')
+    }
+    let allname_arr_shengpizi = allname_arr.toString(),
+	    	reg_shengpizi = new RegExp(/焜/)
+	    if(allname_arr_shengpizi.match(reg_shengpizi)){
+	    	console.log('打印，生僻字转换.....')
+	    	$('.printcontentdemo' ).css('font-family','STKaiti')
+	    	$('.printcontentdemo2' ).css('font-family','STKaiti')
+	    // 	$youziku.submit("printcontentdemo");
+	    // $youziku.load(".printcontentdemo", "5464acb4800c4eaca7aa001b605a66bd","");
+     //    $youziku.draw(0);
+     //    $youziku.submit("printcontentdemo2");
+	    // $youziku.load(".printcontentdemo2", "5464acb4800c4eaca7aa001b605a66bd","");
+     //    $youziku.draw(0);
+	    }
+    //return false
+    layer.msg('请稍后', {
+	  icon: 16
+	  ,shade: 1
+	  ,time:1000
+	  ,shadeClose:true
+	});
+	Preview()
+	//return false
+	setTimeout(function(){
+        $('#printcontent').css('display','none')
+    },500)
+	return false
+  })
+});
+
+    function Preview() {
+		$('#printcontent').css('display','')
+		$("#printcontent").css('margin-top','');
+
+        $("#printcontent").printThis({
+            debug: false,
+            importCSS: true,
+            importStyle: true,
+            printContainer: true,
+            //loadCSS: "/Content/Themes/Default/style.css",
+            pageTitle: "",
+            removeInline: false,
+            printDelay: 333,
+            header: null,
+            formValues: true
+        });
+    };
+
+    function getallname(str) {
+    	let temp = str.match(/[\u4e00-\u9fa5]*\((.+?)\)|[\u4e00-\u9fa5]*[a-zA-Z +]*|[\\n+,，；;]*$/g)
+    	//let temp = str.match(/[\u4e00-\u9fa5]*[a-zA-Z +]*|[\\n+,，；;]*$/g)//0918
+    	//let temp = str.split(/[\\n+,，；;]/g),//[\u4e00-\u9fa5]*[a-zA-Z +]*|[\\n+,，；;]*$试试这条吧
+    	//let temp = str.split(/[\\n\s+,，；;]/g),[a-zA-Z]*$,[a-zA-Z +]*|[\\n+,，；;]*|$
+    	console.log('temp',temp)
+		let    temp1 = temp.join(" "),
+		    temp2 = temp1.trim(),
+		    temp3 = temp2.split(' ')
+
+		for (let i = 0; i < temp.length; i++) {
+			console.log(i,temp[i])
+			if (temp[i] == "" || temp[i] == null || temp[i].length == 0) {
+				temp.splice(i, 1);
+				i--;
+			}
+		}
+		return temp
+	}
+</script> 
+</body>
+</html>

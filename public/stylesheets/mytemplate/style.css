@@ -39,7 +39,7 @@ body:before {content: ""; position: fixed; top: -10px; left: 0; z-index: 110; wi
 ::-moz-placeholder { color:#ccc;}
 :-ms-input-placeholder { color:#ccc;}
 /**布局开始**/
-body {line-height:1;font-size: 13px;font-family: "Arial","Microsoft YaHei","\u5b8b\u4f53", Tahoma, Geneva, sans-serif;color:#333;}
+body {line-height:1;font-size: 16px;font-family: "Arial","Microsoft YaHei","\u5b8b\u4f53", Tahoma, Geneva, sans-serif;color:#333;}
 p{line-height:1.75;}
 a {color:#3b3b3b; text-decoration:none; transition:all 0.4s ease-in-out; }
 a:hover { color:#095ab5; }
@@ -129,7 +129,7 @@ a:hover { color:#095ab5; }
 .post .con .wp_article_list .list_item { border-bottom:1px dashed #ccc; } /**新闻列表**/
 .post .con .wp_article_list .list_item .Article_Index { background:url(images/li.gif) no-repeat center; }
 .post .more_btn {display:inline-block;*display:inline; *zoom:1; height: 20px;margin-top: 10px;line-height: 20px;float:right;}
-.post .more_btn .more_text,.post .more_btn a {font-size:13px; cursor:pointer;} 
+.post .more_btn .more_text,.post .more_btn a {font-size:15px; cursor:pointer;} 
 .post .more_btn a{color:#666;} 
 .post .more_btn a:hover{color:#666;} 
 /*标准标题*/
@@ -211,7 +211,7 @@ a:hover { color:#095ab5; }
 .news_text .news_list {}
 .news_text .news_list li.news{margin-bottom:10px;} 
 .news_text .news_list li.news .news_title{line-height: 24px; font-size: 15px;} 
-.news_text .news_list li.news .news_text{line-height:22px;font-size: 13px;}
+.news_text .news_list li.news .news_text{line-height:22px;font-size: 16px;}
 .news_text .news_list li.news .news_time{line-height: 28px;font-size: 13px;}
 /*图列表*/
 .news_tu{}
@@ -329,7 +329,7 @@ a:hover { color:#095ab5; }
 .col_news_list .wp_entry table{ margin-bottom:4px;}
 .col_news_list .wp_entry img { max-width:680px; _width:expression(this.width > 680 ? "680px" : this.width); } /**列表页文章图片大小限制**/
 /**文章页**/
-.infobox {padding:20px 60px; margin:0 auto; width:auto;}
+.infobox {padding:20px 30px; margin:0 auto; width:auto;}
 .article {padding-top:10px;}
 .article h1.arti_title {line-height: 36px;font-family: "Microsoft YaHei";font-size:22px;text-align:center;color: #182880;} /**文章标题**/
 .article h2.arti_title {line-height: 34px;font-family: "Microsoft YaHei";font-size: 17px;text-align:center;color: #1B1B1B;} /**文章副标题**/
@@ -472,7 +472,7 @@ a:hover { color:#095ab5; }
 }
 .wp-post .post-head {
     height: 52px;
-    border-bottom: 1px solid #d2cdc9;
+    border-bottom: 1px dotted #961157;
 }
 .xyyw .wp-post .post-head {
     border-bottom: 0;
@@ -504,6 +504,13 @@ a:hover { color:#095ab5; }
     text-decoration: none;
     font-size: 12px;
 }
+.wp-post .post-head .post-more a:hover {
+    color: white;
+    font-size: 12px;
+    background-color: #961157;
+    border-radius: 5px;
+}
+
 .xyyw .wp-post .post-body {
     overflow: hidden;
 }
@@ -519,21 +526,43 @@ a:hover { color:#095ab5; }
 }
 .xyyw .wp-post .post-body .post-news .imgnews {
     padding: 0 12px;
+    overflow: hidden;
 }
 .xyyw .wp-post .post-body .post-news .imgnewscon {
     position: relative;
+    
 }
 a {
     text-decoration: none;
     color: #3d3e3d;
     font-family: "微软雅黑";
-    font-size: 14px;
+    font-size: 16px;
     transition: all ease-out 0.3s;
 }
+.slider_a{
+	text-decoration: none;
+	color: white;
+	background-color: #961157;
+	transition: all 0.8s;
+}
+.slider_a:hover{
+	text-decoration: none;
+	color: white;
+	transform: scale(1.1);
+
+}
+.uk-overlay-panel{
+	background-color: #961157;
+}
+
 .xyyw .wp-post .post-body .post-news .imgnewscon img {
     width: 100%;
     height: 200px;
     vertical-align: top;
+    transition: all 0.8s;
+}
+.xyyw .wp-post .post-body .post-news .imgnewscon img:hover {
+    transform: scale(1.1);
 }
 .xyyw .wp-post .post-body .post-news .imgtit {
     position: absolute;
@@ -624,6 +653,12 @@ span.news_meta {
 .tabmore a {
     color: #67174c;
     font-size: 12px;
+}
+.tabmore a:hover {
+    color: white;
+    font-size: 12px;
+    background-color: #961157;
+    border-radius: 5px;
 }
 /*右边*/
 .cbox-right {
@@ -958,4 +993,11 @@ span.date-year {
 	max-width: 1140px!important;
 	margin:0 auto;
 
+}
+.first:hover,.prev:hover,.next:hover,.last:hover{
+    background: #7f033f;
+    color:white;
+}
+.navi-aside-toggle .navi-aside-toggle-show{
+	display: none;
 }

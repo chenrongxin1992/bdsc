@@ -28,6 +28,7 @@
     "path": "^0.12.7",
     "serve-favicon": "~2.4.2",
     "svg-captcha": "^1.4.0",
+    "ueditor": "^1.2.3",
     "urlencode": "^1.1.0"
   }
 }

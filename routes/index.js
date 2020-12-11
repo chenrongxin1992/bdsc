@@ -84,7 +84,7 @@ router.get('/', function(req, res, next) {
 		function(cb){
 			//通知公告
 			let search = tzgg.find({})
-				search.sort({'id':-1})
+				search.sort({'time':-1})
 				search.limit(4)
 				search.exec(function(error,docs){
 					if(error){
@@ -104,7 +104,10 @@ router.get('/', function(req, res, next) {
 	})
     
 });
-
+//座位打印
+router.get('/_print_',function(req,res){
+	res.render('_print_')
+})
 //实验室简介
 router.get('/lab',function(req,res){
 	let search = laboratory.findOne({})
@@ -472,6 +475,57 @@ router.get('/yjpt',function(req,res){
 		return res.render('yjpt',{'count':total,'page':page,'data':result,'title':'研究平台'})
 	})
 })
+//通知公告列表
+router.get('/tzgg',function(req,res){
+	let page = req.query.page,
+		limit = req.query.limit
+	if(!page||typeof(page)=='undefined'){
+		page = 1
+	}
+	if(!limit||typeof(limit)=='undefined'){
+		limit = 15
+	}
+	let total = 0
+	console.log('page,limit',page,limit)
+	async.waterfall([
+		function(cb){
+			let search = tzgg.find({}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('tzgg get total err',err)
+						cb(err)
+					}
+					console.log('tzgg count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+				console.log('不带搜索参数')
+				let search = tzgg.find({})
+					search.sort({'time':-1})//正序
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('notice error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})
+			
+		}
+	],function(error,result){
+		if(error){
+			console.log(error)
+			return res.end(error)
+		}
+		//res.json({'data':result})
+		return res.render('tzgg',{'count':total,'page':page,'data':result,'title':'通知公告'})
+	})
+})
 //组织架构
 router.get('/zzjg',function(req,res){
 	let search = news.findOne({'id':66})
@@ -562,6 +616,18 @@ router.get('/yjptdetail',function(req,res){
 			}
 			console.log(doc)
 			res.render('yjptdetail',{data:doc,'title':doc.title})
+		})
+})
+//通知公告详情()
+router.get('/tzggdetail',function(req,res){
+	let id = req.query.id
+	let search = tzgg.findOne({'id':id})
+		search.exec(function(error,doc){
+			if(error){
+				res.end(error)
+			}
+			console.log(doc)
+			res.render('tzggdetail',{data:doc,'title':doc.title})
 		})
 })
 //科研成果详情(showin B  入口科研成果)
