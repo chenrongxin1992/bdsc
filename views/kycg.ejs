@@ -100,7 +100,7 @@
                         console.log('next')
                          let page =  Number('<%=page%>')//当前页
                          let count = Number('<%=count%>'),
-                             allpage = parseInt(count/15)
+                             allpage = Math.ceil(count/15)
                          page = page + 1
                          if(page>allpage){return}                  
                          let reg = new RegExp("/kycg", "g"); 
@@ -113,8 +113,9 @@
                          let page =  Number('<%=page%>')//当前页
                          let count = Number('<%=count%>'),
                              allpage = parseInt(count/15)
-                         page = allpage
-                         if(page>allpage){return}                  
+                         
+                         if(page>allpage){return}          
+                         page = allpage        
                          let reg = new RegExp("/kycg", "g"); 
                          let url = "/kycg"; 
                          window.location.href = url.replace(reg, "/kycg?page=" + page); 

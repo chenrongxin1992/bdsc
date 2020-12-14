@@ -246,6 +246,7 @@ var index_picSchema = new Schema({
     describe : {type:String},
     url : {type:String},
     sort : {type:Number},
+    newslink:{type:String},
     showin : {type:String,default:'A'}//显示在哪些页面(A,B,C,D,E)
 },{collection:'index_pic'})
 

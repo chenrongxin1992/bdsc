@@ -196,7 +196,7 @@
 	    margin-right: 0;
 	}
 	.post-news .news-item .news-date-hide, .column-news-list .column-news-item .news-date-hide {
-	    display: none;
+	    /*display: none;*/
 	}
 	.wp_paging .pages_count, .wp_paging .page_jump {
 	    display: none;
@@ -255,6 +255,12 @@
 	.news_tu .news_list li.news{width:50%;}
 	/*组织机构*/
 	.inss .part_xy .sub-list .sub-item{width:50%;}
+/*自己新增*/
+.wp-column-news {
+    float: right;
+    width: 100%;
+    min-height: auto;
+}
 
 	/*自定义*/
 	body,p { font-size: 16px;}
@@ -262,8 +268,8 @@
 	.wp-header .wp-inner {margin: 0 6px; background-position:top center;}
 	.wp-post .post-head .post-title {}
 	.post-news .news-item { height: 30px; line-height: 30px; border-bottom: 1px dashed #ccc;}
-	.post-news .news-item .meta-title,.column-news-list .column-news-item .column-news-title { margin-right: 0;}
-	.post-news .news-item .news-date-hide,.column-news-list .column-news-item .news-date-hide { display: none;}
+	.post-news .news-item .meta-title,.column-news-list .column-news-item .column-news-title { margin-right: 0;width: 72%}
+	/*.post-news .news-item .news-date-hide,.column-news-list .column-news-item .news-date-hide { display: none;}*/
 	.wp-header { padding: 0;}
 	.wp-navi { display: none;}
 	.wp-navi-slide { display: block; background-color: #eee;}

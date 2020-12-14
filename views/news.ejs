@@ -58,9 +58,12 @@
             <div id="wp_paging_w9"> 
               <ul class="wp_paging clearfix"> 
                    <li class="pages_count"> 
-                       <!-- <span class="per_page">每页<em class="per_count">14</em>条记录</span>  -->
-                       <span class="all_count">总共<em class="all_count"><%=count%></em>条记录</span> 
+                       <!-- <span class="per_page">每页<em class="per_count">14</em>条</span>  -->
+                       <span class="all_count">共<em class="all_count"><%=count%></em>条</span> 
                    </li> 
+                   <li class="pages_count"> 
+                    <span>当前是第 <strong><%=page%></strong> 页</span>
+                   </li>
                    <li class="page_nav"> 
                        <a class="first" href="javascript:void(0);" target="_self"><span>首页</span></a> 
                        <a class="prev" href="javascript:void(0);" target="_self"><span>上一页</span></a> 
@@ -102,10 +105,11 @@
                          window.location.href = url.replace(reg, "/news?page=" + page); 
                      }); 
                       $("#wp_paging_w9 .next").click(function() { 
-                        console.log('next')
+                        
                          let page =  Number('<%=page%>')//当前页
                          let count = Number('<%=count%>'),
-                             allpage = parseInt(count/15)
+                             allpage = Math.ceil(count/15)
+                             console.log('next count',Number('<%=page%>'),Number('<%=count%>'),Math.ceil(count/15))
                          page = page + 1
                          if(page>allpage){return}                  
                          let reg = new RegExp("/news", "g"); 
@@ -117,9 +121,10 @@
                         console.log('last')
                          let page =  Number('<%=page%>')//当前页
                          let count = Number('<%=count%>'),
-                             allpage = parseInt(count/15)
-                         page = allpage
-                         if(page>allpage){return}                  
+                             allpage = Math.ceil(count/15)
+                         //
+                         if(page>=allpage){return}     
+                         page = allpage             
                          let reg = new RegExp("/news", "g"); 
                          let url = "/news"; 
                          window.location.href = url.replace(reg, "/news?page=" + page); 

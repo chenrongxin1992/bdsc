@@ -47,6 +47,15 @@
 					<textarea id="describe" class="layui-textarea" style="width: 500px;"></textarea>
 				</div>
 			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">链接</label>
+					<div class="layui-input-inline" style="width: 272px;">
+				      <input type="text" name="newslink" lay-verify="required" autocomplete="off" class="layui-input" id="newslink">
+				    </div>
+				    
+				</div>
+			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label ">显示在</label>
@@ -149,6 +158,7 @@ layui.use(['jquery','layer','form','laydate','upload'], function(){
 	  	console.log(patharr)
 	  	console.log(namearr)
 	  })
+	  data.field.newslink = $('#newslink').val()
 	  data.field.describe = $('#describe').val()
 	  data.field.patharr = patharr.substring(0,patharr.length-1)
 	  data.field.namearr = namearr.substring(0,namearr.length-1)

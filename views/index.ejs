@@ -6,15 +6,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
 <title>大数据系统计算技术国家工程实验室</title>
-<meta name="keywords" content="大数据系统计算技术国家工程实验室">
+<meta name="keywords" content="大数据系统计算技术国家工程实验室,深圳大学，大数据，计算机，国家工程实验室">
 <meta name="description" content="大数据系统计算技术国家工程实验室" >
 <script type="text/javascript" src="./javascripts/mytemplate//extends.js"></script>
 <link rel="stylesheet" href="./stylesheets/mytemplate/uikit.min.css" type="text/css"/>
 <link rel="stylesheet" href="./stylesheets/mytemplate/slideshow.css" type="text/css"/>
+<link rel="stylesheet" href="./stylesheets/mytemplate/dotnav.css" type="text/css"/>
+<link rel="stylesheet" href="./stylesheets/mytemplate/slidenav.css" type="text/css"/>
 <link rel="stylesheet" href="./stylesheets/mytemplate/style.css" type="text/css" />
 <link rel="stylesheet" href="./stylesheets/mytemplate/mobile.css" type="text/css"/>
 <link rel="stylesheet" href="./stylesheets/mytemplate/media.css" type="text/css"/>
-
+<link rel="stylesheet" href="./stylesheets/mytemplate/layui.css" type="text/css"/>
 <style type="text/css">
     .vui-slider {
     position:relative;
@@ -154,11 +156,59 @@
 @media screen and (min-width: 900px) {
     .mycontent{
         width:1150px;
-        height:450px;
+        height:600px;
         margin:00px auto;
         overflow:hidden;
     }
+    .uk-slideshow > li {
+        height: 600px;
+    }
+    .uk-slideshow > .uk-active {
+        height: 600px;
+    }
+    .myh3{
+        font-size: 22px;
+    }
 }
+@media screen and (min-width: 767px) and (max-width: 900px){
+    .mycontent{
+        width:99%;
+        height: 450px;
+        margin:0px auto;
+        overflow:hidden;
+    }
+    .myh3{
+        font-size: 18px;
+    }
+    .uk-slideshow > li {
+        width:99%;
+        height: 450px;
+    }  
+    .uk-slideshow > .uk-active {
+        width:99%;
+        height: 450px;
+    } 
+}
+@media screen and (max-width: 767px) { /*当屏幕尺寸小于600px时，应用下面的CSS样式* iphone x*/
+    .mycontent{
+        width:100%;
+        height: 250px;
+        margin:0px auto;
+        overflow:hidden;
+    }
+    .myh3{
+        font-size: 18px;
+    }
+    .uk-slideshow > li {
+        width:100%;
+        height: 250px;
+    }  
+    .uk-slideshow > .uk-active {
+        width:100%;
+        height: 250px;
+    }        
+}
+
 .navi-aside-toggle{
     display: none!important;
 }
@@ -222,7 +272,7 @@
 					<!--[NaviStructBegin]-->
 					<ul class="wp-menu" data-nav-aside='{"title":"导航","index":0}'>
 						<!--[NaviItemCycleBegin]-->
-						<li class="menu-item {级别样式}"><a class="menu-link" href="" target="">首页</a>
+						<li class="menu-item {级别样式}"><a class="menu-link" href="" target=""><i class="layui-icon layui-icon-home"></i> 首页</a>
 							<!--[MenuStructBegin]-->
 							<!-- <em class="menu-switch-arrow"></em> -->
 							<!--[MenuStructEnd]-->
@@ -237,7 +287,7 @@
 								<li class="sub-item {级别样式}"><a class="sub-link" href="/jswyh" target="">技术委员会</a></li>
 							</ul>
 						</li>
-						<li class="menu-item {级别样式}"><a class="menu-link" href="/news" target="">新闻公告</a>
+						<li class="menu-item {级别样式}"><a class="menu-link" href="/news" target=""><i class="layui-icon layui-icon-read"></i> 新闻公告</a>
 						<em class="menu-switch-arrow"></em>
 							<ul class="sub-menu ">
 								<li class="sub-item {级别样式}"><a class="sub-link" href="/news" target="">新闻动态</a></li>
@@ -246,7 +296,7 @@
 							</ul>
 						</li>
 						<li class="menu-item {级别样式}"><a class="menu-link" href="/yjpt" target="">研究平台</a></li>
-						<li class="menu-item {级别样式}"><a class="menu-link" href="/kycg" target="">科研成果</a></li>
+						<li class="menu-item {级别样式}"><a class="menu-link" href="/kycg" target=""><i class="layui-icon layui-icon-form"></i> 科研成果</a></li>
 						<li class="menu-item {级别样式}"><a class="menu-link" href="/gzzd" target="">规章制度</a></li>
 						<li class="menu-item {级别样式}"><a class="menu-link" href="/zxns" target="">招贤纳士</a></li>
 						<!--[NaviItemCycleEnd]-->
@@ -269,17 +319,24 @@
 <div class="wrapper mbanner" id="banner">
 	<div class="inner clearfix">
 		<div frag="">
-            <div class="content mycontent" style="">
+            <div class="content mycontent uk-slidenav-position" style="" data-uk-slideshow="{autoplay:true,animation: 'random-fx'}">
                 
-                <ul class="uk-slideshow uk-overlay-active" data-uk-slideshow="{autoplay:true,animation: 'random-fx'}" style="height: 450px;">
+                <ul class="uk-slideshow uk-overlay-active"  style="height: 450px;">
                  <% indexpic.forEach(function(item){%>
                     <li>
-                        <img src="<%=item.pic%>" width="" height="450px" alt="">
+                        <img src="<%=item.pic%>" width="100%" height="450px" alt="<%=item.describe%>">
                         <div class="uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-overlay-slide-bottom">
-                            <a class="slider_a"><h3 style="font-size: 22px;"><%=item.describe%></h3></a>
+                            <a class="slider_a" href="<%=item.newslink%>"><h3 class="myh3"><%=item.describe%></h3></a>
                         </div>
                     </li>
                  <%})%>
+                </ul>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slideshow-item="next"></a>
+                <ul class="uk-dotnav uk-dotnav-contrast uk-position-bottom uk-text-center uk-flex-center">
+                    <% indexpic.forEach(function(item,index){%>
+                        <li data-uk-slideshow-item="<%=index%>"><a href=""></a></li>
+                    <%})%>
                 </ul>
             </div>
 			
@@ -391,7 +448,7 @@
                                     <ul class="post-news">
                                     	<% kycg.forEach(function(item,i){%>
                                         <li class="news-item item-1 clearfix">
-                                            <span class="item-meta meta-title"><a href='/yjptdetail?id=<%=item.id%>' target='_blank' title='' alt=''><%=item.title%></a></span><span class="news_meta"><%=item.time%></span> 
+                                            <span class="item-meta meta-title"><a href='/yjptdetail?id=<%=item.id%>' target='_blank' title='<%=item.title%>' alt=''><%=item.title%></a></span><span class="news_meta"><%=item.time%></span> 
                                         </li>
                                         <%})%>
                                        <!--  <li class="news-item item-2 clearfix">
@@ -451,7 +508,7 @@
                                             </div>
                                             <div class="news_con">
                                                 <div class="news_title">
-                                                    <a href='/tzggdetail?id=<%=item.id%>' target='_blank' title='' alt=''><%=item.title%></a>
+                                                    <a href='/tzggdetail?id=<%=item.id%>' target='_blank' title='<%=item.title%>' alt=''><%=item.title%></a>
                                                 </div>
                                                 <div class="news_text">
                                                     <%-item.content%>
@@ -562,31 +619,12 @@
             <!-- <div class="modc">
                 <div class="shares" frag="窗口82">
                     <div id="wp_news_w82"> 
-
                         <ul class="clearfix">
-                            
                             <li class="i1">
+                                <image src='/images/logo_bdsc.png' width='110' height='110'>
                                 <a href="javascript:void(0);" target="_blank"></a>
                                 <div class="con">
-                                    <image src='_upload/article/images/10/ec/6c5d7f6c4b81be23a328cd959fa1/3b14183d-716d-4958-b465-7f4a395fba17_s.jpg' width='90' height='90'>
-                                </div>
-                            </li>
-                            <li class="i2">
-                                <a href="https://weibo.com/tianhuaxy" target="_blank"></a>
-                                <div class="con">
-                                    
-                                </div>
-                            </li>
-                            <li class="i3">
-                                <a href="http://sthu.yiban.cn/" target="_blank"></a>
-                                <div class="con">
-                                    
-                                </div>
-                            </li>
-                            <li class="i4">
-                                <a href="_web/leadermail/intiWriteToLeaderMail.do/_p=YXM9NTAmdD0xMzgmcD0xJm09TiY_/request_locale=zh_CN/localeCH=true.html" target="_blank"></a>
-                                <div class="con">
-                                    
+                                    <image src='/images/logo_bdsc.png' width='90' height='90'>
                                 </div>
                             </li>
                         </ul>

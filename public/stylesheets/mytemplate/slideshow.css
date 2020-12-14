@@ -14,7 +14,7 @@
   /* 1 */
   position: relative;
   /* 2 */
-  z-index: 0;
+  z-index: -1;
   /* 3 */
   width: 100%;
   /* 4 */

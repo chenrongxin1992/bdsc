@@ -2708,6 +2708,7 @@ router.get('/sytp',function(req,res){
 			let sytpadd = new sytp({
 				id : id,
 				sort : id,
+				newslink:req.body.newslink,
 				describe : req.body.describe,
 				time : moment().format('YYYY-MM-DD HH:mm'),
 				pic : req.body.patharr,

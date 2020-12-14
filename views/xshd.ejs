@@ -60,6 +60,7 @@
                    <li class="pages_count"> 
                        <!-- <span class="per_page">每页<em class="per_count">14</em>条记录</span>  -->
                        <span class="all_count">总共<em class="all_count"><%=count%></em>条记录</span> 
+                       <span>当前是第 <strong><%=page%></strong> 页</span>
                    </li> 
                    <li class="page_nav"> 
                        <a class="first" href="javascript:void(0);" target="_self"><span>首页</span></a> 
@@ -105,7 +106,7 @@
                         console.log('next')
                          let page =  Number('<%=page%>')//当前页
                          let count = Number('<%=count%>'),
-                             allpage = parseInt(count/15)
+                             allpage = Math.ceil(count/15)
                          page = page + 1
                          if(page>allpage){return}                  
                          let reg = new RegExp("/xshd", "g"); 
@@ -118,8 +119,9 @@
                          let page =  Number('<%=page%>')//当前页
                          let count = Number('<%=count%>'),
                              allpage = parseInt(count/15)
-                         page = allpage
-                         if(page>allpage){return}                  
+                         
+                         if(page>allpage){return}      
+                         page = allpage            
                          let reg = new RegExp("/xshd", "g"); 
                          let url = "/xshd"; 
                          window.location.href = url.replace(reg, "/xshd?page=" + page); 

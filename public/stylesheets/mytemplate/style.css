@@ -76,7 +76,7 @@ a:hover { color:#095ab5; }
 .site-lang ul li.links a{line-height: 35px;margin:0px 5px;font-size: 13px;color: #cad3d4;}
 .site-lang ul li.links a:hover{color:#fff;}
 /*默认主导航样式*/
-#nav{background: #8F0744;}
+#nav{background: #8F0744;height: 50px;}
 #mynav {
     background: #8F0744;
 }
@@ -89,12 +89,12 @@ a:hover { color:#095ab5; }
 .nav .wp-menu .menu-item {display: inline-block; float: left; position: relative;}
 .nav .wp-menu .menu-item.i1 { background:none;}
 .nav .wp-menu .menu-item a > .menu-switch-arrow{ display:inline-block; width:20px; height:20px; background:url(images/nav_j.png) no-repeat center center;vertical-align:middle; }
-.nav .wp-menu .menu-item a.menu-link {display: inline-block;padding: 0 32px;line-height: 42px;color: #FFFFFF;font-size: 16px;}
+.nav .wp-menu .menu-item a.menu-link {display: inline-block;padding: 0 32px;line-height: 50px;color: #FFFFFF;font-size: 18px;}
 .nav .wp-menu .menu-item.hover a.menu-link,
 .nav .wp-menu .menu-item a.hover{background-color:#7f033f; text-decoration: none; color: #eee;}
-.nav .sub-menu {display: none;position: absolute;left: 0;top: 42px;min-width: 146px;z-index: 100;background:#fff;}
+.nav .sub-menu {display: none;position: absolute;left: 0;top: 50px;min-width: 146px;z-index: 100;background:#fff;}
 .nav .sub-menu .sub-item { position: relative; white-space: nowrap; vertical-align: top; _zoom:1;}
-.nav .sub-menu .sub-item a {display: block;color: #000;height: 40px;line-height: 40px;padding: 0 40px;font-size: 14px;background:none;}
+.nav .sub-menu .sub-item a {display: block;color: #000;height: 40px;line-height: 40px;padding: 0 40px;font-size: 18px;background:none;}
 .nav .sub-menu .sub-item.hover> a,
 .nav .sub-menu .sub-item a:hover{ color: #fff; background-color:#7f033f; display: block; }
 .nav .sub-menu .sub-menu { left: 100%; top:0px; z-index: 200; background:#fff;}
@@ -825,6 +825,7 @@ span.date-year {
 .wp-column-news {
     float: right;
     width: 100%;
+    min-height: 650px;
 }
 .column-head {
     background: #8F0744;
@@ -877,7 +878,7 @@ span.date-year {
 }
 .list-head {
     padding: 10px 0;
-    border-bottom: 2px solid #e5e5e5;
+    border-bottom: 2px solid #961157;
 }
 .list-meta .column-title {
     float: left;
@@ -929,7 +930,7 @@ span.date-year {
 .column-news-list .column-news-item .column-news-date {
     display: block;
     text-align: right;
-    width: 80px;
+    width: 100px;
     height: 20px;
     line-height: 20px;
     position: absolute;
@@ -1000,4 +1001,13 @@ span.date-year {
 }
 .navi-aside-toggle .navi-aside-toggle-show{
 	display: none;
+}
+h3>a,h3>span>a{
+	color: #961157;
+}
+li > span > a:hover{
+	color: #961157;
+}
+.pages_count{
+	float: right;
 }
