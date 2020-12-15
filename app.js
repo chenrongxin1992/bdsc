@@ -102,7 +102,19 @@ app.use(function(req,res,next){
     next() //中间件传递
   }
 });
-
+app.use(function(req,res,next){
+  //console.log('----设置语言-----')
+  if (!req.cookies["L"]) {
+    //console.log('没设置，默认1')
+      res.cookie("L", 1, {maxAge: 6*60*60*1000, httpOnly: true});//中文
+      req.query["L"] = 1
+    }else {
+      //console.log('有设置语言，是--->',req.cookies["L"])
+      req.query["L"] = req.cookies["L"];
+      //res.clearCookie('L')
+    }
+    next()
+})
 app.use('/', index);
 app.use('/users', users);
 

@@ -1,0 +1,191 @@
+<%include frontheader.ejs%>
+<div class="wp-wrapper wp-banner listl" frag="面板21">
+  <div class="wp-inner" frag="窗口21" portletmode="simpleColumnAttri">   
+      <div class="banner"><img border='0' src='' id="ran_pic"/></div><!--这里替换成随机图片-->
+  </div>
+</div>
+<!-- 主体 -->
+<div class="wp-wrapper wp-container">
+  <div class="wp-inner clearfix">
+    <div class="wp-column-menu">
+      <div class="column-head" frag="面板6">
+        <div class="column-anchor clearfix" frag="窗口6" portletmode="simpleColumnAnchor">
+          <h3 class="anchor-title"><span class="Column_Anchor" id="col_switch"></span></h3>
+          <a class="column-switch"></a> 
+        </div>
+      </div>
+      <div class="column-body" frag="面板7">
+        <div class="column-list" frag="窗口7" portletmode="simpleColumnList">
+          <div id="wp_listcolumn_w7"> 
+            <ul class="column-list-wrap" id="left_column">
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wp-column-news">
+      <div class="column-news-box">
+        <div class="list-head" frag="面板8">
+          <div class="list-meta clearfix" frag="窗口8" portletmode="simpleColumnAttri">
+            
+              <h2 class="column-title" id="pos_title"></h2>
+              <div class="column-path">
+                <span class="path-name">当前位置：</span>
+                <a href="/" target="_self">首页</a>
+                <span class="possplit">&nbsp;&nbsp;</span>
+                <a href="/news" target="_self" id="pos_1"></a><!--这里替换动态内容-->
+                <span class="possplit">&nbsp;&nbsp;</span>
+                <a href="/news" target="_self" id="pos_2"></a><!--这里替换动态内容-->
+              </div>
+            
+          </div>
+        </div>
+        <div class="column-news-con" frag="面板9">
+          <div class="column-news-list clearfix" frag="窗口9" portletmode="simpleList">
+            <div id="wp_news_w9"> 
+              <%data.forEach(function(item,i){%>
+                <a class="column-news-item item-<%=i+1%> clearfix" href="/content?id=<%=item.id%>&key=<%=arg%>"><span class="column-news-title"><%if(arg=='xshd'){%><%=item.name%><%}else{%><%=item.title%><%}%></span><span class="column-news-date news-date-hide"><%=item.time%></span></a> 
+              <%})%>
+            </div> 
+
+            <div id="wp_paging_w9"> 
+              <ul class="wp_paging clearfix"> 
+                   <li class="pages_count"> 
+                       <span class="all_count">共<em class="all_count"><%=count%></em>条</span> 
+                   </li> 
+                   <li class="pages_count"> 
+                    <span>当前是第 <strong><%=page%></strong> 页</span>
+                   </li>
+                   <li class="page_nav"> 
+                       <a class="first" href="javascript:void(0);" target="_self"><span>首页</span></a> 
+                       <a class="prev" href="javascript:void(0);" target="_self"><span>上一页</span></a> 
+                       <a class="next" href="javascript:void(0);" target="_self"><span>下一页</span></a> 
+                       <a class="last" href="javascript:void(0);" target="_self"><span>尾页</span></a> 
+                   </li> 
+              </ul> 
+            </div> 
+            <script type="text/javascript"> 
+                 $().ready(function() { 
+                     $("#wp_paging_w9 .first").click(function() { 
+                      console.log('first')
+                         let page =  Number('<%=page%>')//当前页
+                         page = 1                        
+                         //let reg = new RegExp("/news", "g"); 
+                         //let url = "/news"; 
+                         window.location.href = "content_list?key="+GetQueryString("key")
+                         //window.location.href = url.replace(reg, "/news"); 
+                     }); 
+                      $("#wp_paging_w9 .prev").click(function() { 
+                        console.log('prev')
+                         let page =  Number('<%=page%>')//当前页
+                         if(page==1){return}     
+                         if(page>1){page = page - 1}   
+                         window.location.href = "content_list?key="+GetQueryString("key")+"&page=" + page                
+                         //let reg = new RegExp("/news", "g"); 
+                         //let url = "/news"; 
+                        // window.location.href = url.replace(reg, "/news?page=" + page); 
+                     }); 
+                      $("#wp_paging_w9 .next").click(function() { 
+                        
+                         let page =  Number('<%=page%>')//当前页
+                         let count = Number('<%=count%>'),
+                             allpage = Math.ceil(count/15)
+                             console.log('next count',Number('<%=page%>'),Number('<%=count%>'),Math.ceil(count/15))
+                         page = page + 1
+                         if(page>allpage){return}                  
+                         let reg = new RegExp("/news", "g");
+                         window.location.href = "content_list?key="+GetQueryString("key")+"&page=" + page   
+                         //let url = "/news"; 
+                         //console.log(page,allpage,url.replace(reg, "/news?page=" + page))
+                         //window.location.href = url.replace(reg, "/news?page=" + page); 
+                     }); 
+                       $("#wp_paging_w9 .last").click(function() { 
+                        console.log('last')
+                         let page =  Number('<%=page%>')//当前页
+                         let count = Number('<%=count%>'),
+                             allpage = Math.ceil(count/15)
+                         //
+                         if(page>=allpage){return}     
+                         page = allpage 
+                         window.location.href = "content_list?key="+GetQueryString("key")+"&page=" + page              
+                         //let reg = new RegExp("/news", "g"); 
+                         //let url = "/news"; 
+                         //window.location.href = url.replace(reg, "/news?page=" + page); 
+                     }); 
+                 }); 
+            </script> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%include frontfooter.ejs%>
+<script type="text/javascript"> 
+//获取参数
+function GetQueryString(name)
+{
+     let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     let r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+     if(r!=null)return  unescape(r[2]); return null;
+}
+function getRandomNumberByRange(start, end) {
+    return Math.floor(Math.random() * (end - start) + start)
+}
+$().ready(function() { 
+  let ran_num = getRandomNumberByRange(1,6)
+  console.log('ran_num--->',ran_num)
+  $('#ran_pic').attr('src','images/banner'+ran_num+'.jpg')
+
+  let check_col_switch = '<%=arg%>'
+  if(check_col_switch=='news'||check_col_switch=='xshd'||check_col_switch=='gggs'){
+    $('#col_switch').text('新闻公告')
+    let str
+    if(check_col_switch=='news'){
+      $('#pos_title').text('新闻动态')
+      $('#pos_1').text('新闻公告')
+      $('#pos_2').text('新闻动态')
+      str = '<li class="column-item column-1 selected"> <a href="/content_list?key="'+check_col_switch+' class="column-item-link selected"><span class="column-name">新闻动态</span></a></li><li class="column-item column-1"> <a href="/content_list?key=xshd" class="column-item-link"><span class="column-name">学术活动</span></a></li><li class="column-item column-1"> <a href="/content_list?key=gggs" class="column-item-link"><span class="column-name">公告公示</span></a></li>'
+    }
+    if(check_col_switch=='xshd'){
+      $('#pos_title').text('学术活动')
+      $('#pos_1').text('新闻公告')
+      $('#pos_2').text('学术活动')
+      str = '<li class="column-item column-1"> <a href="/content_list?key=news" class="column-item-link"><span class="column-name">新闻动态</span></a></li><li class="column-item column-1 selected"> <a href="/content_list?key=xshd" class="column-item-link selected"><span class="column-name">学术活动</span></a></li><li class="column-item column-1"> <a href="/content_list?key=gggs" class="column-item-link"><span class="column-name">公告公示</span></a></li>'
+    }
+    if(check_col_switch=='gggs'){
+      $('#pos_title').text('公告公示')
+      $('#pos_1').text('新闻公告')
+      $('#pos_2').text('公告公示')
+      str = '<li class="column-item column-1"> <a href="/content_list?key=news" class="column-item-link"><span class="column-name">新闻动态</span></a></li><li class="column-item column-1"> <a href="/content_list?key=xshd" class="column-item-link"><span class="column-name">学术活动</span></a></li><li class="column-item column-1 selected"> <a href="/content_list?key=gggs" class="column-item-link selected"><span class="column-name">公告公示</span></a></li>'
+    }
+    $('#left_column').append(str)
+  }else if(check_col_switch=='yjpt'){
+    $('#col_switch').text('研究平台')
+    $('#pos_title').text('研究平台')
+    $('#pos_1').text('研究平台')
+    let str = '<li class="column-item column-1 selected"> <a href="/content_list?key="'+check_col_switch+' class="column-item-link selected"><span class="column-name">研究平台</span></a></li>'
+    $('#left_column').append(str)
+  }else if(check_col_switch=='kycg'){
+    $('#col_switch').text('科研成果')
+    $('#pos_title').text('科研成果')
+    $('#pos_1').text('科研成果')
+    let str = '<li class="column-item column-1 selected"> <a href="/content_list?key="'+check_col_switch+' class="column-item-link selected"><span class="column-name">科研成果</span></a></li>'
+    $('#left_column').append(str)
+  }else if(check_col_switch=='gzzd'){
+    $('#col_switch').text('规章制度')
+    $('#pos_title').text('规章制度')
+    $('#pos_1').text('规章制度')
+    let str = '<li class="column-item column-1 selected"> <a href="/content_list?key="'+check_col_switch+' class="column-item-link selected"><span class="column-name">规章制度</span></a></li>'
+    $('#left_column').append(str)
+  }else{
+    $('#col_switch').text('招贤纳士')
+    $('#pos_title').text('招贤纳士')
+    $('#pos_1').text('招贤纳士')
+    let str = '<li class="column-item column-1 selected"> <a href="/content_list?key="'+check_col_switch+' class="column-item-link selected"><span class="column-name">招贤纳士</span></a></li>'
+    $('#left_column').append(str)
+  }
+})
+</script>

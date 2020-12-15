@@ -1,0 +1,55 @@
+<%include frontheader.ejs%>
+<div class="wp-wrapper wp-banner listl" frag="面板21">
+  <div class="wp-inner" frag="窗口21" portletmode="simpleColumnAttri">   
+      <div class="banner"><img border='0' src='' id="ran_pic"/></div><!--这里替换成随机图片-->
+  </div>
+</div>
+<!--Start||content-->
+<div class="wrapper" id="d-container">
+  <div class="inner clearfix">
+    <div class="list-head" frag="面板8">
+            <div class="list-meta clearfix" frag="窗口8" portletmode="simpleColumnAttri">
+                <div class="my-column-path">
+                  <a href="/" target="_self">首页</a>
+                  <span class="possplit">&nbsp;&nbsp;</span>
+                  <a href="" target="_self" id="pos_href"><%=title%></a><!--这里替换成动态内容-->
+                  <span class="possplit">&nbsp;&nbsp;</span>
+                  <a href="" target="_self">正文</a>
+                </div>
+            </div>
+      </div>
+    <div class="infobox">
+      <div class="article" frag="窗口3" portletmode="simpleArticleAttri">
+        <div frag="窗口内容">
+          <h1 class="arti_title"><%=data.title%></h1>
+          <h2 class="arti_title"></h2>
+          <p class="arti_metas"><span class="arti_publisher"></span><span class="arti_update">发布时间：<%=data.time%></span><span class="arti_views"></span></p>
+          <div class="entry">
+          <div class="read"><%-data.content%></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End||content-->
+<!--Start||footer-->
+<%include frontfooter.ejs%>
+<script type="text/javascript"> 
+//获取参数
+function GetQueryString(name)
+{
+     let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     let r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+     if(r!=null)return  unescape(r[2]); return null;
+}
+function getRandomNumberByRange(start, end) {
+    return Math.floor(Math.random() * (end - start) + start)
+}
+$().ready(function() { 
+  $('#pos_href').attr('href','/content?key='+GetQueryString('key'))
+  let ran_num = getRandomNumberByRange(1,6)
+  console.log('ran_num--->',ran_num)
+  $('#ran_pic').attr('src','images/banner'+ran_num+'.jpg')
+})
+</script>

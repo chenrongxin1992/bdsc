@@ -277,28 +277,28 @@
 							<!-- <em class="menu-switch-arrow"></em> -->
 							<!--[MenuStructEnd]-->
 						</li>
-						<li class="menu-item {级别样式}"><a class="menu-link" href="/lab" target="">实验室概况</a>
+						<li class="menu-item {级别样式}"><a class="menu-link" href="/content?key=lab" target="">实验室概况</a>
 						<em class="menu-switch-arrow"></em>
 							<ul class="sub-menu ">
-								<li class="sub-item {级别样式}"><a class="sub-link" href="/lab" target="">实验室简介</a></li>
-								<li class="sub-item {级别样式}"><a class="sub-link" href="/zzjg" target="">组织架构</a></li>
-								<li class="sub-item {级别样式}"><a class="sub-link" href="/syslsh" target="">理事会</a></li>
-								<li class="sub-item {级别样式}"><a class="sub-link" href="/sysld" target="">实验室领导</a></li>
-								<li class="sub-item {级别样式}"><a class="sub-link" href="/jswyh" target="">技术委员会</a></li>
+								<li class="sub-item {级别样式}"><a class="sub-link" href="/content?key=lab" target="">实验室简介</a></li>
+								<li class="sub-item {级别样式}"><a class="sub-link" href="/content?key=zzjg" target="">组织架构</a></li>
+								<li class="sub-item {级别样式}"><a class="sub-link" href="/content?key=syslsh" target="">理事会</a></li>
+								<li class="sub-item {级别样式}"><a class="sub-link" href="/content?key=sysld" target="">实验室领导</a></li>
+								<li class="sub-item {级别样式}"><a class="sub-link" href="/content?key=jswyh" target="">技术委员会</a></li>
 							</ul>
 						</li>
-						<li class="menu-item {级别样式}"><a class="menu-link" href="/news" target=""><i class="layui-icon layui-icon-read"></i> 新闻公告</a>
+						<li class="menu-item {级别样式}"><a class="menu-link" href="/content_list?key=news" target=""><i class="layui-icon layui-icon-read"></i> 新闻公告</a>
 						<em class="menu-switch-arrow"></em>
 							<ul class="sub-menu ">
-								<li class="sub-item {级别样式}"><a class="sub-link" href="/news" target="">新闻动态</a></li>
-								<li class="sub-item {级别样式}"><a class="sub-link" href="/xshd" target="">学术活动</a></li>
-								<li class="sub-item {级别样式}"><a class="sub-link" href="/gggs" target="">公告公示</a></li>
+								<li class="sub-item {级别样式}"><a class="sub-link" href="/content_list?key=news" target="">新闻动态</a></li>
+								<li class="sub-item {级别样式}"><a class="sub-link" href="/content_list?key=xshd" target="">学术活动</a></li>
+								<li class="sub-item {级别样式}"><a class="sub-link" href="/content_list?key=gggs" target="">公告公示</a></li>
 							</ul>
 						</li>
-						<li class="menu-item {级别样式}"><a class="menu-link" href="/yjpt" target="">研究平台</a></li>
-						<li class="menu-item {级别样式}"><a class="menu-link" href="/kycg" target=""><i class="layui-icon layui-icon-form"></i> 科研成果</a></li>
-						<li class="menu-item {级别样式}"><a class="menu-link" href="/gzzd" target="">规章制度</a></li>
-						<li class="menu-item {级别样式}"><a class="menu-link" href="/zxns" target="">招贤纳士</a></li>
+						<li class="menu-item {级别样式}"><a class="menu-link" href="/content_list?key=yjpt" target="">研究平台</a></li>
+						<li class="menu-item {级别样式}"><a class="menu-link" href="/content_list?key=kycg" target=""><i class="layui-icon layui-icon-form"></i> 科研成果</a></li>
+						<li class="menu-item {级别样式}"><a class="menu-link" href="/content_list?key=gzzd" target="">规章制度</a></li>
+						<li class="menu-item {级别样式}"><a class="menu-link" href="/content_list?key=zxns" target="">招贤纳士</a></li>
 						<!--[NaviItemCycleEnd]-->
 					</ul>
 					<!--[NaviStructEnd]-->
@@ -352,10 +352,10 @@
                 <div class="post-head">
                     <div class="head-bar">
                         <h3 class="post-title">
-                            <span><a href="/news" target="_blank">实验室要闻</a></span> 
+                            <span><a href="/content_list?key=news" target="_blank">实验室要闻</a></span> 
                         </h3>
                         <div class="post-more">
-                            <a href="/news" target="_blank">更多&gt;</a> 
+                            <a href="/content_list?key=news" target="_blank">更多&gt;</a> 
                         </div>
                     </div>
                 </div>
@@ -367,13 +367,13 @@
                             <!-- <li class="news-item item-1 clearfix"> -->
                                 <div class="imgnews">
                                     <div class="imgnewscon">
-                                        <a href="/newsdetail?id=<%=item.id%>" target="_blank"> 
+                                        <a href="/content?id=<%=item.id%>&key=news" target="_blank"> 
                                         	<img src="<%=item.defaultimg %>" alt="" width="384" height="240"/>
                                         </a>
                                         <div class="imgtit clearfix">
                                             <div class="img-title">
                                                 <div class="titcon">
-                                                    <a href='/newsdetail?id=<%=item.id%>' target='_blank' title='<%=item.title %>' alt='<%=item.title %>'><font style='font-weight:bold;'><%=item.title %></font></a>
+                                                    <a href='/content?id=<%=item.id%>&key=news' target='_blank' title='<%=item.title %>' alt='<%=item.title %>'><font style='font-weight:bold;'><%=item.title %></font></a>
                                                 </div>
                                             </div>
                                             <div class="img-jt">
@@ -434,7 +434,7 @@
                         <ul class="tab-menu clearfix">
                             <li>
                                 <h3 class="post-title">
-                                    <a href="/yjpt">研究平台</a>
+                                    <a href="/content_list?key=yjpt">研究平台</a>
                                 </h3>
                             </li>
                         </ul>
@@ -448,7 +448,7 @@
                                     <ul class="post-news">
                                     	<% kycg.forEach(function(item,i){%>
                                         <li class="news-item item-1 clearfix">
-                                            <span class="item-meta meta-title"><a href='/yjptdetail?id=<%=item.id%>' target='_blank' title='<%=item.title%>' alt=''><%=item.title%></a></span><span class="news_meta"><%=item.time%></span> 
+                                            <span class="item-meta meta-title"><a href='/content?id=<%=item.id%>&key=yjpt' target='_blank' title='<%=item.title%>' alt=''><%=item.title%></a></span><span class="news_meta"><%=item.time%></span> 
                                         </li>
                                         <%})%>
                                        <!--  <li class="news-item item-2 clearfix">
@@ -473,7 +473,7 @@
                                 </div> 
 
                                 <div class="tabmore">
-                                    <span frag="按钮" type=""><a href="/yjpt" class="w8_more"><span frag="">更多&gt;</span></a></span> 
+                                    <span frag="按钮" type=""><a href="/content_list?key=yjpt" class="w8_more"><span frag="">更多&gt;</span></a></span> 
                                 </div>
                             </div>
                         </div>
@@ -488,7 +488,7 @@
                         <ul class="tab-menu clearfix">
                             <li>
                                 <h3 class="post-title">
-                                    <a href="/tzgg">通知公告 </a>
+                                    <a href="/content_list?key=gggs">通知公告 </a>
                                 </h3>
                             </li>
                         </ul>
@@ -508,7 +508,7 @@
                                             </div>
                                             <div class="news_con">
                                                 <div class="news_title">
-                                                    <a href='/tzggdetail?id=<%=item.id%>' target='_blank' title='<%=item.title%>' alt=''><%=item.title%></a>
+                                                    <a href='/content?id=<%=item.id%>&key=gggs' target='_blank' title='<%=item.title%>' alt=''><%=item.title%></a>
                                                 </div>
                                                 <div class="news_text">
                                                     <%-item.content%>
@@ -560,7 +560,7 @@
                                 </div> 
 
                                 <div class="tabmore">
-                                    <span frag="按钮" type="更多"><a href="/tzgg" class="w9_more"><span frag="按钮内容">更多&gt;</span></a></span> 
+                                    <span frag="按钮" type="更多"><a href="/content_list?key=tzgg" class="w9_more"><span frag="按钮内容">更多&gt;</span></a></span> 
                                 </div>
                             </div>
                         </div>

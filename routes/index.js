@@ -36,6 +36,490 @@ const kfjj = require('../db/db_structure').fundopen
 const menu = require('../db/db_structure').menu
 
 const bdsc_kycg = require('../db/db_structure').bdsc_kycg
+router.get('/setLanguage',function(req,res){
+	console.log('check req.query[L]',req.query.language,typeof(req.query.language))
+	res.cookie("L", parseInt(req.query.language), { maxAge: 6 * 60 * 60 * 1000 });//中文
+	req.query["L"] = req.query.language;
+	res.json({
+		success: 1
+	});
+})
+router.get('/content',function(req,res){
+	//详细内容页
+	let id = req.query.id,data,L=req.query.L,arg=req.query.key
+	if(!id||typeof(id)=='undefined'){
+		console.log('列表或者单页面介绍----------------------')
+		if(arg=='lab'){
+			//实验室简介
+			let search = news.findOne({'id':86})
+				search.exec(function(error,doc){
+					if(error){
+						res.json(error)
+					}
+					res.render('content',{'data':doc,'title':'实验室简介','L':req.query["L"]})
+				})
+		}else if(arg=='zzjg'){
+			let search = news.findOne({'id':66})
+				search.exec(function(error,doc){
+					if(error){
+						res.json(error)
+					}
+					console.log(doc)
+					res.render('content',{'data':doc,'title':'组织架构','L':req.query["L"]})
+					//res.render('content',{'data':doc,'title':'组织架构','L':req.query["L"]}})
+				})
+		}else if(arg=='syslsh'){
+			let search = news.findOne({'title':'实验室理事会'})
+				search.exec(function(error,doc){
+					if(error){
+						res.json(error)
+					}
+					console.log(doc)
+					res.render('content',{'data':doc,'title':'理事会','L':req.query["L"]})
+				})
+		}else if(arg=='sysld'){
+			let search = news.findOne({'title':'实验室领导'})
+				search.exec(function(error,doc){
+					if(error){
+						res.json(error)
+					}
+					console.log(doc)
+					res.render('content',{'data':doc,'title':'技术委员会','L':req.query["L"]})
+				})
+		}else if(arg=='jswyh'){
+			let search = news.findOne({'title':'实验室技术委员会'})
+				search.exec(function(error,doc){
+					if(error){
+						res.json(error)
+					}
+					console.log(doc)
+					res.render('content',{'data':doc,'title':'技术委员会','L':req.query["L"]})
+				})
+		}
+	}else{
+		console.log('详情-------------------------')
+		if(arg=='news'){
+			let id = req.query.id,L=req.query.L,arg=req.query.key
+			let search = news.findOne({'id':id})
+				search.exec(function(error,doc){
+					if(error){
+						res.end(error)
+					}
+					console.log(doc)
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+				})
+		}else if(arg=='gggs'){
+			let id = req.query.id,L=req.query.L,arg=req.query.key
+			let search = tzgg.findOne({'id':id})
+				search.exec(function(error,doc){
+					if(error){
+						res.end(error)
+					}
+					console.log(doc)
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+				})
+		}else if(arg=='yjpt'){
+			let id = req.query.id,L=req.query.L,arg=req.query.key
+			let search = bdsc_kycg.findOne({'id':id})
+				search.exec(function(error,doc){
+					if(error){
+						res.end(error)
+					}
+					console.log(doc)
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+				})
+		}else if(arg=='kycg'){
+			let id = req.query.id,L=req.query.L,arg=req.query.key
+			let search = bdsc_kycg.findOne({'id':id})
+				search.exec(function(error,doc){
+					if(error){
+						res.end(error)
+					}
+					console.log(doc)
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+				})
+		}else if(arg=='gzzd'){
+			let id = req.query.id,L=req.query.L,arg=req.query.key
+			let search = gzzd.findOne({'id':id})
+				search.exec(function(error,doc){
+					if(error){
+						res.end(error)
+					}
+					console.log(doc)
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+		})
+		}else if(arg=='xshd'){
+			let id = req.query.id,L=req.query.L,arg=req.query.key
+			let search = xsjl.findOne({'id':id})
+				search.exec(function(error,doc){
+					if(error){
+						res.end(error)
+					}
+					console.log(doc)
+					res.render('content',{data:doc,'title':doc.name,'L':req.query["L"]})
+				})
+		}else{
+			let id = req.query.id,L=req.query.L,arg=req.query.key
+			let search = zpxx.findOne({'id':id})
+				search.exec(function(error,doc){
+					if(error){
+						res.end(error)
+					}
+					console.log(doc)
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+				})
+		}
+	}
+})
+router.get('/content_list',function(req,res){
+	let id = req.query.id,data,L=req.query.L,arg=req.query.key
+	if(arg=='news'){
+			let page = req.query.page,
+				limit = req.query.limit
+			if(!page||typeof(page)=='undefined'){
+				page = 1
+			}
+			if(!limit||typeof(limit)=='undefined'){
+				limit = 15
+			}
+			let total = 0
+			console.log('page,limit',page,limit)
+			async.waterfall([
+				function(cb){
+					let search = news.find({'showin':new RegExp('A')}).count()
+						search.exec(function(err,count){
+							if(err){
+								console.log('news get total err',err)
+								cb(err)
+							}
+							console.log('news count',count)
+							total = count
+							cb(null)
+						})
+				},
+				function(cb){
+					let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+						console.log('不带搜索参数')
+						let search = news.find({'showin':new RegExp('A')})
+							search.sort({'time':-1})//正序
+							search.limit(limit)
+							search.skip(numSkip)
+							search.exec(function(error,docs){
+								if(error){
+									console.log('news error',error)
+									cb(error)
+								}
+								cb(null,docs)
+							})
+					
+				}
+			],function(error,result){
+				if(error){
+					console.log(error)
+					return res.end(error)
+				}
+				//res.json({'data':result})
+				return res.render('content_list',{'count':total,'page':page,'data':result,'title':'新闻','L':req.query["L"],'arg':arg})
+			})
+	}else if(arg=='xshd'){
+		console.log('dddddddddddddddddd')
+			let page = req.query.page,
+				limit = req.query.limit
+			if(!page||typeof(page)=='undefined'){
+				page = 1
+			}
+			if(!limit||typeof(limit)=='undefined'){
+				limit = 15
+			}
+			let total = 0
+			console.log('page,limit',page,limit)
+			async.waterfall([
+				function(cb){
+					let search = xsjl.find({}).count()
+						search.exec(function(err,count){
+							if(err){
+								console.log('xsjl get total err',err)
+								cb(err)
+							}
+							console.log('xsjl count',count)
+							total = count
+							cb(null)
+						})
+				},
+				function(cb){
+					let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+						console.log('不带搜索参数')
+						let search = xsjl.find({})
+							search.sort({'time':-1})//正序
+							search.limit(limit)
+							search.skip(numSkip)
+							search.exec(function(error,docs){
+								if(error){
+									console.log('xsjl error',error)
+									cb(error)
+								}
+								cb(null,docs)
+							})
+					
+				}
+			],function(error,result){
+				if(error){
+					console.log(error)
+					return res.end(error)
+				}
+				//res.json({'data':result})
+				return res.render('content_list',{'count':total,'page':page,'data':result,'title':'学术活动','L':req.query["L"],'arg':arg})
+			})
+		}else if(arg=='gggs'){
+			let page = req.query.page,
+				limit = req.query.limit
+			if(!page||typeof(page)=='undefined'){
+				page = 1
+			}
+			if(!limit||typeof(limit)=='undefined'){
+				limit = 15
+			}
+			let total = 0
+			console.log('page,limit',page,limit)
+			async.waterfall([
+				function(cb){
+					let search = tzgg.find({}).count()
+						search.exec(function(err,count){
+							if(err){
+								console.log('notice get total err',err)
+								cb(err)
+							}
+							console.log('notice count',count)
+							total = count
+							cb(null)
+						})
+				},
+				function(cb){
+					let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+						console.log('不带搜索参数')
+						let search = tzgg.find({})
+							search.sort({'time':-1})//正序
+							search.limit(limit)
+							search.skip(numSkip)
+							search.exec(function(error,docs){
+								if(error){
+									console.log('notice error',error)
+									cb(error)
+								}
+								cb(null,docs)
+							})
+					
+				}
+			],function(error,result){
+				if(error){
+					console.log(error)
+					return res.end(error)
+				}
+				//res.json({'data':result})
+				return res.render('content_list',{'count':total,'page':page,'data':result,'title':'公告公示','L':req.query["L"],'arg':arg})
+			})
+		}else if(arg=='yjpt'){
+			let page = req.query.page,
+				limit = req.query.limit
+			if(!page||typeof(page)=='undefined'){
+				page = 1
+			}
+			if(!limit||typeof(limit)=='undefined'){
+				limit = 15
+			}
+			let total = 0
+			console.log('page,limit',page,limit)
+			async.waterfall([
+				function(cb){
+					let search = bdsc_kycg.find({'showin':new RegExp('B')}).count()
+						search.exec(function(err,count){
+							if(err){
+								console.log('gzzd get total err',err)
+								cb(err)
+							}
+							console.log('noticgzzde count',count)
+							total = count
+							cb(null)
+						})
+				},
+				function(cb){
+					let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+						console.log('不带搜索参数')
+						let search = bdsc_kycg.find({'showin':new RegExp('B')})
+							search.sort({'time':-1})//正序
+							search.limit(limit)
+							search.skip(numSkip)
+							search.exec(function(error,docs){
+								if(error){
+									console.log('notice error',error)
+									cb(error)
+								}
+								cb(null,docs)
+							})
+					
+				}
+			],function(error,result){
+				if(error){
+					console.log(error)
+					return res.end(error)
+				}
+				//res.json({'data':result})
+				return res.render('content_list',{'count':total,'page':page,'data':result,'title':'研究平台','L':req.query["L"],'arg':arg})
+			})
+		}else if(arg=='kycg'){
+			let page = req.query.page,
+				limit = req.query.limit
+			if(!page||typeof(page)=='undefined'){
+				page = 1
+			}
+			if(!limit||typeof(limit)=='undefined'){
+				limit = 15
+			}
+			let total = 0
+			console.log('page,limit',page,limit)
+			async.waterfall([
+				function(cb){
+					let search = bdsc_kycg.find({'showin':new RegExp('A')}).count()
+						search.exec(function(err,count){
+							if(err){
+								console.log('gzzd get total err',err)
+								cb(err)
+							}
+							console.log('noticgzzde count',count)
+							total = count
+							cb(null)
+						})
+				},
+				function(cb){
+					let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+						console.log('不带搜索参数')
+						let search = bdsc_kycg.find({'showin':new RegExp('A')})
+							search.sort({'time':-1})//正序
+							search.limit(limit)
+							search.skip(numSkip)
+							search.exec(function(error,docs){
+								if(error){
+									console.log('notice error',error)
+									cb(error)
+								}
+								cb(null,docs)
+							})
+					
+				}
+			],function(error,result){
+				if(error){
+					console.log(error)
+					return res.end(error)
+				}
+				//res.json({'data':result})
+				return res.render('content_list',{'count':total,'page':page,'data':result,'title':'科研成果','L':req.query["L"],'arg':arg})
+			})
+		}else if(arg=='gzzd'){
+			let page = req.query.page,
+				limit = req.query.limit
+			if(!page||typeof(page)=='undefined'){
+				page = 1
+			}
+			if(!limit||typeof(limit)=='undefined'){
+				limit = 15
+			}
+			let total = 0
+			console.log('page,limit',page,limit)
+			async.waterfall([
+				function(cb){
+					let search = gzzd.find({}).count()
+						search.exec(function(err,count){
+							if(err){
+								console.log('gzzd get total err',err)
+								cb(err)
+							}
+							console.log('noticgzzde count',count)
+							total = count
+							cb(null)
+						})
+				},
+				function(cb){
+					let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+						console.log('不带搜索参数')
+						let search = gzzd.find({})
+							search.sort({'time':-1})//正序
+							search.limit(limit)
+							search.skip(numSkip)
+							search.exec(function(error,docs){
+								if(error){
+									console.log('notice error',error)
+									cb(error)
+								}
+								cb(null,docs)
+							})
+					
+				}
+			],function(error,result){
+				if(error){
+					console.log(error)
+					return res.end(error)
+				}
+				//res.json({'data':result})
+				return res.render('content_list',{'count':total,'page':page,'data':result,'title':'规章制度','L':req.query["L"],'arg':arg})
+			})
+		}else{
+			console.log('默认-----------招贤纳士')
+			let page = req.query.page,
+				limit = req.query.limit
+			if(!page||typeof(page)=='undefined'){
+				page = 1
+			}
+			if(!limit||typeof(limit)=='undefined'){
+				limit = 15
+			}
+			let total = 0
+			console.log('page,limit',page,limit)
+			async.waterfall([
+				function(cb){
+					let search = zpxx.find({}).count()
+						search.exec(function(err,count){
+							if(err){
+								console.log('notice get total err',err)
+								cb(err)
+							}
+							console.log('notice count',count)
+							total = count
+							cb(null)
+						})
+				},
+				function(cb){
+					let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+						console.log('不带搜索参数')
+						let search = zpxx.find({})
+							search.sort({'time':-1})//正序
+							search.limit(limit)
+							search.skip(numSkip)
+							search.exec(function(error,docs){
+								if(error){
+									console.log('notice error',error)
+									cb(error)
+								}
+								cb(null,docs)
+							})
+					
+				}
+			],function(error,result){
+				if(error){
+					console.log(error)
+					return res.end(error)
+				}
+				//res.json({'data':result})
+				return res.render('content_list',{'count':total,'page':page,'data':result,'title':'招贤纳士','L':req.query["L"],'arg':arg})
+			})
+		}
+})
 /* GET manage home page. */
 router.get('/', function(req, res, next) {
 	//res.redirect('/spatial')
