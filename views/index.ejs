@@ -169,6 +169,9 @@
     .myh3{
         font-size: 22px;
     }
+    .uk-panel {
+        display: none;
+    }
 }
 @media screen and (min-width: 767px) and (max-width: 900px){
     .mycontent{
@@ -206,14 +209,136 @@
     .uk-slideshow > .uk-active {
         width:100%;
         height: 250px;
-    }        
+    }    
+    .uk-panel {
+        display: block;
+        position: relative;
+        margin: 20px;
+        color: #ffffff;
+    }
+    .uk-panel, .uk-panel:hover {
+        text-decoration: none;
+    }
+    .uk-search {
+        display: block;
+        margin-top: 10px;
+        position: relative;
+        /*padding: 0 15px;*/
+    }
+    .uk-search:before {
+        content: "\f002";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30px;
+        line-height: 35px;
+        text-align: center;
+        font-family: FontAwesome;
+        font-size: 14px;
+        color: rgba(42, 69, 93, 0.75);
+        left: 18px;
+        z-index: 3;
+        color: #2a455d;
+    }
+    input.uk-search-field {
+            box-sizing: border-box;
+        margin: 0;
+            line-height: normal;
+        height: 35px;
+        padding: 0 0 0 40px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        border-color: rgba(0, 0, 0, 0.2);
+        font-size: 14px;
+        color: #ffffff;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+        width: 100%;
+        cursor: text;
+            z-index: 1;
+        position: relative;
+            border: 1px solid rgba(42, 69, 93, 0.3);
+    }
+    .uk-panel:after {
+        clear: both;
+    }
+    .uk-panel:before, .uk-panel:after {
+        content: "";
+        display: table;
+    }   
+    .myzindex{
+        z-index: -1;
+    }  
+    .myzindex1{
+        z-index: -1;
+        height: 350px;
+    } 
+    .wp-menu{
+        margin-top: -10px!important;
+    }
 }
 
 .navi-aside-toggle{
     display: none!important;
 }
-
-
+.scroll-nav{
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+}
+.oneAnimated {
+        animation:fadeInLeft 2s;
+}
+.TwoAnimated {
+        animation:fadeInUp 2s;
+}
+.threeAnimated {
+        animation:fadeInRight 2s;
+        animation-fill-mode: both;
+}
+.fourAnimated {
+        animation:fadeInDown 2s;
+        animation-fill-mode: both;
+    }
+@keyframes fadeInUp{
+        0% {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+@keyframes fadeInLeft{
+        0% {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes fadeInRight{
+        0% {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes fadeInDown{
+        0% {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 </style>
 <!--[if lt IE 9]>
 <script src="extends/libs/html5.js"></script>
@@ -232,18 +357,18 @@
 				</div>
 				<!--//logo结束-->
 			</div>
-			<!-- <div class="head-right">
-				<div class="site-lang clearfix" frag="" > 
+			<div class="head-right">
+				<!-- <div class="site-lang clearfix" frag="" > 
 					<div frag="">
 						<ul class="clearfix">
 							<li class="links "><a href="" target=""></a> </li>
 						</ul>
 					</div>
-				</div>
+				</div> -->
 				<div class="searchbox" frag="" portletmode="search">
 					<div frag="窗口内容">
 						<div class="wp-search clearfix">
-							<form action="" method="post" target="_blank">
+							<form action="/bdsc_search" method="post" target="_blank">
 								<div class="search-input">
 									<input name="keyword" class="search-title" type="text" placeholder="请输入关键词..."/>
 								</div>
@@ -254,14 +379,14 @@
 						</div>
 					</div>
 				</div>			
-			</div> -->
+			</div>
 		</div>
 	</div>
 </div>
 <!--End||head-->
 <!--Start||nav-->
 <div class="wrapper nav wp-navi" id="nav">
-	<div class="inner clearfix">
+	<div class="inner clearfix myzindex1">
 		<div class="wp-panel">
 			<div class="wp-window" frag="">
 				<div frag="">
@@ -270,9 +395,15 @@
 						<a class="navi-slide-arrow"></a> 
 					</div>
 					<!--[NaviStructBegin]-->
+
 					<ul class="wp-menu" data-nav-aside='{"title":"导航","index":0}'>
+                        <div class="uk-panel">
+                            <div id="search-284" class="uk-search">
+                                <input name="keywordMobile" type="text" id="keywordMobile" class="uk-search-field" placeholder="search...">
+                            </div>
+                        </div>
 						<!--[NaviItemCycleBegin]-->
-						<li class="menu-item {级别样式}"><a class="menu-link" href="" target=""><i class="layui-icon layui-icon-home"></i> 首页</a>
+						<li class="menu-item {级别样式}" id="li_home"><a class="menu-link" href="" target="" id="a_home">首页</a>
 							<!--[MenuStructBegin]-->
 							<!-- <em class="menu-switch-arrow"></em> -->
 							<!--[MenuStructEnd]-->
@@ -317,9 +448,9 @@
 <!--End||nav-->
 <!--Start||focus-->
 <div class="wrapper mbanner" id="banner">
-	<div class="inner clearfix">
+	<div class="inner clearfix myzindex">
 		<div frag="">
-            <div class="content mycontent uk-slidenav-position" style="" data-uk-slideshow="{autoplay:true,animation: 'random-fx'}">
+            <div class="content mycontent uk-slidenav-position fourAnimated" style="" data-uk-slideshow="{autoplay:true,animation: 'random-fx'}">
                 
                 <ul class="uk-slideshow uk-overlay-active"  style="height: 450px;">
                  <% indexpic.forEach(function(item){%>
@@ -345,8 +476,8 @@
 </div>
 <!--End||focus-->
 <!--Start||content-->
-<div class="wrapper main4" id="container-4">
-	<div class="inner clearfix">
+<div class="wrapper main4 " id="container-4">
+	<div class="inner clearfix myzindex" style="position: relative;">
 		<div class="xyyw">
             <div class="wp-post post-7" frag="">
                 <div class="post-head">
@@ -359,11 +490,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="post-body">
+                <div class="post-body  ">
                     <div id="wp_news_w7"> 
                         <ul class="post-news clearfix">
                         	<% news.forEach(function(item,i){%>
-                        	<li class="news-item item-<%=i+1%> clearfix">
+                        	<li class="news-item item-<%=i+1%> TwoAnimated clearfix">
                             <!-- <li class="news-item item-1 clearfix"> -->
                                 <div class="imgnews">
                                     <div class="imgnewscon">
@@ -447,7 +578,7 @@
                                 <div id="wp_news_w8"> 
                                     <ul class="post-news">
                                     	<% kycg.forEach(function(item,i){%>
-                                        <li class="news-item item-1 clearfix">
+                                        <li class="news-item item-1 oneAnimated clearfix">
                                             <span class="item-meta meta-title"><a href='/content?id=<%=item.id%>&key=yjpt' target='_blank' title='<%=item.title%>' alt=''><%=item.title%></a></span><span class="news_meta"><%=item.time%></span> 
                                         </li>
                                         <%})%>
@@ -502,7 +633,7 @@
 
                                     <ul class="news_list clearfix">
                                         <% tzgg.forEach(function(item,i){%>
-                                        <li class="news n<%=i+1%> clearfix">
+                                        <li class="news n<%=i+1%> threeAnimated clearfix">
                                             <div class="news_date">
                                                 <span class="date_day"><%=item.time.substring(8,10)%></span><span class="date-year"><%=item.time.substring(0,7)%></span>
                                             </div>
@@ -575,7 +706,7 @@
 <div class="wp-wrapper wp-container3">
     <div class="wp-inner">
         <div class="mod clearfix">
-            <div class="modl">
+            <div class="modl TwoAnimated">
                 <div class="mlink botlinks clearfix">
                     <div class="links-wrap" frag="窗口80">
                         <a class="links-arrow" frag="标题">快捷访问</a>
@@ -632,7 +763,7 @@
 
                 </div>
             </div> -->
-            <div class="modr">
+            <div class="modr oneAnimated">
                 <div frag="面板83">
                     <div frag="窗口83" class="modr_con" portletmode="simpleSiteAttri">                 
                             <p>
@@ -662,6 +793,15 @@
 <script type="text/javascript" src="./javascripts/mytemplate/slideshow-fx.js"></script>
 <script type="text/javascript">
 $(function(){
+    window.addEventListener('scroll', function(){
+        let t = $('body, html').scrollTop();   // 目前监听的是整个body的滚动条距离
+        console.log('t',t)
+        if(t>0){
+            $('#nav').addClass('scroll-nav')
+        }else{
+            $('#nav').removeClass('scroll-nav')
+        }
+     })
 	// 初始化SDAPP
 	new SDAPP({
 		"menu":{

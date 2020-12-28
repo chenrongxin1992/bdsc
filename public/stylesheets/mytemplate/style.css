@@ -58,7 +58,7 @@ a:hover { color:#095ab5; }
 .header .sitetitle {display:inline-block;margin-top: 28px;margin-left:10px;font-size:32px;font-weight:bold;color:#fff;} /**站点名称**/
 .header .head-left{float:left;display:inline-block;}
 .header .head-main{float:left;margin-top:10px;}
-.header .head-right{float:right;margin-top: 12px;width:200px;}
+.header .head-right{float:right;margin-top: 41px;width:200px;}
 /*rale样式*/
 .site-rale{}
 .site-rale ul{}
@@ -363,7 +363,7 @@ a:hover { color:#095ab5; }
 .wp-search {position: relative;border: 1px solid #d0d0d0;}
 .wp-search form {display: block;}
 .wp-search .search-input {margin-left:4px; margin-right: 40px;}
-.wp-search .search-input input.search-title {width: 100%;height: 22px;padding: 4px 0;line-height: 22px;background: none;color: #FFFFFF;font-size: 14px;border:0;outline: 0;}
+.wp-search .search-input input.search-title {width: 100%;height: 22px;padding: 4px 0;line-height: 22px;background: none;font-size: 14px;border:0;outline: 0;}
 .wp-search .search-btn {width:32px;height: 32px;position: absolute;right: 0;top:0%;}
 .wp-search .search-btn input.search-submit {width:32px;height: 30px;border:0;outline: 0;background: #FFFFFF url(images/sous.png) no-repeat center;cursor: pointer;}
 /* 分享二维码 */

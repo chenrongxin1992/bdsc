@@ -35,6 +35,226 @@ const yqsb_use = require('../db/db_structure').equipment_use//仪器设备
 const kfjj = require('../db/db_structure').fundopen
 const menu = require('../db/db_structure').menu
 
+//抽奖
+const choujiang = require('../db/db_structure').choujiang
+router.get('/getuserinfo',function(req,res){
+	res.render('userinfo')
+}).post('/userinfo',function(req,res){
+	console.log('存储')
+	let search = choujiang.findOne({'realname':req.body.realname})
+		search.exec(function(err,doc){
+			if(err){
+				console.log('err')
+				return res.json({'code':-1,'msg':err})
+			}
+			if(doc){
+				console.log('doc------------->',doc)
+				res.json({'code':-1,'msg':'您已登记！'})
+			}
+			if(!doc){
+				let userinfo = new choujiang({
+					realname:req.body.realname
+				})
+				userinfo.save(function(error){
+					if(error){
+						console.log('err----------->',error)
+						return res.json({'code':-1,'msg':error})
+					}
+					return res.json({'code':0,'msg':'success'})
+				})
+			}
+		})
+}).get('/choujiang',function(req,res){
+	res.render('choujiang')
+}).get('/userinfojson',function(req,res){
+	let search = choujiang.find({isUsed:{$ne:1}})
+		search.exec(function(err,docs){
+			if(err){
+				console.log('err----->',err)
+				return res.end(err)
+			}
+			if(docs.length!=0){
+				console.log('总人数----->',docs.length)
+				return res.json({'code':1,'msg':'','data':docs})
+			}
+			if(docs.length==0){
+				console.log('没有人')
+				return res.json({'code':1,'msg':'','data':[]})
+			}
+		})
+}).post('/user_has',function(req,res){
+	let user_has = req.body
+	if(user_has.__proto__===undefined)
+		Object.setPrototypeOf(user_has, new Object());
+	console.log('user_has',user_has.temp_array)
+	let temp_array = JSON.parse(user_has.temp_array)
+	let level = JSON.parse(user_has.level)
+	console.log('level-----人数-----',level)
+	async.eachLimit(temp_array,1,function(item,cb){
+		let updateobj ={}
+		updateobj.isUsed = 1
+		if(level==1){
+			updateobj.level = '特等奖'
+		}else if(level==5){
+			updateobj.level = '一等奖'
+		}
+		else if(level==15){
+			updateobj.level = '二等奖'
+		}
+		else if(level==25){
+			updateobj.level = '三等奖'
+		}
+		else if(level==35){
+			updateobj.level = '四等奖'
+		}
+		else if(level==45){
+			updateobj.level = '五等奖'
+		}else{
+			updateobj.level = '六等奖'
+		}
+		console.log('item-------------->',item)
+		choujiang.findByIdAndUpdate(item._id,updateobj,function(err){
+			if(err){
+				console.log('err',err)
+			}else{
+				cb()
+			}
+		})
+	},function(err){
+		if(err){
+			console.log('err',err)
+		}
+		return res.json('update success')
+	})
+}).get('/zjlist',function(req,res){
+	let data = []
+	async.waterfall([
+		function(cb){
+			let search = choujiang.findOne({'level':'特等奖'})
+				search.exec(function(err,doc){
+					if(err){
+						console.log('err',err)
+						cb(err)
+					}
+					data.tdj = doc
+					cb(null)
+				})
+		},
+		function(cb){
+			let search = choujiang.find({'level':'一等奖'})
+				search.exec(function(err,docs){
+					if(err){
+						console.log('err',err)
+						cb(err)
+					}
+					if(docs.length!=0){
+						data.ydj = docs
+						cb(null)
+					}
+					if(docs.length==0){
+						data.ydj = null
+						cb(null)
+					}
+				})
+		},
+		function(cb){
+			let search = choujiang.find({'level':'二等奖'})
+				search.exec(function(err,docs){
+					if(err){
+						console.log('err',err)
+						cb(err)
+					}
+					if(docs.length!=0){
+						data.edj = docs
+						cb(null)
+					}
+					if(docs.length==0){
+						data.edj = null
+						cb(null)
+					}
+				})
+		},
+		function(cb){
+			let search = choujiang.find({'level':'三等奖'})
+				search.exec(function(err,docs){
+					if(err){
+						console.log('err',err)
+						cb(err)
+					}
+					if(docs.length!=0){
+						data.sdj = docs
+						cb(null)
+					}
+					if(docs.length==0){
+						data.sdj = null
+						cb(null)
+					}
+				})
+		},
+		function(cb){
+			let search = choujiang.find({'level':'四等奖'})
+				search.exec(function(err,docs){
+					if(err){
+						console.log('err',err)
+						cb(err)
+					}
+					if(docs.length!=0){
+						data.sidj = docs
+						cb(null)
+					}
+					if(docs.length==0){
+						data.sidj = null
+						cb(null)
+					}
+				})
+		},
+		function(cb){
+			let search = choujiang.find({'level':'五等奖'})
+				search.exec(function(err,docs){
+					if(err){
+						console.log('err',err)
+						cb(err)
+					}
+					if(docs.length!=0){
+						data.wdj = docs
+						cb(null)
+					}
+					if(docs.length==0){
+						data.wdj = null
+						cb(null)
+					}
+				})
+		},
+		function(cb){
+			let search = choujiang.find({'level':'六等奖'})
+				search.exec(function(err,docs){
+					if(err){
+						console.log('err',err)
+						cb(err)
+					}
+					if(docs.length!=0){
+						data.ldj = docs
+						cb(null)
+					}
+					if(docs.length==0){
+						data.ldj = null
+						cb(null)
+					}
+				})
+		}
+
+	],function(error,result){
+		if(error){
+			console.log('error------------>',error)
+			return error
+		}
+		return res.render('zjlist',{data:data})
+	})
+})
+
+const request = require('request')
+//lottery
+
 const bdsc_kycg = require('../db/db_structure').bdsc_kycg
 router.get('/setLanguage',function(req,res){
 	console.log('check req.query[L]',req.query.language,typeof(req.query.language))
@@ -56,7 +276,7 @@ router.get('/content',function(req,res){
 					if(error){
 						res.json(error)
 					}
-					res.render('content',{'data':doc,'title':'实验室简介','L':req.query["L"]})
+					res.render('content',{'data':doc,'title':'实验室简介','L':req.query["L"],'arg':arg})
 				})
 		}else if(arg=='zzjg'){
 			let search = news.findOne({'id':66})
@@ -65,7 +285,7 @@ router.get('/content',function(req,res){
 						res.json(error)
 					}
 					console.log(doc)
-					res.render('content',{'data':doc,'title':'组织架构','L':req.query["L"]})
+					res.render('content',{'data':doc,'title':'组织架构','L':req.query["L"],'arg':arg})
 					//res.render('content',{'data':doc,'title':'组织架构','L':req.query["L"]}})
 				})
 		}else if(arg=='syslsh'){
@@ -75,7 +295,7 @@ router.get('/content',function(req,res){
 						res.json(error)
 					}
 					console.log(doc)
-					res.render('content',{'data':doc,'title':'理事会','L':req.query["L"]})
+					res.render('content',{'data':doc,'title':'理事会','L':req.query["L"],'arg':arg})
 				})
 		}else if(arg=='sysld'){
 			let search = news.findOne({'title':'实验室领导'})
@@ -84,7 +304,7 @@ router.get('/content',function(req,res){
 						res.json(error)
 					}
 					console.log(doc)
-					res.render('content',{'data':doc,'title':'技术委员会','L':req.query["L"]})
+					res.render('content',{'data':doc,'title':'技术委员会','L':req.query["L"],'arg':arg})
 				})
 		}else if(arg=='jswyh'){
 			let search = news.findOne({'title':'实验室技术委员会'})
@@ -93,7 +313,7 @@ router.get('/content',function(req,res){
 						res.json(error)
 					}
 					console.log(doc)
-					res.render('content',{'data':doc,'title':'技术委员会','L':req.query["L"]})
+					res.render('content',{'data':doc,'title':'技术委员会','L':req.query["L"],'arg':arg})
 				})
 		}
 	}else{
@@ -106,7 +326,7 @@ router.get('/content',function(req,res){
 						res.end(error)
 					}
 					console.log(doc)
-					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"],'arg':arg})
 				})
 		}else if(arg=='gggs'){
 			let id = req.query.id,L=req.query.L,arg=req.query.key
@@ -116,7 +336,7 @@ router.get('/content',function(req,res){
 						res.end(error)
 					}
 					console.log(doc)
-					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"],'arg':arg})
 				})
 		}else if(arg=='yjpt'){
 			let id = req.query.id,L=req.query.L,arg=req.query.key
@@ -126,7 +346,7 @@ router.get('/content',function(req,res){
 						res.end(error)
 					}
 					console.log(doc)
-					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"],'arg':arg})
 				})
 		}else if(arg=='kycg'){
 			let id = req.query.id,L=req.query.L,arg=req.query.key
@@ -136,7 +356,7 @@ router.get('/content',function(req,res){
 						res.end(error)
 					}
 					console.log(doc)
-					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"],'arg':arg})
 				})
 		}else if(arg=='gzzd'){
 			let id = req.query.id,L=req.query.L,arg=req.query.key
@@ -146,7 +366,7 @@ router.get('/content',function(req,res){
 						res.end(error)
 					}
 					console.log(doc)
-					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"],'arg':arg})
 		})
 		}else if(arg=='xshd'){
 			let id = req.query.id,L=req.query.L,arg=req.query.key
@@ -156,7 +376,7 @@ router.get('/content',function(req,res){
 						res.end(error)
 					}
 					console.log(doc)
-					res.render('content',{data:doc,'title':doc.name,'L':req.query["L"]})
+					res.render('content',{data:doc,'title':doc.name,'L':req.query["L"],'arg':arg})
 				})
 		}else{
 			let id = req.query.id,L=req.query.L,arg=req.query.key
@@ -166,7 +386,7 @@ router.get('/content',function(req,res){
 						res.end(error)
 					}
 					console.log(doc)
-					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"]})
+					res.render('content',{data:doc,'title':doc.title,'L':req.query["L"],'arg':arg})
 				})
 		}
 	}
@@ -519,6 +739,91 @@ router.get('/content_list',function(req,res){
 				return res.render('content_list',{'count':total,'page':page,'data':result,'title':'招贤纳士','L':req.query["L"],'arg':arg})
 			})
 		}
+})
+//20201224-新增搜索功能
+router.post('/bdsc_search1',function(req,res){
+	let keyword = req.body.keyword
+	let reg = new RegExp(keyword)
+	console.log('keyword-------->',keyword,reg)
+	let resultarr=[]
+	let tempobj = {}
+	async.waterfall([
+		function(cb){//新闻
+			let search = news.find({$or:[{title:{$regex:reg}},{contnet:{$regex:reg}}]}) //news.find({title:{$regex:reg}}) 
+				search.sort({time:-1})
+				search.exec((err,docs)=>{
+					if(err){
+						console.log(err)
+						cb(err)
+					}
+					
+					for(let i=0;i<docs.length;i++){
+						tempobj.title = docs[i].title
+						tempobj.time = docs[i].time
+						tempobj.arg = 'news'
+						tempobj.id = docs[i].id
+						resultarr.push(tempobj)
+						tempobj = {}
+					}
+					//console.log('news----->',r)
+					//resultarr.push(docs)
+					cb(null)
+				})
+		},
+		function(cb){//通知
+			let search = tzgg.find({$or:[{title:{$regex:reg}},{contnet:{$regex:reg}}]})
+				search.sort({time:-1})
+				search.exec((err,docs)=>{
+					if(err){
+						console.log(err)
+						cb(err)
+					}
+					for(let i=0;i<docs.length;i++){
+						tempobj.title = docs[i].title
+						tempobj.time = docs[i].time
+						tempobj.arg = 'gggs'
+						tempobj.id = docs[i].id
+						resultarr.push(tempobj)
+						tempobj = {}
+					}
+					//console.log('notice----->',docs)
+					//resultarr.push(docs)
+					cb(null)
+				})	
+		},
+		function(cb){//学术交流
+			let search = xsjl.find({$or:[{name:{$regex:reg}},{intro:{$regex:reg}}]})
+				search.sort({time:-1})
+				search.exec((err,docs)=>{
+					if(err){
+						console.log(err)
+						cb(err)
+					}
+					for(let i=0;i<docs.length;i++){
+						tempobj.name = docs[i].name
+						tempobj.time = docs[i].time
+						tempobj.arg = 'xshd'
+						tempobj.id = docs[i].id
+						resultarr.push(tempobj)
+						tempobj = {}
+					}
+					//console.log('xsjl----->',docs)
+					//resultarr.push(docs)
+					cb(null)
+				})	
+		}
+	],function(error,result){
+		if(error){
+			console.log('async waterfall ',error)
+			return res.json(error)
+		}
+		console.log('resultarr',resultarr)
+		return res.json({'code':0,result:resultarr,keyword:keyword,title:'搜索结果'})
+	})
+})
+router.post('/bdsc_search',function(req,res){
+	let keyword = req.body.keyword
+	res.render('bdsc_search',{keyword:keyword,title:'搜索结果'})
 })
 /* GET manage home page. */
 router.get('/', function(req, res, next) {

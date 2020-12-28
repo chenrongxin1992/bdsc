@@ -103,6 +103,15 @@
 <script type="text/javascript" src="/javascripts/mytemplate/app.js"></script>
 <script type="text/javascript">
 $(function(){
+window.addEventListener('scroll', function(){
+        let t = $('body, html').scrollTop();   // 目前监听的是整个body的滚动条距离
+        console.log('t',t)
+        if(t>0){
+            $('#nav').addClass('scroll-nav')
+        }else{
+            $('#nav').removeClass('scroll-nav')
+        }
+     })
   // 初始化SDAPP
   new SDAPP({
     "menu":{
@@ -110,5 +119,6 @@ $(function(){
     }
   });
 });
+
 </script>
 </html>

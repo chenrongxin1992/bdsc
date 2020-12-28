@@ -88,6 +88,14 @@ var userSchema = new Schema({
     sort : {type:String}
 },{collection:'user'})
 
+//抽奖用户设置
+var choujiangSchema = new Schema({
+    realname : {type:String},
+    level : {type:String},
+    isUsed : {type:Number,default:0},//0默认没使用过
+    createtime:{type:String,default:moment().format('YYYY-MM-DD HH:mm:ss')}
+},{collection:'choujiang'})
+
 //用户角色
 var user_roleSchema = new Schema({
     id : {type:Number},
@@ -205,7 +213,7 @@ var fundopenSchema = new Schema({
     showin : {type:String,default:'A'}//显示在哪些页面(A,B,C,D,E)
 },{collection:'fundopen'})
 
-//学术交流
+//学术交流-----建索引-----.createIndex({ name: "text", intro: "text" }))
 var communicationSchema = new Schema({
     id : {type:Number},
     register : {type:String},//登记人id
@@ -249,8 +257,8 @@ var index_picSchema = new Schema({
     newslink:{type:String},
     showin : {type:String,default:'A'}//显示在哪些页面(A,B,C,D,E)
 },{collection:'index_pic'})
-
-//新闻中心
+//备注：除了学术交流communication（索引name,intro），其它索引字段都一样是（title，content）-20201224
+//新闻中心-----建索引-----.createIndex({ title: "text", content: "text" }))
 var newsSchema = new Schema({
     id : {type:Number},
     title : {type:String},
@@ -264,7 +272,7 @@ var newsSchema = new Schema({
     showin : {type:String,default:'A'}//显示在哪些页面(A,B,C,D,E)
 },{collection:'news'})
 
-//通知公告
+//通知公告-----建索引-----.createIndex({ title: "text", content: "text" }))
 var noticeSchema = new Schema({
     id : {type:Number},
     title : {type:String},
@@ -279,7 +287,7 @@ var noticeSchema = new Schema({
     showin : {type:String,default:'A'}//显示在哪些页面(A,B,C,D,E)
 },{collection:'notice'})
 
-//规章制度
+//规章制度-----建索引-----.createIndex({ title: "text", content: "text" }))
 var regulationsSchema = new Schema({
     id : {type:Number},
     title : {type:String},
@@ -290,7 +298,7 @@ var regulationsSchema = new Schema({
     showin : {type:String,default:'A'}//显示在哪些页面(A,B,C,D,E)
 },{collection:'regulations'})
 
-//新增一个科研成果
+//新增一个科研成果-----建索引------db.getCollection('bdsc_kycg').createIndex({ title: "text", content: "text" }))
 var bdsc_kycgSchema = new Schema({
     id : {type:Number},
     title : {type:String},
@@ -326,7 +334,7 @@ var relatedlinkSchema = new Schema({
     showin : {type:String,default:'A'}//显示在哪些页面(A,B,C,D,E)
 },{collection:'relatedlink'})
 
-//招聘信息
+//招聘信息-----建索引.createIndex({ title: "text", content: "text" }))
 var recruitSchema = new Schema({
     id : {type:Number},
     title : {type:String},
@@ -575,3 +583,4 @@ exports.equipment_use = mongoose.model('equipment_use',equipment_useSchema)
 exports.fundopen = mongoose.model('fundopen',fundopenSchema)
 exports.menu = mongoose.model('menu',menuSchema)
 exports.bdsc_kycg = mongoose.model('bdsc_kycg',bdsc_kycgSchema)
+exports.choujiang = mongoose.model('choujiang',choujiangSchema)

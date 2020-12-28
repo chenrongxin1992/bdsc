@@ -26,6 +26,7 @@
     "mysql": "^2.17.1",
     "node-xlsx": "^0.15.0",
     "path": "^0.12.7",
+    "request": "^2.88.2",
     "serve-favicon": "~2.4.2",
     "svg-captcha": "^1.4.0",
     "ueditor": "^1.2.3",

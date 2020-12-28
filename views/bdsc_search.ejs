@@ -1,0 +1,176 @@
+<%include frontheader.ejs%>
+<div class="wp-wrapper wp-banner listl" frag="面板21">
+  <div class="wp-inner" frag="窗口21" portletmode="simpleColumnAttri">   
+      <div class="banner"><img border='0' src='' id="ran_pic"/></div><!--这里替换成随机图片-->
+  </div>
+</div>
+<!-- 主体 -->
+<div class="wp-wrapper wp-container">
+  <div class="wp-inner clearfix">
+    <div class="wp-column-menu">
+      <div class="column-head" frag="面板6">
+        <div class="column-anchor clearfix" frag="窗口6" portletmode="simpleColumnAnchor">
+          <h3 class="anchor-title"><span class="Column_Anchor" id="col_switch"></span></h3>
+          <a class="column-switch"></a> 
+        </div>
+      </div>
+      <div class="column-body" frag="面板7">
+        <div class="column-list" frag="窗口7" portletmode="simpleColumnList">
+          <div id="wp_listcolumn_w7"> 
+            <ul class="column-list-wrap" id="left_column">
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wp-column-news">
+      <div class="column-news-box">
+        <div class="list-head" frag="面板8">
+          <div class="list-meta clearfix" frag="窗口8" portletmode="simpleColumnAttri">
+            
+              <h2 class="column-title" id="pos_title"></h2>
+            
+          </div>
+        </div>
+        <div class="column-news-con" frag="面板9">
+          <div class="column-news-list clearfix" frag="窗口9" portletmode="simpleList">
+            <div id="wp_news_w9" class="wp_news_w9"> 
+              
+            </div> 
+
+            <div id="wp_paging_w9"> 
+              <ul class="wp_paging clearfix"> 
+                   
+              </ul> 
+            </div> 
+            <script type="text/javascript"> 
+                
+            </script> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%include frontfooter.ejs%>
+
+<script type="text/javascript"> 
+//获取参数
+function GetQueryString(name)
+{
+     let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     let r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+     if(r!=null)return  unescape(r[2]); return null;
+}
+function getRandomNumberByRange(start, end) {
+    return Math.floor(Math.random() * (end - start) + start)
+}
+function mymessage(p=1,pagesize=2,result){
+  console.log('result',result)
+  let allcount = result.length,//记录数
+      allpage = Math.ceil(allcount/pagesize)//总页数
+  let start_index = (pagesize)*(p-1),
+      end_index = pagesize*p
+  let str = ''
+  $('#wp_news_w9').html('')
+  $('.wp_paging').html('')
+  for(let i = start_index;i<end_index;i++){
+    console.log('i',i,result[i])
+    if(result[i]&&typeof(result[i])!='undefined'){
+      if(result[i].arg=='xshd'){
+        
+        let arg = result[i].arg
+        console.log('a',arg)
+        str += '<a class="column-news-item item-'+(i+1)+' threeAnimated clearfix" href="/content?id='+result[i].id+'&key='+arg+'"><span class="column-news-title">'+result[i].name+'</span><span class="column-news-date news-date-hide">'+result[i].time+'</span></a>'
+      }else{
+        let arg = result[i].arg
+        console.log('b',arg)
+        str += '<a class="column-news-item item-'+(i+1)+' threeAnimated clearfix" href="/content?id='+result[i].id+'&key='+arg+'"><span class="column-news-title">'+result[i].title+'</span><span class="column-news-date news-date-hide">'+result[i].time+'</span></a>'
+      }
+    }
+  }
+  $('#wp_news_w9').html(str)
+  keywordHighlight('wp_news_w9','<%=keyword%>')
+  let str2 = ''
+  str2 += '<li class="pages_count"><span class="all_count">共<em class="all_count">'+allcount+'</em>条结果</span></li>'
+  if(allcount >= pagesize){
+    if(p!=1){
+      str2+= '<li class="page_nav"><a class="prev jqmyp" data-states="0"><span>上一页</span></a><span>下一页</span></a>'
+    }
+    if(p!=allpage){
+      str2+= '<li class="page_nav"><span>上一页</span></a><a class="next jqmyp" data-states="1"><span>下一页</span></a>'
+    }
+    str2 += '<input type="hidden" name="p" value="'+p+'"></li>'
+  }
+  $('.wp_paging').html(str2)
+  keywordHighlight('wp_paging','<%=keyword%>')
+}
+function keywordHighlight(idHtmlContent,keyword) {
+          console.log('idHtmlContent--->',idHtmlContent)
+          var content= $("."+idHtmlContent).html();//获取内容
+          if ($.trim(keyword)==""){
+            return;//关键字为空则返回
+          }
+          var htmlReg = new RegExp("\<.*?\>", "i");
+          var arrA = new Array();
+          //替换HTML标签
+          for (var i = 0; true; i++) {
+            var m = htmlReg.exec(content);
+            if (m) {
+              arrA[i] = m;
+            }else {
+              break;
+            }
+            content = content.replace(m, "{[(" + i + ")]}");
+          }
+          words = unescape(keyword.replace(/\+/g, ' ')).split(/\s+/);
+          //替换关键字 
+          for (w = 0; w < words.length; w++) {
+            var r = new RegExp("(" + words[w].replace(/[(){}.+*?^$|\\\[\]]/g, "\\$&") + ")", "ig");
+            content = content.replace(r, "<b><span style='color:red;'>"+words[w]+"</span></b>");//关键字样式
+          }
+          //恢复HTML标签 
+          for (var i = 0; i < arrA.length; i++) {
+            content = content.replace("{[(" + i + ")]}", arrA[i]);
+          }
+           $("."+idHtmlContent).html(content);
+        }
+
+$().ready(function() { 
+  let ran_num = getRandomNumberByRange(1,6)
+  console.log('ran_num--->',ran_num)
+  $('#ran_pic').attr('src','images/banner'+ran_num+'.jpg')
+  
+  
+  let keyword = '<%=keyword%>'
+  $('#col_switch').text('搜索结果（'+keyword+'）')
+  $('#pos_title').text('搜索关键词： '+keyword)
+  let result 
+  $.ajax({  
+          type : 'POST',  
+          url: '/bdsc_search1',  
+          data : {keyword:'<%=keyword%>'}, 
+          dataType : "json",
+          //contentType: "application/json",
+          success : function(data) {  
+            console.log('ajax data-------->',data)
+            result = data.result
+            mymessage(1,10,result)
+          }  
+      }); 
+  $('body').on('click','.jqmyp',function(){
+    let states = $(this).data('states')
+    let p = parseInt($('input[name=p]').val())
+    if(states==0){
+      p = p-1
+    }else if(states==1){
+      p = p+1
+    }
+    mymessage(p,10,result)
+  })
+ // mymessage(1)
+  
+})
+</script>

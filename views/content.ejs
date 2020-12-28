@@ -21,11 +21,11 @@
     <div class="infobox">
       <div class="article" frag="窗口3" portletmode="simpleArticleAttri">
         <div frag="窗口内容">
-          <h1 class="arti_title"><%=data.title%></h1>
+          <h1 class="arti_title"><%if(arg=='xshd'){%><%=data.name%><%}else{%><%=data.title%><%}%></h1>
           <h2 class="arti_title"></h2>
           <p class="arti_metas"><span class="arti_publisher"></span><span class="arti_update">发布时间：<%=data.time%></span><span class="arti_views"></span></p>
           <div class="entry">
-          <div class="read"><%-data.content%></div>
+          <div class="read TwoAnimated"><%if(arg=='xshd'){%><%-data.intro%><%}else{%><%-data.content%><%}%></div>
           </div>
         </div>
       </div>
@@ -47,7 +47,13 @@ function getRandomNumberByRange(start, end) {
     return Math.floor(Math.random() * (end - start) + start)
 }
 $().ready(function() { 
-  $('#pos_href').attr('href','/content?key='+GetQueryString('key'))
+  let id = GetQueryString('id')
+  if(typeof(id)=='undefined'){
+    $('#pos_href').attr('href','/content?key='+GetQueryString('key'))
+  }else{
+    $('#pos_href').attr('href','/content?id='+id+'&key='+GetQueryString('key'))
+  }
+  
   let ran_num = getRandomNumberByRange(1,6)
   console.log('ran_num--->',ran_num)
   $('#ran_pic').attr('src','images/banner'+ran_num+'.jpg')

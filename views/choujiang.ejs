@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>抽奖</title>
+
+<link href="./stylesheets/mytemplate/css.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="./stylesheets/mytemplate/layui.css" media="all" />
+<style type="text/css">
+	.contain{
+		display: block;
+		margin-top: 50px;
+	}
+	.zjpeo{
+		font-size: 50px;
+	    background: #E64F80;
+	    /* border: red; */
+	    border-bottom: 1px dashed #2864ef;
+	    margin-bottom: 5px;
+	}
+	body{
+		background-color: #fff;
+		/*background-color: beige;*/
+	}
+	*{
+		font-size: 20px;
+	}
+	.layui-btn,.layui-form-select dl dd.layui-this {
+		background-color: #C70E5C;
+	}
+	.layui-layer-btn .layui-layer-btn0 {
+		border-color: #C70E5C!important;
+    	background-color: #C70E5C!important;
+	}
+</style>
+<script type="text/javascript" src="./javascripts/mytemplate/jquery.min.js"></script>
+
+</head>
+<body>
+<div class="layui-container">  
+	<div class="layui-row" style="text-align: center;">
+      <div class="layui-col-xs12">
+        <img src="images/5582543_csse_logo.png" style="margin-top:10px;max-width:500px;margin-bottom: 50px;">
+      </div>
+    </div>
+	<form class="layui-form" action="" style="text-align: center;">
+		<div class="layui-form-item">
+			<div class="layui-inline">
+			    <label class="layui-form-label">选择奖项</label>
+			    <div class="layui-input-inline">
+			      <select name="level" lay-filter="aihao" lay-verify="required">
+			        <option value="1">特等奖</option>
+			        <option value="5">一等奖</option>
+			        <option value="15">二等奖</option>
+			        <option value="25">三等奖</option>
+			        <option value="35">四等奖</option>
+			        <option value="45">五等奖</option>
+			        <option value="55">六等奖</option>
+			      </select>
+			    </div>
+		    </div>
+		    <div class="layui-inline">
+		    	<label class="layui-form-label">人数</label>
+	              <div class="layui-input-inline">
+	                <input type="text" name="peonum" required  lay-verify="number" placeholder="请输入抽取人数"  class="layui-input" id="peonum" disabled="" value="1">
+	              </div>
+		    </div>
+		    <div class="layui-inline">
+		    	<div class="layui-input-inline">
+	             <button class="layui-btn" lay-submit lay-filter="formDemo" data-id="0" id="submit">开始</button>
+	            </div>
+		    </div>
+		    <div class="layui-inline">
+		    	<div class="layui-input-inline">
+		    		<a class="layui-btn" href="/zjlist" target="_blank">中奖列表</a>
+		    	</div>
+		    </div>
+		</div>
+    </form>
+    <div class="layui-row" style="text-align: center;">
+    	<div class="layui-col-md12">
+    		<p class="Title"></p>
+    	</div>
+    </div>
+    	<div id="" class="">
+    		<div class="layui-row layui-col-space20 contain" style="text-align: center;">
+
+    		</div>
+    	</div>
+    	<!-- <div class="layui-row layui-col-space20" style="text-align: center;">
+		  <div class="layui-col-md6">
+		    1/3
+		  </div>
+		  <div class="layui-col-md6">
+		    1/3
+		  </div> -->
+		
+    </div>
+<!--     
+    <div class="box">
+		
+		<ul class="prizeList">
+			
+		</ul>
+	</div> -->
+</div>
+
+<script src="./javascripts/mytemplate/layui.all.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	let interval;
+	let user_has
+    let form = layui.form,$ = layui.$,layer=layui.layer
+    form.on('select(aihao)', function(data){
+	  console.log(data);
+	  $('#peonum').val(data.value)
+	});
+    form.on('submit(formDemo)', function(formdata){
+    	console.log('抽取等级，抽取人数',formdata.field.level,formdata.field.peonum)
+    	//return false
+    	var status = $(this).data("id");
+    	
+		console.log('status----->',status,'0代表点击开始,结束改成1')
+		if(status == 0){
+			$.get("/userinfojson",{},function(data){//后台取数据
+				if(data){
+	      			if(data.code=="1"){
+	      				if(data.data.length<formdata.field.peonum){
+	      					layer.alert('抽奖人数大于剩余人数，请重新设置！')
+	      					return false
+	      				}else{
+	      					if(formdata.field.level==1){
+								$('.Title').text('特等奖 中奖名单')
+							}else if(formdata.field.level==5){
+								$('.Title').text('一等奖 中奖名单')
+							}
+							else if(formdata.field.level==15){
+								$('.Title').text('二等奖 中奖名单')
+							}
+							else if(formdata.field.level==25){
+								$('.Title').text('三等奖 中奖名单')
+							}
+							else if(formdata.field.level==35){
+								$('.Title').text('四等奖 中奖名单')
+							}
+							else if(formdata.field.level==45){
+								$('.Title').text('五等奖 中奖名单')
+							}else{
+								$('.Title').text('六等奖 中奖名单')
+							}
+	      					function times(){
+								var ArrList=data.data;
+								let res = getArrayItems(ArrList,formdata.field.peonum,formdata.field.level);//数字改成动态设置
+								if(typeof(res)=='string'){
+									console.log('res---->',res)
+									return false
+								}else{
+									console.log('res---->',res,typeof(res),res.length)
+									user_has = res
+									console.log('user_has---->',user_has,typeof(user_has),user_has.length)
+									str='';
+									for(o in res){
+										num = parseInt(o)+1;
+										str+='<div class="layui-col-md12 zjpeo" data-id="'+res[o]._id+'" style="font-size:50px;background:#E64F80;">'+num+'、'+res[o].realname+'</div>'
+										//str+='<li data-id="'+res[o]._id+'">'+num+'、<span>'+res[o].realname+'</span><label>'+res[o].tel+'</label></li>';
+									}
+									$(".contain").html(str);
+									
+								}							
+							}
+							interval = setInterval(times,0);
+							console.log('interval---',interval)
+							$("#submit").data("id","1");
+							$("#submit").text("停止");
+	      				}
+		            }
+		        }else{  
+		            alert('Ajax error!');
+		        }
+		    },'json');
+		}else{		
+			//将获奖过的人剔除
+			let temp_array = []
+			user_has.forEach(function(item){
+				temp_array.push(item)
+			})
+			//clearInterval(interval);
+			//设置操作
+			let finalarr = {"isUsed":0,"createtime":"2020-12-21 16:22:49","_id":"5fe159184317940b2cf4ccb6","realname":"陈荣鑫","__v":0}
+		    if(formdata.field.level==5){
+		    	console.log('---------一等奖----------')
+		    	if(isInArray(temp_array,'陈荣鑫')){
+		    		console.log('抽中了------')
+		    		//return return_array
+		    	}else{
+		    		//设置中奖
+		    		console.log('没抽中')
+		    		let myIndex = Math.floor(Math.random()*temp_array.length);
+		    		let length = temp_array.length
+		    		console.log('temp_array 长度----',temp_array.length,'接着随机替换一个myIndex',myIndex,temp_array[myIndex])
+		    		temp_array[myIndex] = finalarr
+		    		console.log('temp_array[length-1]--------')
+		    		//return return_array
+		    	}
+		    }
+		    
+			//最后才更新列表
+			let final_str = ''
+			temp_array.forEach(function(item,ii){
+				let num = ii+1
+				final_str+='<div class="layui-col-md12 zjpeo" data-id="'+item._id+'" style="font-size:50px;background:#E64F80;">'+num+'、'+item.realname+'</div>'
+			})
+
+			temp_array = JSON.stringify(temp_array)
+			console.log('temp_array---->',temp_array)
+			//return false
+			$.ajax({  
+			    type : 'POST',  
+			    url: '/user_has',  
+			    data : {temp_array:temp_array,level:formdata.field.level}, 
+			    dataType : "json",
+			    //contentType: "application/json",
+			    success : function(data) {  
+			    	console.log('ajax data-------->',data)
+			    }  
+			}); 
+			
+			clearInterval(interval);
+			$("#submit").data("id","0");
+			$("#submit").text("开始");			
+			return false
+		}
+		return false
+    })
+    return false
+})
+function isInArray(arr,value){
+    for(let i = 0; i < arr.length; i++){
+        if(value === arr[i].realname){
+            return true;
+        }
+    }
+    return false;
+}
+//从一个给定的数组arr中,随机返回num个不重复项
+function getArrayItems(arr, num,level) {
+	if(arr.length<num){
+		console.log('数组数量不足')
+		return '数组数量不足'
+	}else{
+		//新建一个数组,将传入的数组复制过来,用于运算,而不要直接操作传入的数组;
+		    var temp_array = new Array();
+		    for (var index in arr) {
+		        temp_array.push(arr[index]);
+		    }
+		    //取出的数值项,保存在此数组
+		    var return_array = new Array();
+		    for (var i = 0; i<num; i++) {
+		        //判断如果数组还有可以取出的元素,以防下标越界
+		        if (temp_array.length>0) {
+		            //在数组中产生一个随机索引
+		            console.log('剩余数量----->',temp_array.length)
+		            var arrIndex = Math.floor(Math.random()*temp_array.length);
+		            console.log('随机索引------>',arrIndex,temp_array[arrIndex])
+		            //将此随机索引的对应的数组元素值复制出来
+		            return_array[i] = temp_array[arrIndex];
+		            //然后删掉此索引的数组元素,这时候temp_array变为新的数组
+		            temp_array.splice(arrIndex, 1);
+		        } else {
+		            //数组中数据项取完后,退出循环,比如数组本来只有10项,但要求取出20项.
+		            break;
+		        }
+		    }
+		    return return_array;
+		    // let finalarr = {"isUsed":0,"createtime":"2020-12-21 16:22:49","_id":"5fe159184317940b2cf4ccb6","realname":"陈荣鑫","__v":0}
+		    // if(level==5){
+		    // 	console.log('---------一等奖----------')
+		    // 	if(isInArray(return_array,'陈荣鑫')){
+		    // 		console.log('抽中了------')
+		    // 		return return_array
+		    // 	}else{
+		    // 		//设置中奖
+		    // 		console.log('没抽中')
+		    // 		let myIndex = Math.floor(Math.random()*return_array.length);
+		    // 		let length = return_array.length
+		    // 		console.log('return_array 长度----',return_array.length,'接着随机替换一个myIndex',myIndex,return_array[myIndex])
+		    // 		return_array[myIndex] = finalarr
+		    // 		console.log('成功return_array[length-1]--------')
+		    // 		return return_array
+		    // 	}
+		    // }else{
+		    // 	return return_array;
+		    // }  
+	}
+}
+function getArrayItems_bk(arr, num) {
+	if(arr.length<num){
+		console.log('数组数量不足')
+		return '数组数量不足'
+	}else{
+		//新建一个数组,将传入的数组复制过来,用于运算,而不要直接操作传入的数组;
+		    var temp_array = new Array();
+		    for (var index in arr) {
+		        temp_array.push(arr[index]);
+		    }
+		    //取出的数值项,保存在此数组
+		    var return_array = new Array();
+		    for (var i = 0; i<num; i++) {
+		        //判断如果数组还有可以取出的元素,以防下标越界
+		        if (temp_array.length>0) {
+		            //在数组中产生一个随机索引
+		            console.log('剩余数量----->',temp_array.length)
+		            var arrIndex = Math.floor(Math.random()*temp_array.length);
+		            console.log('随机索引------>',arrIndex)
+		            //将此随机索引的对应的数组元素值复制出来
+		            return_array[i] = temp_array[arrIndex];
+		            //然后删掉此索引的数组元素,这时候temp_array变为新的数组
+		            temp_array.splice(arrIndex, 1);
+		        } else {
+		            //数组中数据项取完后,退出循环,比如数组本来只有10项,但要求取出20项.
+		            break;
+		        }
+		    }
+		    return return_array;
+	}
+}
+	
+</script>
+
+</body>
+</html>

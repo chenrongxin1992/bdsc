@@ -80,13 +80,13 @@
 .navi-aside-search {display: block;}
 
 /*#header {background: #18267e;}*/
-#header .inner{padding:10px 0px;height: auto;position:relative;background:none;}
+#header .inner{padding:6px 0px;height: auto;position:relative;background:none;}
 .header .head-left{ float:none;display:inline-block; width:100%; height:auto; text-align:center;}
 .header .sitelogo{float:none;margin-top:0px;}
 .header .sitelogo a{display:inline-block;width:100%;margin:0 auto;}
 .header .sitetitle {margin-top:38px;font-size:28px;}
 .header .head-main{display:none;}
-.header .head-right{ float:none; width:100%;margin-top:0px;}
+.header .head-right{ float:none; width:100%;margin-top:0px;display: none;}
 .header .head-right .searchbox{margin: 5px 0px; width:100%;}
 
 /*导航样式：后台绑定时也可以定义配置*/

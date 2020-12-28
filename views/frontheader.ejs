@@ -12,6 +12,53 @@
 <link rel="stylesheet" href="/stylesheets/mytemplate/style.css" type="text/css" />
 <link rel="stylesheet" href="/stylesheets/mytemplate/mobile.css" type="text/css"/>
 <link rel="stylesheet" href="/stylesheets/mytemplate/media.css" type="text/css"/>
+<style type="text/css">
+  .scroll-nav{
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+}
+.oneAnimated {
+        animation:fadeInLeft 1.5s;
+}
+.TwoAnimated {
+        animation:fadeInUp 1.5s;
+}
+.threeAnimated {
+        animation:fadeInRight 1.5s;
+        animation-fill-mode: both;
+}
+@keyframes fadeInUp{
+        0% {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+@keyframes fadeInLeft{
+        0% {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes fadeInRight{
+        0% {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+</style>
 <!--[if lt IE 9]>
 <script src="/javascripts/mytemplate/html5.js"></script>
 <![endif]-->

@@ -45,7 +45,7 @@
           <div class="column-news-list clearfix" frag="窗口9" portletmode="simpleList">
             <div id="wp_news_w9"> 
               <%data.forEach(function(item,i){%>
-                <a class="column-news-item item-<%=i+1%> clearfix" href="/content?id=<%=item.id%>&key=<%=arg%>"><span class="column-news-title"><%if(arg=='xshd'){%><%=item.name%><%}else{%><%=item.title%><%}%></span><span class="column-news-date news-date-hide"><%=item.time%></span></a> 
+                <a class="column-news-item item-<%=i+1%> threeAnimated clearfix" href="/content?id=<%=item.id%>&key=<%=arg%>"><span class="column-news-title"><%if(arg=='xshd'){%><%=item.name%><%}else{%><%=item.title%><%}%></span><span class="column-news-date news-date-hide"><%=item.time%></span></a> 
               <%})%>
             </div> 
 

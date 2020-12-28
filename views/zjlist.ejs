@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>中奖名单</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="./stylesheets/mytemplate/layui.css" media="all" />
+	<link rel="stylesheet" href="./stylesheets/mytemplate/public.css" media="all" />
+	<link rel="shortcut icon" href="./favicon.ico" />
+	<style type="text/css">
+	body{
+		/*background-color: beige;*/
+		/*font-size: */
+	}
+	.layui-table td, .layui-table th {
+	    position: relative;
+	    padding: 6px 12px;
+	    min-height: 20px;
+	    line-height: 20px;
+	    font-size: 10px;
+	}
+	.btnfloat{
+			float: right;
+			margin-left: 10px;
+		}
+	.footer{
+		text-align: center;
+	}
+	.layui-colla-title{
+		color:red;
+	}
+	ul{
+		margin:0 auto;
+	}
+	li{
+		display: inline-block;
+    	float: left;
+    	position: relative;
+	}
+	li > span{
+		display: inline-block;
+	    padding: 0 32px;
+	    line-height: 50px;
+	    font-size: 18px;
+	}
+	.realname{
+		display: inline-block;
+		margin: 10px 25px;
+		font-size: 24px;
+	}
+	.layui-colla-title{
+		font-size: 25px;
+		font-weight: bold;
+	}
+	</style>
+</head>
+<body class="childrenBody indexBody">
+	<div class="layui-container test">
+		<div class="layui-row">
+			<div class="layui-col-xs12">
+				<h1 style="color: red;font-size: 50px;text-align: center;font-weight: bold;margin-bottom: 25px;">中奖名单</h1>
+			</div>
+		</div>
+
+	<div class="layui-row">
+		<div class="layui-col-xs12">
+			<div class="layui-collapse">
+			  <div class="layui-colla-item" style="border-top-style: none;">
+			    <h2 class="layui-colla-title">特等奖</h2>
+			    <div class="layui-colla-content layui-show">
+			    	<p class="realname"><%=data.tdj.realname%></p>
+			    </div>
+			  </div>
+			  <div class="layui-colla-item" style="border-top-style: none;">
+			    <h2 class="layui-colla-title">一等奖</h2>
+			    <div class="layui-colla-content layui-show" >
+			    	<%if(data.ydj&&data.ydj.length!=0){%>
+			    		<%data.ydj.forEach(function(item){%>
+			    			<p class="realname"><%=item.realname%></p>
+			    		<%})%>
+			    	<%}else{%>暂无名单<%}%>
+			    </div>
+			  </div>
+			  <div class="layui-colla-item" style="border-top-style: none;">
+			    <h2 class="layui-colla-title">二等奖</h2>
+			    <div class="layui-colla-content layui-show">
+			    	<%if(data.edj&&data.edj.length!=0){%>
+			    		<%data.edj.forEach(function(item){%>
+			    			<p class="realname"><%=item.realname%></p>
+			    		<%})%>
+			    	<%}else{%>暂无名单<%}%>
+			    </div>
+			  </div>
+			  <div class="layui-colla-item" style="border-top-style: none;">
+			    <h2 class="layui-colla-title">三等奖</h2>
+			    <div class="layui-colla-content layui-show">
+			    	<%if(data.sdj&&data.sdj.length!=0){%>
+			    		<%data.sdj.forEach(function(item){%>
+			    			<p class="realname"><%=item.realname%></p>
+			    		<%})%>
+			    	<%}else{%>暂无名单<%}%>
+			    </div>
+			  </div>
+			  <div class="layui-colla-item" style="border-top-style: none;">
+			    <h2 class="layui-colla-title">四等奖</h2>
+			    <div class="layui-colla-content layui-show">
+			    	<%if(data.sidj&&data.sidj.length!=0){%>
+			    		<%data.sidj.forEach(function(item){%>
+			    			<p class="realname"><%=item.realname%></p>
+			    		<%})%>
+			    	<%}else{%>暂无名单<%}%>
+			    </div>
+			  </div>
+			  <div class="layui-colla-item" style="border-top-style: none;">
+			    <h2 class="layui-colla-title">五等奖</h2>
+			    <div class="layui-colla-content layui-show">
+			    	<%if(data.wdj&&data.wdj.length!=0){%>
+			    		<%data.wdj.forEach(function(item){%>
+			    			<p class="realname"><%=item.realname%></p>
+			    		<%})%>
+			    	<%}else{%>暂无名单<%}%>
+			    </div>
+			  </div>
+			  <div class="layui-colla-item" style="border-top-style: none;">
+			    <h2 class="layui-colla-title">六等奖</h2>
+			    <div class="layui-colla-content layui-show">
+			    	<%if(data.ldj&&data.ldj.length!=0){%>
+			    		<%data.ldj.forEach(function(item){%>
+			    			<p class="realname"><%=item.realname%></p>
+			    		<%})%>
+			    	<%}else{%>暂无名单<%}%>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+	
+	</div>
+
+<script type="text/javascript" src="./javascripts/mytemplate/layui.all.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','element'], function(){ 
+    let $ = layui.$ //重点处
+    let element = layui.element
+    
+});
+</script>
+
+</body>
+</html>
