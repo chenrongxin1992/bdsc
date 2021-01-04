@@ -71,13 +71,18 @@
 		<div class="layui-col-xs12">
 			<div class="layui-collapse">
 			  <div class="layui-colla-item" style="border-top-style: none;">
-			    <h2 class="layui-colla-title">特等奖</h2>
+			    <h2 class="layui-colla-title">特等奖（1人）</h2>
 			    <div class="layui-colla-content layui-show">
-			    	<p class="realname"><%=data.tdj.realname%></p>
+			   		<%if(data.tdj&&data.tdj.length!=0){%>
+			    		
+			    			<p class="realname"><%=data.tdj.realname%></p>
+			    		
+			    	<%}else{%>暂无名单<%}%>
+			    	
 			    </div>
 			  </div>
 			  <div class="layui-colla-item" style="border-top-style: none;">
-			    <h2 class="layui-colla-title">一等奖</h2>
+			    <h2 class="layui-colla-title">一等奖（5人）</h2>
 			    <div class="layui-colla-content layui-show" >
 			    	<%if(data.ydj&&data.ydj.length!=0){%>
 			    		<%data.ydj.forEach(function(item){%>
@@ -87,7 +92,7 @@
 			    </div>
 			  </div>
 			  <div class="layui-colla-item" style="border-top-style: none;">
-			    <h2 class="layui-colla-title">二等奖</h2>
+			    <h2 class="layui-colla-title">二等奖（15人）</h2>
 			    <div class="layui-colla-content layui-show">
 			    	<%if(data.edj&&data.edj.length!=0){%>
 			    		<%data.edj.forEach(function(item){%>
@@ -97,7 +102,7 @@
 			    </div>
 			  </div>
 			  <div class="layui-colla-item" style="border-top-style: none;">
-			    <h2 class="layui-colla-title">三等奖</h2>
+			    <h2 class="layui-colla-title">三等奖（25人）</h2>
 			    <div class="layui-colla-content layui-show">
 			    	<%if(data.sdj&&data.sdj.length!=0){%>
 			    		<%data.sdj.forEach(function(item){%>
@@ -107,7 +112,7 @@
 			    </div>
 			  </div>
 			  <div class="layui-colla-item" style="border-top-style: none;">
-			    <h2 class="layui-colla-title">四等奖</h2>
+			    <h2 class="layui-colla-title">四等奖（35人）</h2>
 			    <div class="layui-colla-content layui-show">
 			    	<%if(data.sidj&&data.sidj.length!=0){%>
 			    		<%data.sidj.forEach(function(item){%>
@@ -117,7 +122,7 @@
 			    </div>
 			  </div>
 			  <div class="layui-colla-item" style="border-top-style: none;">
-			    <h2 class="layui-colla-title">五等奖</h2>
+			    <h2 class="layui-colla-title">五等奖（45人）</h2>
 			    <div class="layui-colla-content layui-show">
 			    	<%if(data.wdj&&data.wdj.length!=0){%>
 			    		<%data.wdj.forEach(function(item){%>
@@ -127,7 +132,7 @@
 			    </div>
 			  </div>
 			  <div class="layui-colla-item" style="border-top-style: none;">
-			    <h2 class="layui-colla-title">六等奖</h2>
+			    <h2 class="layui-colla-title">六等奖（55人）</h2>
 			    <div class="layui-colla-content layui-show">
 			    	<%if(data.ldj&&data.ldj.length!=0){%>
 			    		<%data.ldj.forEach(function(item){%>

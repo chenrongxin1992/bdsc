@@ -147,19 +147,19 @@ $().ready(function() {
       $('#pos_title').text('新闻动态')
       $('#pos_1').text('新闻公告')
       $('#pos_2').text('新闻动态')
-      str = '<li class="column-item column-1 selected"> <a href="/content_list?key="'+check_col_switch+' class="column-item-link selected"><span class="column-name">新闻动态</span></a></li><li class="column-item column-1"> <a href="/content_list?key=xshd" class="column-item-link"><span class="column-name">学术活动</span></a></li><li class="column-item column-1"> <a href="/content_list?key=gggs" class="column-item-link"><span class="column-name">公告公示</span></a></li>'
+      str = '<li class="column-item column-1 selected"> <a href="/content_list?key="'+check_col_switch+' class="column-item-link selected"><span class="column-name">新闻动态</span></a></li><li class="column-item column-1"> <a href="/content_list?key=gggs" class="column-item-link"><span class="column-name">公告公示</span></a></li>'
     }
-    if(check_col_switch=='xshd'){
-      $('#pos_title').text('学术活动')
-      $('#pos_1').text('新闻公告')
-      $('#pos_2').text('学术活动')
-      str = '<li class="column-item column-1"> <a href="/content_list?key=news" class="column-item-link"><span class="column-name">新闻动态</span></a></li><li class="column-item column-1 selected"> <a href="/content_list?key=xshd" class="column-item-link selected"><span class="column-name">学术活动</span></a></li><li class="column-item column-1"> <a href="/content_list?key=gggs" class="column-item-link"><span class="column-name">公告公示</span></a></li>'
-    }
+   // if(check_col_switch=='xshd'){
+     // $('#pos_title').text('学术活动')
+     // $('#pos_1').text('新闻公告')
+      //$('#pos_2').text('学术活动')
+    //  str = '<li class="column-item column-1"> <a href="/content_list?key=news" class="column-item-link"><span class="column-name">新闻动态</span></a></li><li class="column-item column-1"> <a href="/content_list?key=gggs" class="column-item-link"><span class="column-name">公告公示</span></a></li>'
+   // }
     if(check_col_switch=='gggs'){
       $('#pos_title').text('公告公示')
       $('#pos_1').text('新闻公告')
       $('#pos_2').text('公告公示')
-      str = '<li class="column-item column-1"> <a href="/content_list?key=news" class="column-item-link"><span class="column-name">新闻动态</span></a></li><li class="column-item column-1"> <a href="/content_list?key=xshd" class="column-item-link"><span class="column-name">学术活动</span></a></li><li class="column-item column-1 selected"> <a href="/content_list?key=gggs" class="column-item-link selected"><span class="column-name">公告公示</span></a></li>'
+      str = '<li class="column-item column-1"> <a href="/content_list?key=news" class="column-item-link"><span class="column-name">新闻动态</span></a></li><li class="column-item column-1 selected"> <a href="/content_list?key=gggs" class="column-item-link selected"><span class="column-name">公告公示</span></a></li>'
     }
     $('#left_column').append(str)
   }else if(check_col_switch=='yjpt'){

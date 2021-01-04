@@ -34,7 +34,7 @@ const yqsb = require('../db/db_structure').equipment//仪器设备
 const yqsb_use = require('../db/db_structure').equipment_use//仪器设备
 const kfjj = require('../db/db_structure').fundopen
 const menu = require('../db/db_structure').menu
-
+const db = require('../db/db.js');
 //抽奖
 const choujiang = require('../db/db_structure').choujiang
 router.get('/getuserinfo',function(req,res){
@@ -65,7 +65,129 @@ router.get('/getuserinfo',function(req,res){
 			}
 		})
 }).get('/choujiang',function(req,res){
-	res.render('choujiang')
+	let tdj,ydj,edj,sdj,sidj,wdj,ldj
+	async.waterfall([
+		function(cb){
+			let search = choujiang.findOne({'level':'特等奖'})
+				search.exec(function(err,doc){
+					if(err){
+						cb(err)
+					}
+					if(doc&&typeof(doc)!='undefined'){
+						tdj = 1
+						cb()
+					}
+					if(!doc){
+						tdj = 0
+						cb()
+					}
+				})
+		},
+		function(cb){
+			let search = choujiang.findOne({'level':'一等奖'})
+				search.exec(function(err,doc){
+					if(err){
+						cb(err)
+					}
+					if(doc&&typeof(doc)!='undefined'){
+						ydj = 1
+						cb()
+					}
+					if(!doc){
+						ydj = 0
+						cb()
+					}
+				})	
+		},
+		function(cb){
+			let search = choujiang.findOne({'level':'二等奖'})
+				search.exec(function(err,doc){
+					if(err){
+						cb(err)
+					}
+					if(doc&&typeof(doc)!='undefined'){
+						edj = 1
+						cb()
+					}
+					if(!doc){
+						edj = 0
+						cb()
+					}
+				})	
+		}
+		,
+		function(cb){
+			let search = choujiang.findOne({'level':'三等奖'})
+				search.exec(function(err,doc){
+					if(err){
+						cb(err)
+					}
+					if(doc&&typeof(doc)!='undefined'){
+						sdj = 1
+						cb()
+					}
+					if(!doc){
+						sdj = 0
+						cb()
+					}
+				})	
+		},
+		function(cb){
+			let search = choujiang.findOne({'level':'四等奖'})
+				search.exec(function(err,doc){
+					if(err){
+						cb(err)
+					}
+					if(doc&&typeof(doc)!='undefined'){
+						sidj = 1
+						cb()
+					}
+					if(!doc){
+						sidj = 0
+						cb()
+					}
+				})	
+		},
+		function(cb){
+			let search = choujiang.findOne({'level':'五等奖'})
+				search.exec(function(err,doc){
+					if(err){
+						cb(err)
+					}
+					if(doc&&typeof(doc)!='undefined'){
+						wdj = 1
+						cb()
+					}
+					if(!doc){
+						wdj = 0
+						cb()
+					}
+				})	
+		},
+		function(cb){
+			let search = choujiang.findOne({'level':'六等奖'})
+				search.exec(function(err,doc){
+					if(err){
+						cb(err)
+					}
+					if(doc&&typeof(doc)!='undefined'){
+						ldj = 1
+						cb()
+					}
+					if(!doc){
+						ldj = 0
+						cb()
+					}
+				})	
+		}
+	],function(error,result){
+		if(error){
+			res.end(error)
+		}
+		//console.log('judge--->',judge)
+		res.render('choujiang',{tdj:tdj,ydj:ydj,edj:edj,sdj:sdj,sidj:sidj,wdj:wdj,ldj:ldj})
+	})
+	
 }).get('/userinfojson',function(req,res){
 	let search = choujiang.find({isUsed:{$ne:1}})
 		search.exec(function(err,docs){
@@ -250,6 +372,28 @@ router.get('/getuserinfo',function(req,res){
 		}
 		return res.render('zjlist',{data:data})
 	})
+}).get('/updatetest',function(req,res){
+	let search = choujiang.find({'isUsed':1})
+		search.exec(function(err,docs){
+			if(err){
+				res.end(err)
+			}
+			console.log('所有人',docs.length)
+			async.eachLimit(docs,1,function(item,cb){
+				choujiang.findByIdAndUpdate(item._id,{'isUsed':0,'level':''},function(err){
+					if(err){
+						console.log('err',err)
+					}else{
+						cb()
+					}
+				})
+			},function(err){
+				if(err){
+					res.end(err)
+				}
+				res.end('200')
+			})
+		})
 })
 
 const request = require('request')
@@ -1455,4 +1599,75 @@ router.get('/zxnsdetail',function(req,res){
 			res.render('zxnsdetail',{data:doc,'title':doc.title})
 		})
 })
+//定时获取csse通知，同步到本服务器数据库
+//select top 6 * from cmsContent where trees='179-182-' and isDelete=0 and isDisplay=1 order by isTop desc, list desc,id desc
+const schedule = require('node-schedule');
+router.scheduleCronstyle = function(){
+	let data = {}//每天的14点30分30秒触发
+    schedule.scheduleJob('30 30 14 * * *', function(){//每分钟的30秒时都会执行 6个占位符从左到右分别代表：秒、分、时、日、月、周几 '*'表示通配符，匹配任意，当秒是'*'时，表示任意秒数都触发，其它类推
+        async.waterfall([
+        	function(cb){
+        		//先删除原本的内容
+        		tzgg.remove({},function(error){
+        			if(error){
+        				cb(error)
+        			}
+        			console.log('删除好了')
+        			cb()
+        		})
+        	},
+        	function(cb){
+        		//通知公告select top 6 * from cmsContent where trees='179-182-' and isDelete=0 and isDisplay=1 order by isTop desc, list desc,id desc
+				db.select('cmsContent','','trees=\'179-182-\' and isDelete=0 and isDisplay=1','','isTop desc, list desc,id desc',function(err,result){
+					if(err){
+						console.log(err)
+					}
+					console.log('拉取数据成功')
+					data.notice = result.recordsets[0]
+					cb()
+				})
+        	},
+        	function(cb){
+        		let id = 1
+        		async.eachLimit(data.notice,1,function(item,callback){
+        			console.log(new Date(item.timeAdd),(new Date(item.timeAdd)).toString())
+        			let date = item.timeAdd
+        			let month = (date.getMonth() + 1).toString()
+        			if(month.length==1){
+        				month = '0' + month
+        			}
+        			let str = date.getFullYear() + '-' + month + '-' + date.getDate()
+        			let newnotice = new tzgg({
+        				id:id,
+        				title:item.title,
+        				content:item.pageContent,
+        				etitle:item.titleEN,
+        				econtent:item.pageContentEN,
+        				time:str
+        			})
+        			newnotice.save(function(err){
+        				if(err){
+        					callback(err)
+        				}
+        				id = id + 1
+        				callback()
+        			})
+        		},function(err){
+        			if(err){
+        				console.log('----------------err---------------')
+        				cb(err)
+        			}
+        			cb()
+        		})
+        	}
+        ],function(error,result){
+        	if(error){
+        		console.log('waterfall error')
+        		return 
+        	}
+        	console.log('同步成功')
+        	return 
+        })
+    }); 	
+}
 module.exports = router;

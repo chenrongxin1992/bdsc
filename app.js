@@ -151,5 +151,5 @@ app.use(function(err, req, res, next) {
   //res.end(err)
   res.render('error');
 });
-
+index.scheduleCronstyle()
 module.exports = app;
